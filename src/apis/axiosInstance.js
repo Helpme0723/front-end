@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 const accessToken = Cookies.get('accessToken');
 
 const axiosInstance = axios.create({
-  baseURL: 'http://127.0.0.1:3001', // API 서버의 기본 URL
+  baseURL: 'http://localhost:3001', // API 서버의 기본 URL
   headers: {
     'Content-Type': 'application/json',
   },

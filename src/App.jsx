@@ -1,13 +1,31 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
-import Layout from './layout/Layout';
+import Layout from './layouts/Layout';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Profile from './pages/Profile';
+import EditProfile from './pages/EditProfile';
+import ChangePassword from './pages/ChangePassword';
+import Login from './pages/Login';
+import Logout from './pages/Logout';
+import SignUp from './pages/SignUp';
+import MainContent from './pages/MainContent';
 
 function App() {
   return (
     <div>
-      <Routes>
-        <Route path="/" element={<Layout />} />
-      </Routes>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<MainContent />} />
+            {/* MainContent as the default page */}
+            <Route path="login" element={<Login />} />
+            <Route path="logout" element={<Logout />} />
+            <Route path="sign-up" element={<SignUp />} />
+            <Route path="profile" element={<Profile />} />
+            <Route path="edit-profile" element={<EditProfile />} />
+            <Route path="change-password" element={<ChangePassword />} />
+          </Route>
+        </Routes>
+      </Router>
     </div>
   );
 }
