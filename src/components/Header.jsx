@@ -33,7 +33,7 @@ function Header() {
         <Link to="/subscribe/posts" className="nav-link">
           구독
         </Link>
-        <Link to="/saved" className="nav-link">
+        <Link to="/library" className="nav-link">
           보관함
         </Link>
         <Link to="/categories" className="nav-link">
