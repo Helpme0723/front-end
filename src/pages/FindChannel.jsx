@@ -42,7 +42,7 @@ function FindChannel() {
           <div className="series-section">
             <label className="label">시리즈</label>
             <div className="series-list">
-              {channel.series.map(series => (
+              {channel.series.map((series) => (
                 <div className="series-item" key={series.id}>
                   <h3>{series.title}</h3>
                   <p>{series.description}</p>
@@ -54,7 +54,7 @@ function FindChannel() {
           <div className="posts-section">
             <label className="label">포스트</label>
             <div className="posts-list">
-              {channel.posts.map(post => (
+              {channel.posts.map((post) => (
                 <div className="post-item" key={post.id}>
                   <h3>{post.title}</h3>
                   <img src={post.imageUrl} alt={post.title} />

@@ -19,7 +19,7 @@ function ChangePassword() {
     return null;
   }
 
-  const handlePasswordChange = async e => {
+  const handlePasswordChange = async (e) => {
     e.preventDefault();
     if (newPassword !== newPasswordConfirm) {
       setMessage('새 비밀번호와 비밀번호 확인이 일치하지 않습니다.');
@@ -28,20 +28,14 @@ function ChangePassword() {
     }
 
     try {
-      await updateUserPassword({
-        password: currentPassword,
-        newPassword,
-        newPasswordConfirm,
-      });
+      await updateUserPassword({ password: currentPassword, newPassword, newPasswordConfirm });
       setMessage('비밀번호가 성공적으로 변경되었습니다.');
       setIsError(false);
       setTimeout(() => {
         navigate('/edit-profile');
       }, 1000);
     } catch (error) {
-      setMessage(
-        error.response?.data?.message || '비밀번호 변경에 실패했습니다.',
-      );
+      setMessage(error.response?.data?.message || '비밀번호 변경에 실패했습니다.');
       setIsError(true);
     }
   };
@@ -60,7 +54,7 @@ function ChangePassword() {
             type="password"
             name="currentPassword"
             value={currentPassword}
-            onChange={e => setCurrentPassword(e.target.value)}
+            onChange={(e) => setCurrentPassword(e.target.value)}
             required
           />
         </div>
@@ -70,7 +64,7 @@ function ChangePassword() {
             type="password"
             name="newPassword"
             value={newPassword}
-            onChange={e => setNewPassword(e.target.value)}
+            onChange={(e) => setNewPassword(e.target.value)}
             required
           />
         </div>
@@ -80,26 +74,16 @@ function ChangePassword() {
             type="password"
             name="newPasswordConfirm"
             value={newPasswordConfirm}
-            onChange={e => setNewPasswordConfirm(e.target.value)}
+            onChange={(e) => setNewPasswordConfirm(e.target.value)}
             required
           />
         </div>
         <div className="button-group">
-          <button type="submit" className="change-button">
-            비밀번호 변경
-          </button>
-          <button
-            type="button"
-            className="cancel-button"
-            onClick={handleCancel}
-          >
-            취소
-          </button>
+          <button type="submit" className="change-button">비밀번호 변경</button>
+          <button type="button" className="cancel-button" onClick={handleCancel}>취소</button>
         </div>
       </form>
-      {message && (
-        <p className={`message ${isError ? 'error' : 'success'}`}>{message}</p>
-      )}
+      {message && <p className={`message ${isError ? 'error' : 'success'}`}>{message}</p>}
     </div>
   );
 }

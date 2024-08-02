@@ -58,7 +58,7 @@ function SignUp() {
   };
 
   // 회원가입 처리
-  const handleSubmit = async event => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (password !== passwordConfirm) {
       setSignUpMessage('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
@@ -107,7 +107,7 @@ function SignUp() {
               type="email"
               placeholder="이메일을 입력해주세요"
               value={email}
-              onChange={e => setEmail(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
               required
             />
             <button
@@ -126,7 +126,7 @@ function SignUp() {
               type="text"
               placeholder="인증번호를 입력해주세요"
               value={verificationCode}
-              onChange={e => setVerificationCode(e.target.value)}
+              onChange={(e) => setVerificationCode(e.target.value)}
               required
             />
             <button
@@ -151,7 +151,7 @@ function SignUp() {
             type="password"
             placeholder="비밀번호를 입력해주세요"
             value={password}
-            onChange={e => setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
             required
           />
         </div>
@@ -161,7 +161,7 @@ function SignUp() {
             type="password"
             placeholder="비밀번호를 다시 입력해주세요"
             value={passwordConfirm}
-            onChange={e => setPasswordConfirm(e.target.value)}
+            onChange={(e) => setPasswordConfirm(e.target.value)}
             required
           />
         </div>
@@ -171,7 +171,7 @@ function SignUp() {
             type="text"
             placeholder="닉네임을 입력해주세요"
             value={nickname}
-            onChange={e => setNickname(e.target.value)}
+            onChange={(e) => setNickname(e.target.value)}
             required
           />
         </div>

@@ -35,19 +35,19 @@ function EditProfile() {
     fetchUserInfo();
   }, [isAuthenticated, navigate]);
 
-  const handleInputChange = e => {
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setUserInfo(prevInfo => ({
+    setUserInfo((prevInfo) => ({
       ...prevInfo,
       [name]: value,
     }));
   };
 
-  const handleFileChange = e => {
+  const handleFileChange = (e) => {
     setFile(e.target.files[0]);
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
     if (file) {

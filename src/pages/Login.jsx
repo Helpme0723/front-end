@@ -12,7 +12,7 @@ function Login() {
   const navigate = useNavigate();
   const { login } = useContext(AuthContext); // AuthContext 사용
 
-  const handleSubmit = async event => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       const data = await signIn(email, password);
@@ -38,7 +38,7 @@ function Login() {
             type="email"
             placeholder="이메일을 입력해주세요"
             value={email}
-            onChange={e => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
         </div>
@@ -48,7 +48,7 @@ function Login() {
             type="password"
             placeholder="비밀번호를 입력해주세요"
             value={password}
-            onChange={e => setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
             required
           />
         </div>

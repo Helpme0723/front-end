@@ -9,7 +9,7 @@ function CreateChannel() {
   const [createChannelMessage, setCreateChannelMessage] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = async event => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
@@ -29,7 +29,7 @@ function CreateChannel() {
     }
   };
 
-  const handleImageUpload = async event => {
+  const handleImageUpload = async (event) => {
     const file = event.target.files[0];
     if (!file) return;
     try {
@@ -52,7 +52,7 @@ function CreateChannel() {
               type="text"
               placeholder="이미지 url을 입력해 주세요."
               value={imageUrl}
-              onChange={e => setImageUrl(e.target.value)}
+              onChange={(e) => setImageUrl(e.target.value)}
             />
             <input type="file" onChange={handleImageUpload} />
           </div>
@@ -64,7 +64,7 @@ function CreateChannel() {
               type="text"
               placeholder="채널 이름을 입력해 주세요."
               value={title}
-              onChange={e => setTitle(e.target.value)}
+              onChange={(e) => setTitle(e.target.value)}
               required
             />
           </div>
@@ -76,7 +76,7 @@ function CreateChannel() {
               type="text"
               placeholder="채널 소개를 입력해 주세요"
               value={description}
-              onChange={e => setDescription(e.target.value)}
+              onChange={(e) => setDescription(e.target.value)}
               required
             />
           </div>

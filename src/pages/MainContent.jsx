@@ -21,7 +21,7 @@ function MainContent() {
     <main className="main-content">
       <h2>포스트 목록</h2>
       {posts.length > 0 ? (
-        posts.map(post => (
+        posts.map((post) => (
           <div key={post.id} className="post-card">
             <div className="post-info">
               <div className="post-title">{post.title}</div>
