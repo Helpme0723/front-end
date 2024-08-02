@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { getSubscribes } from '../apis/auth';
 import '../styles/pages/GetSubscribe.css';
 
-function GetSubscribe() {
+function GetSubscribeChannels() {
   const [channels, setChannels] = useState([]);
 
   useEffect(() => {
-    const fetchPosts = async () => {
+    const fetchChanels = async () => {
       try {
         const data = await getSubscribes();
 
@@ -15,7 +15,7 @@ function GetSubscribe() {
         console.log(error.message);
       }
     };
-    fetchPosts();
+    fetchChanels();
   }, []);
   return (
     <div className="container">
@@ -31,9 +31,9 @@ function GetSubscribe() {
           ))}
         </ul>
       ) : (
-        <p className="no-posts">포스트가 없습니다.</p>
+        <p className="no-posts">채널이 없습니다.</p>
       )}
     </div>
   );
 }
-export default GetSubscribe;
+export default GetSubscribeChannels;

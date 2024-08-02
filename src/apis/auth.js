@@ -63,12 +63,21 @@ export const verifyEmailCode = async (email, code) => {
 		throw new Error(error.response?.data?.message || '인증번호 검증 실패');
 	}
 };
-
+// 구독한 채널 목록 조회
 export const getSubscribes = async (page, limit) => {
 	try {
-		const response = await axiosInstance.get('api/subscribes', { page, limit });
+		const response = await axiosInstance.get('api/subscribes/channels', { page, limit });
 		return response.data;
 	} catch (error) {
-		throw new Error(error.response?.data?.message || '구독 목록 조회 실패')
+		throw new Error(error.response?.data?.message || '구독한 채널 목록 조회 실패')
+	}
+}
+// 구독한 채널들의 포스트 목록 조회
+export const getPostsFromSubscribeChannels = async (page, limit) => {
+	try {
+		const response = await axiosInstance.get('api/subscribes/posts', { page, limit });
+		return response.data;
+	} catch (error) {
+		throw new Error(error.response?.data?.messsage || '구독한 채널의 포스트 목록 조회 실패')
 	}
 }

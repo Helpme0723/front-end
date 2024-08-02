@@ -10,7 +10,8 @@ import SignUp from './pages/SignUp';
 import MainContent from './pages/MainContent';
 import CreateChannel from './pages/CreateChannel';
 import FindChannel from './pages/FindChannel';
-import GetSubscribe from './pages/GetSubscribe';
+import GetSubscribeChannels from './pages/GetSubscribeChannels';
+import GetPostsFromSubscribeChannels from './pages/GetPostsFromSubscribeChannels';
 
 function App() {
   return (
@@ -28,7 +29,14 @@ function App() {
             <Route path="change-password" element={<ChangePassword />} />
             <Route path="channel/create" element={<CreateChannel />} />
             <Route path="channel/:id" element={<FindChannel />} />
-            <Route path="subscribe/posts" element={<GetSubscribe />} />
+            <Route
+              path="subscribe/channels"
+              element={<GetSubscribeChannels />}
+            />
+            <Route
+              path="subscribe/posts"
+              element={<GetPostsFromSubscribeChannels />}
+            />
           </Route>
         </Routes>
       </Router>
