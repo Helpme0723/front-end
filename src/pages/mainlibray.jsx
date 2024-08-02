@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { fetchLikedPosts, fetchPurchasedPosts } from '../apis/libray';
+import { fetchLikedPosts} from '../apis/libray';
 import AuthContext from '../context/AuthContext';
+import '../styles/pages/mainlibrary.css'
 
 function LibraryPage() {
   const { isAuthenticated } = useContext(AuthContext);
   const [likedPosts, setLikedPosts] = useState([]);
-  const [purchasedPosts, setPurchasedPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -13,41 +13,49 @@ function LibraryPage() {
       console.log('로그인이 필요합니다.');
       return;
     }
-    
+
     const fetchData = async () => {
       setLoading(true);
       try {
-        const likedResponse = await fetchLikedPosts(1, 10, 'desc');
-        const purchasedResponse = await fetchPurchasedPosts(1, 10, 'desc');
-        console.log('Liked Posts:', likedResponse);
-        console.log('Purchased Posts:', purchasedResponse);
-        setLikedPosts(likedResponse.items);
-        setPurchasedPosts(purchasedResponse.items);
+        // 좋아요한 포스트를 가져오는 API 호출
+        const response = await fetchLikedPosts(1, 10, 'desc');
+        console.log('Response Data:', response); // 디버깅을 위한 로그
+        // response.data.items에 접근하여 아이템 배열 가져오기
+        const likedItems = response.data.items || [];
+        setLikedPosts(likedItems);
       } catch (error) {
         console.error('데이터 로딩 중 에러 발생', error);
       }
       setLoading(false);
     };
-  
+
     fetchData();
   }, [isAuthenticated]);
 
   if (loading) return <div>로딩 중...</div>;
 
   return (
-    <div>
+    <div className="library-container">
       <h1>보관함</h1>
-      <div>
-        <h2>좋아요한 포스트</h2>
-        {likedPosts.map(post => (
-          <div key={post.id}>{post.title || "제목 없음"}</div>  // Adjusted to handle empty titles
-        ))}
+      <div className="liked-posts">
+        <h2>좋아요</h2>
+        <h2>구매</h2>
+        {likedPosts.length > 0 ? (
+          likedPosts.map(post => (
+            <div key={post.id} className="post-entry">
+              <div className="post-info">
+                <h3>{post.post.title || '제목 없음'}</h3>
+                <p>{post.post.preview.substring(0, 20)}...</p>
+              </div>
+              <img src="/front-end/src/assets/sample.jpg" alt="Sample" className="post-image" />
+            </div>
+          ))
+        ) : (
+          <p>좋아요한 포스트가 없습니다.</p>
+        )}
       </div>
-      <div>
-        <h2>구매한 포스트</h2>
-        {purchasedPosts.map(post => (
-          <div key={post.id}>{post.title || "제목 없음"}</div>  // Adjusted to handle empty titles
-        ))}
+      <div className="purchased-posts">
+        
       </div>
     </div>
   );
