@@ -50,34 +50,34 @@
 
 .pagination {
   display: flex;
-  justify-content: center; /* 중앙 정렬 */
+  margin-right: -400px;
+  justify-content: center;
   align-items: center;
   margin-top: 20px;
-  padding: 20px 0; /* 위아래로 패딩 추가 */
 }
 
 .pagination button {
-  padding: 8px 16px;
-  margin: 0 10px; /* 버튼 간격 조절 */
+  padding: 8px 15px;
+  margin: 0 10px;
   background-color: #007BFF;
   border: none;
   color: white;
-  font-size: 16px; /* 글꼴 크기 조정 */
+  font-size: 16px;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease;
 }
 
 .pagination button:hover {
-  background-color: #0056b3; /* 호버 시 색상 변경 */
+  background-color: #0056b3;
 }
 
 .pagination button:disabled {
-  background-color: #cccccc; /* 비활성화 시 색상 */
+  background-color: #cccccc;
   cursor: default;
 }
 
 .pagination span {
-  font-size: 16px; /* 페이지 번호 글꼴 크기 */
+  font-size: 16px;
   color: #333;
 }

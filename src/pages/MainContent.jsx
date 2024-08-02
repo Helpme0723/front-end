@@ -52,7 +52,7 @@ function MainContent() {
       ) : (
         <p>포스트가 없습니다.</p>
       )}
-      <div>
+       <div className="pagination">
         <button onClick={handlePrevPage} disabled={currentPage === 1}>이전</button>
         <span>페이지 {currentPage} / {totalPages}</span>
         <button onClick={handleNextPage} disabled={currentPage === totalPages}>다음</button>
