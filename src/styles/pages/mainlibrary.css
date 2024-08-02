@@ -11,27 +11,37 @@
 }
 
 /* Header styles */
-.library-container h1, .library-container h2 {
+.library-container h1 {
   color: #333;
-  margin: 16px auto; /* Automatically centers and adds margin around the headers */
-  display: block; /* Makes the header a block element to apply margin and text-align */
+  margin-bottom: 16px; /* Space below the header */
+  display: block; /* Ensures the header is a block element to apply text-align */
 }
 
+.header-container {
+  display: flex;
+  justify-content: space-around; /* 공간을 더 균등하게 분배 */
+  margin: 0 20px; /* 측면 여백 유지 */
+}
 
+.header-container h2 {
+  flex: 1; /* 각 헤더에 유동적인 공간 할당 */
+  text-align: center; /* 텍스트를 중앙에 배치 */
+  margin: 0 10px; /* 각 헤더 사이의 마진 추가로 간격 조정 */
+}
+
+.header-container h2:first-child {
+  text-align: left; /* 첫 번째 헤더 왼쪽 정렬 */
+  margin-left: 150px;
+}
+
+.header-container h2:last-child {
+  text-align: right; /* 마지막 헤더 오른쪽 정렬 */
+  margin-right: 150px;
+}
 /* Section for liked and purchased posts */
 .liked-posts, .purchased-posts {
   margin: 20px 0;
   text-align: left; /* Aligns text to the left within the centered sections */
-}
-
-/* Adjusting alignment for liked posts specifically */
-.liked-posts {
-  padding-left: 20px; /* Moves the "좋아요" section slightly to the right */
-}
-
-
-.liked-posts h2 {
-  margin-left: 150px; /* 우측 여백 추가로 더 오른쪽으로 이동 */
 }
 
 /* Styling for each post entry */
@@ -40,7 +50,6 @@
   align-items: center;
   border-bottom: 1px solid #e1e1e1;
   padding: 10px 0;
-  justify-content: center; /* Centers post entries within their section */
 }
 
 .post-info {
@@ -68,7 +77,6 @@
 
 /* Loading text style */
 .library-container > div:first-child {
-  text-align: center;
   color: #666;
   font-size: 16px;
 }
