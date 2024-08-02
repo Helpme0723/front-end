@@ -8,6 +8,7 @@ import Login from './pages/Login';
 import Logout from './pages/Logout';
 import SignUp from './pages/SignUp';
 import MainContent from './pages/MainContent';
+import CreateChannel from './pages/CreateChannel';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="profile" element={<Profile />} />
             <Route path="edit-profile" element={<EditProfile />} />
             <Route path="change-password" element={<ChangePassword />} />
+            <Route path="channel/create" element={<CreateChannel />} />
           </Route>
         </Routes>
       </Router>
