@@ -1,0 +1,88 @@
+/* Main library container styling */
+.library-container {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto; /* This centers the main container */
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  text-align: center; /* Aligns the headers and content to the center */
+}
+
+/* Header styles */
+.library-container h1 {
+  color: #333;
+  margin-bottom: 16px; /* Space below the header */
+  display: block; /* Ensures the header is a block element to apply text-align */
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-around; /* 공간을 더 균등하게 분배 */
+  margin: 0 20px; /* 측면 여백 유지 */
+}
+
+.header-container h2 {
+  flex: 1; /* 각 헤더에 유동적인 공간 할당 */
+  text-align: center; /* 텍스트를 중앙에 배치 */
+  margin: 0 10px; /* 각 헤더 사이의 마진 추가로 간격 조정 */
+}
+
+.header-container h2:first-child {
+  text-align: left; /* 첫 번째 헤더 왼쪽 정렬 */
+  margin-left: 150px;
+}
+
+.header-container h2:last-child {
+  text-align: right; /* 마지막 헤더 오른쪽 정렬 */
+  margin-right: 150px;
+}
+/* Section for liked and purchased posts */
+.liked-posts, .purchased-posts {
+  margin: 20px 0;
+  text-align: left; /* Aligns text to the left within the centered sections */
+}
+
+/* Styling for each post entry */
+.post-entry {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #e1e1e1;
+  padding: 10px 0;
+}
+
+.post-info {
+  flex-grow: 1;
+  margin-right: 20px;
+}
+
+.post-info h3 {
+  font-size: 18px;
+  color: #007BFF;
+  margin-bottom: 5px;
+}
+
+.post-info p {
+  color: #666;
+  font-size: 14px;
+}
+
+/* Styling for post images */
+.post-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 4px;
+}
+
+/* Loading text style */
+.library-container > div:first-child {
+  color: #666;
+  font-size: 16px;
+}
+
+/* Message when no posts are liked yet */
+.liked-posts > p, .purchased-posts > p {
+  color: #888;
+  text-align: center;
+}
