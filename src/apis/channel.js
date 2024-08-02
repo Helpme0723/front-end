@@ -1,10 +1,10 @@
 import axiosInstance from './axiosInstance';
 
-export const createChannel = async (CreateChannelDto) => {
+export const createChannel = async CreateChannelDto => {
   try {
     const response = await axiosInstance.post(
       '/api/channels',
-      CreateChannelDto
+      CreateChannelDto,
     );
 
     return response.data;
@@ -14,7 +14,7 @@ export const createChannel = async (CreateChannelDto) => {
   }
 };
 
-export const uploadImage = async (file) => {
+export const uploadImage = async file => {
   const formData = new FormData();
   formData.append('file', file);
 
@@ -31,7 +31,7 @@ export const uploadImage = async (file) => {
   }
 };
 
-export const findChannel = async (channelId) => {
+export const findChannel = async channelId => {
   try {
     const response = await axiosInstance.get(`/api/channels/${channelId}`);
 
