@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../context/AuthContext'; // AuthContext 추가
 import { signIn } from '../apis/auth';
-import '../styles/Pages.css';
+import '../styles/pages/Login.css';
 
 function Login() {
   const [email, setEmail] = useState('');

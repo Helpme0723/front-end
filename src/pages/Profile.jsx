@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
 import { getUserInfo } from '../apis/user';
-import '../styles/Pages.css';
+import '../styles/pages/Profile.css';
 
 function Profile() {
   const { isAuthenticated } = useContext(AuthContext);

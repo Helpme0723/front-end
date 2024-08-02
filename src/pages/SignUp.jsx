@@ -6,7 +6,7 @@ import {
   sendVerificationEmail,
   verifyEmailCode,
 } from '../apis/auth';
-import '../styles/Pages.css';
+import '../styles/pages/SignUp.css';
 
 function SignUp() {
   const [email, setEmail] = useState('');

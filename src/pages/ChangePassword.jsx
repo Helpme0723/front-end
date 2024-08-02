@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
 import { updateUserPassword } from '../apis/user';
-import '../styles/Pages.css';
+import '../styles/pages/ChangePassword.css';
 
 function ChangePassword() {
   const { isAuthenticated } = useContext(AuthContext);

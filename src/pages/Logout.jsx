@@ -2,7 +2,6 @@ import { useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
 import { signOut } from '../apis/auth';
-import '../styles/Pages.css';
 
 function Logout() {
   const navigate = useNavigate();

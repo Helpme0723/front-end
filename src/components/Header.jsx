@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
-import '../styles/Components.css';
+import '../styles/components/Header.css'
 
 function Header() {
   const { isAuthenticated } = useContext(AuthContext);
