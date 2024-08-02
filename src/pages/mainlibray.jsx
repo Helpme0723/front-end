@@ -51,15 +51,12 @@ function LibraryPage() {
                 <p>{post.post.preview.substring(0, 20)}...</p>
                 <p>좋아요: {post.post.likeCount || 0}</p>
               </div>
-              <img src="/front-end/src/assets/sample.jpg" alt="Sample" className="post-image" />
+              <img src="/path/to/sample-image.jpg" alt="Sample" className="post-image" />
             </div>
           ))
         ) : (
           <p>좋아요한 포스트가 없습니다.</p>
         )}
-      </div>
-      <div className="purchased-posts">
-        {/* 구매한 포스트 내용을 여기에 추가 */}
       </div>
     </div>
   );

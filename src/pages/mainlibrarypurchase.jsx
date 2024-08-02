@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { fetchPurchasedPosts } from '../apis/libray';
 import AuthContext from '../context/AuthContext';
 import { Link } from 'react-router-dom';
+import '../styles/pages/mainlibrary.css';
 
 function PurchasedPostsPage() {
   const { isAuthenticated } = useContext(AuthContext);
@@ -44,8 +45,8 @@ function PurchasedPostsPage() {
           purchasedPosts.map(post => (
             <div key={post.id} className="post-entry">
               <div className="post-info">
-                <h3>{post.title || '제목 없음'}</h3>
-                <p>{post.preview.substring(0, 20)}...</p>
+                <h3>{post.post.title || '제목 없음'}</h3>
+                <p>{post.post.preview.substring(0, 20)}</p>
               </div>
               <img src="/path/to/sample-image.jpg" alt="Sample" className="post-image" />
             </div>
