@@ -1,0 +1,65 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.channel-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.channel-info img {
+  max-width: 150px;
+  height: auto;
+  border-radius: 8px;
+  margin-right: 20px;
+}
+
+.channel-details {
+  flex-grow: 1;
+}
+
+.series-section,
+.posts-section {
+  margin-bottom: 40px;
+}
+
+.series-list,
+.posts-list {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+}
+
+.series-item,
+.post-item {
+  flex: 0 0 auto;
+  width: 250px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.series-item img,
+.post-item img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.label {
+  font-weight: bold;
+  margin-bottom: 10px;
+  display: block;
+}
+
+h1,
+h3 {
+  margin: 10px 0;
+}
+
+p {
+  margin: 5px 0;
+}
