@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <footer>
       <Container id="footer">
-        <Nav className="ml-auto"></Nav>
+        <Nav className="ml-auto" />
         <div style={{ textAlign: 'center' }}>Footer</div>
       </Container>
     </footer>
