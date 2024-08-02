@@ -1,8 +1,7 @@
 import axios from 'axios';
 
-
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:3001', // API 서버의 기본 URL
+  baseURL: process.env.REACT_APP_API_URL, // API 서버의 기본 URL
   headers: {
     'Content-Type': 'application/json',
   },
