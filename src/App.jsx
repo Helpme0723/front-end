@@ -9,7 +9,10 @@ import Logout from './pages/Logout';
 import SignUp from './pages/SignUp';
 import MainContent from './pages/MainContent';
 import CreateChannel from './pages/CreateChannel';
+import LibraryPage from './pages/mainlibray';
 import FindChannel from './pages/FindChannel';
+import GetSubscribe from './pages/GetSubscribe';
+import PurchasedPostsPage from './pages/mainlibrarypurchase';
 import GetSubscribeChannels from './pages/GetSubscribeChannels';
 import GetPostsFromSubscribeChannels from './pages/GetPostsFromSubscribeChannels';
 
@@ -28,7 +31,10 @@ function App() {
             <Route path="edit-profile" element={<EditProfile />} />
             <Route path="change-password" element={<ChangePassword />} />
             <Route path="channel/create" element={<CreateChannel />} />
+            <Route path="library" element={<LibraryPage />} />
             <Route path="channel/:id" element={<FindChannel />} />
+            <Route path="subscribe/posts" element={<GetSubscribe />} />
+            <Route path="library/purchases" element={<PurchasedPostsPage />} />
             <Route
               path="subscribe/channels"
               element={<GetSubscribeChannels />}
