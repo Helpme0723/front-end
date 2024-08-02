@@ -55,7 +55,9 @@ export const sendVerificationEmail = async (email) => {
 
 export const verifyEmailCode = async (email, code) => {
   try {
-    const response = await axiosInstance.post('/api/auth/verify-email', { email, code });
+    // 입력받은 코드를 숫자형으로 변환
+    const numericCode = parseInt(code, 10);
+    const response = await axiosInstance.post('/api/auth/verify-email', { email, code: numericCode });
     return response.data;
   } catch (error) {
     throw new Error(error.response?.data?.message || '인증번호 검증 실패');

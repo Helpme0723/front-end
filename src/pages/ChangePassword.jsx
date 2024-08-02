@@ -7,8 +7,9 @@ import '../styles/pages/ChangePassword.css';
 function ChangePassword() {
   const { isAuthenticated } = useContext(AuthContext);
   const navigate = useNavigate();
-  const [password, setPassword] = useState('');
-  const [passwordConfirm, setPasswordConfirm] = useState('');
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [newPasswordConfirm, setNewPasswordConfirm] = useState('');
   const [message, setMessage] = useState('');
   const [isError, setIsError] = useState(false);
 
@@ -20,17 +21,21 @@ function ChangePassword() {
 
   const handlePasswordChange = async (e) => {
     e.preventDefault();
+    if (newPassword !== newPasswordConfirm) {
+      setMessage('새 비밀번호와 비밀번호 확인이 일치하지 않습니다.');
+      setIsError(true);
+      return;
+    }
+
     try {
-      await updateUserPassword({ password, passwordConfirm });
+      await updateUserPassword({ password: currentPassword, newPassword, newPasswordConfirm });
       setMessage('비밀번호가 성공적으로 변경되었습니다.');
       setIsError(false);
       setTimeout(() => {
         navigate('/edit-profile');
       }, 1000);
     } catch (error) {
-      setMessage(
-        error.response?.data?.message || '비밀번호 변경에 실패했습니다.'
-      );
+      setMessage(error.response?.data?.message || '비밀번호 변경에 실패했습니다.');
       setIsError(true);
     }
   };
@@ -44,41 +49,41 @@ function ChangePassword() {
       <h2>비밀번호 변경</h2>
       <form onSubmit={handlePasswordChange} className="change-password-form">
         <div className="input-group">
-          <label>새 비밀번호</label>
+          <label>현재 비밀번호</label>
           <input
             type="password"
-            name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            name="currentPassword"
+            value={currentPassword}
+            onChange={(e) => setCurrentPassword(e.target.value)}
             required
           />
         </div>
         <div className="input-group">
-          <label>비밀번호 확인</label>
+          <label>새 비밀번호</label>
           <input
             type="password"
-            name="passwordConfirm"
-            value={passwordConfirm}
-            onChange={(e) => setPasswordConfirm(e.target.value)}
+            name="newPassword"
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
+            required
+          />
+        </div>
+        <div className="input-group">
+          <label>새 비밀번호 확인</label>
+          <input
+            type="password"
+            name="newPasswordConfirm"
+            value={newPasswordConfirm}
+            onChange={(e) => setNewPasswordConfirm(e.target.value)}
             required
           />
         </div>
         <div className="button-group">
-          <button type="submit" className="change-button">
-            비밀번호 변경
-          </button>
-          <button
-            type="button"
-            className="cancel-button"
-            onClick={handleCancel}
-          >
-            취소
-          </button>
+          <button type="submit" className="change-button">비밀번호 변경</button>
+          <button type="button" className="cancel-button" onClick={handleCancel}>취소</button>
         </div>
       </form>
-      {message && (
-        <p className={`message ${isError ? 'error' : 'success'}`}>{message}</p>
-      )}
+      {message && <p className={`message ${isError ? 'error' : 'success'}`}>{message}</p>}
     </div>
   );
 }

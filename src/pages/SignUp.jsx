@@ -19,27 +19,33 @@ function SignUp() {
   const [signUpMessage, setSignUpMessage] = useState('');
   const navigate = useNavigate();
 
+  // 이메일 중복 확인
   const handleCheckEmail = async () => {
     try {
       await checkEmailAvailability(email);
       setEmailChecked(true);
-      setSignUpMessage('사용 가능한 이메일입니다.');
+      setSignUpMessage('사용 가능한 이메일입니다. 인증번호를 받으세요.');
     } catch (error) {
       setEmailChecked(false);
       setSignUpMessage(error.message);
     }
   };
 
+  // 인증번호 전송
   const handleSendVerificationEmail = async () => {
+    if (!emailChecked) {
+      setSignUpMessage('먼저 이메일 중복 검사를 완료해주세요.');
+      return;
+    }
     try {
       await sendVerificationEmail(email);
-      setEmailChecked(true);
       setSignUpMessage('인증번호가 이메일로 전송되었습니다.');
     } catch (error) {
       setSignUpMessage(error.message);
     }
   };
 
+  // 이메일 코드 검증
   const handleVerifyEmailCode = async () => {
     try {
       await verifyEmailCode(email, verificationCode);
@@ -51,28 +57,26 @@ function SignUp() {
     }
   };
 
+  // 회원가입 처리
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (password !== passwordConfirm) {
       setSignUpMessage('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
       return;
     }
-
     if (!emailChecked) {
       setSignUpMessage('이메일 중복 검사를 먼저 해주세요.');
       return;
     }
-
     if (!emailVerified) {
       setSignUpMessage('이메일 인증을 완료해주세요.');
       return;
     }
-
     try {
       await signUp({ email, password, passwordConfirm, nickname });
       setSignUpMessage('회원가입에 성공했습니다.');
       setTimeout(() => {
-        navigate('/'); // 메인 페이지로 리디렉션
+        navigate('/');
       }, 1000);
     } catch (error) {
       setSignUpMessage(`회원가입 실패: ${error.message}`);
