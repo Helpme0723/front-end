@@ -30,3 +30,14 @@ export const uploadImage = async (file) => {
     throw error;
   }
 };
+
+export const findChannel = async (channelId) => {
+  try {
+    const response = await axiosInstance.get(`/api/channels/${channelId}`);
+
+    return response.data;
+  } catch (error) {
+    console.log('Error Find Channel', error.message);
+    throw error;
+  }
+};

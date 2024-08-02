@@ -10,6 +10,8 @@ import SignUp from './pages/SignUp';
 import MainContent from './pages/MainContent';
 import CreateChannel from './pages/CreateChannel';
 import LibraryPage from './pages/mainlibray'
+import FindChannel from './pages/FindChannel';
+
 function App() {
   return (
     <div>
@@ -26,6 +28,8 @@ function App() {
             <Route path="change-password" element={<ChangePassword />} />
             <Route path="channel/create" element={<CreateChannel />} />
             <Route path="library" element={<LibraryPage />} />
+            <Route path="channel/:id" element={<FindChannel />} />
+
           </Route>
         </Routes>
       </Router>
