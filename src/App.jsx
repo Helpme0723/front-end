@@ -9,10 +9,12 @@ import Logout from './pages/Logout';
 import SignUp from './pages/SignUp';
 import MainContent from './pages/MainContent';
 import CreateChannel from './pages/CreateChannel';
-import LibraryPage from './pages/mainlibray'
+import LibraryPage from './pages/mainlibray';
 import FindChannel from './pages/FindChannel';
-import GetSubscribe from './pages/GetSubscribe';
 import PurchasedPostsPage from './pages/mainlibrarypurchase';
+import GetSubscribeChannels from './pages/GetSubscribeChannels';
+import GetPostsFromSubscribeChannels from './pages/GetPostsFromSubscribeChannels';
+
 function App() {
   return (
     <div>
@@ -30,8 +32,16 @@ function App() {
             <Route path="channel/create" element={<CreateChannel />} />
             <Route path="library" element={<LibraryPage />} />
             <Route path="channel/:id" element={<FindChannel />} />
-            <Route path="subscribe/posts" element={<GetSubscribe />} />
+            <Route path="subscribe/posts" element={<GetSubscribeChannels />} />
             <Route path="library/purchases" element={<PurchasedPostsPage />} />
+            <Route
+              path="subscribe/channels"
+              element={<GetSubscribeChannels />}
+            />
+            <Route
+              path="subscribe/posts"
+              element={<GetPostsFromSubscribeChannels />}
+            />
           </Route>
         </Routes>
       </Router>
