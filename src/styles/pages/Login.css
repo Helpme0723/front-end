@@ -1,0 +1,118 @@
+.login-container {
+    width: 500px;
+    margin: 0 auto;
+    margin-top: 100px; /* 상단에 100px의 여백을 추가 */
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  h2 {
+    margin-bottom: 20px;
+  }
+  
+  .input-group {
+    margin-bottom: 15px;
+    text-align: left;
+  }
+  
+  .input-group label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .input-group input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  .remember-me {
+    margin-bottom: 15px;
+    text-align: left;
+  }
+  
+  .login-button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .login-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .social-login {
+    margin: 20px 0;
+  }
+  
+  .social-button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .social-button.naver {
+    background-color: #03C75A;
+  }
+  
+  .social-button.naver:hover {
+    background-color: #028a3a;
+  }
+  
+  .social-button.kakao {
+    background-color: #FEE500;
+    color: #000;
+  }
+  
+  .social-button.kakao:hover {
+    background-color: #e0c400;
+  }
+  
+  .additional-links-login { /* 고유한 클래스 이름으로 변경 */
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .additional-links-login a { /* 고유한 클래스 이름으로 변경 */
+    color: #007bff;
+    text-decoration: none;
+    font-size: 14px;
+  }
+  
+  .additional-links-login a:hover { /* 고유한 클래스 이름으로 변경 */
+    text-decoration: underline;
+  }
+  
+  .login-message {
+    margin-top: 15px;
+    font-size: 14px;
+  }
+  
+  /* 로그인 성공 시 메시지 스타일 */
+  .login-message.success {
+    color: #28a745; /* 초록색 */
+  }
+  
+  /* 로그인 실패 시 메시지 스타일 */
+  .login-message.error {
+    color: #dc3545; /* 빨간색 */
+  }
+
