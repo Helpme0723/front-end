@@ -1,47 +1,86 @@
-/* .main-content {
-    padding: 20px;
-  }
-  
-  .post-card {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    margin-bottom: 10px;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease;
-  }
-  
-  .post-card:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
-  
-  .post-info {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .post-title {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 5px;
-  }
-  
-  .post-description {
-    font-size: 14px;
-    color: #666;
-  }
-  
-  .post-author {
-    font-size: 12px;
-    color: #999;
-  }
-  
-  .post-date {
-    font-size: 12px;
-    color: #999;
-  }
-   */
+/* Main content styling */
+.main-content {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 한 줄에 2개의 칼럼 생성 */
+  gap: 20px; /* 칼럼 사이의 간격 */
+  padding: 20px;
+  max-width: 800px; /* Adjusted width to better center the content */
+  margin: 0 auto; /* Centers the grid in the middle of the page */
+  background-color: #f9f9f9; /* 배경색 설정 */
+}
+
+/* CSS to specifically target the h2 (포스트) to center it */
+.main-content > h2 {
+  grid-column: 1 / -1; /* Spans from the first to the last column */
+  text-align: center; /* Centers the text within the spanned area */
+}
+
+.post-card {
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  display: flex; /* Makes internal content flex to organize better */
+  flex-direction: column; /* Stacks content vertically */
+  text-decoration: none; /* 밑줄 제거 */
+  color: inherit; /* 링크 색상을 상위 요소에서 상속 */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* 호버 효과를 위한 전환 추가 */
+}
+
+.post-info {
+  flex: 1; /* Allows the post info to take up all available space */
+  margin-bottom: 10px;
+}
+
+.post-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.post-description {
+  font-size: 14px;
+  color: #666;
+}
+
+.post-author, .post-date {
+  font-size: 12px;
+  color: #999;
+  text-align: right;
+  margin-top: auto; /* Pushes author and date to the bottom of the card */
+}
+
+.pagination {
+  display: flex;
+  margin-right: -400px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  padding: 8px 15px;
+  margin: 0 10px;
+  background-color: #007BFF;
+  border: none;
+  color: white;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pagination button:hover {
+  background-color: #0056b3;
+}
+
+.pagination button:disabled {
+  background-color: #cccccc;
+  cursor: default;
+}
+
+.pagination span {
+  font-size: 16px;
+  color: #333;
+}
