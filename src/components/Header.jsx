@@ -42,11 +42,11 @@ function Header() {
       </nav>
       <div className="header-actions">
         <div className="search-container">
-          <input type="text" className="search-input" placeholder="Q" />
-          <button className="search-button">+</button>
+          <input type="text" className="search-input" placeholder="검색" />
+          <button className="search-button">🔍</button>
         </div>
         {isAuthenticated ? (
-          <>
+          <div className="dropdown">
             {user && user.profileUrl && (
               <img
                 src={user.profileUrl}
@@ -54,10 +54,16 @@ function Header() {
                 className="profile-image"
               />
             )}
-            <Link to="/logout" className="nav-link" onClick={logout}>
-              로그아웃
-            </Link>
-          </>
+            <div className="dropdown-content">
+              <Link to="/profile">마이페이지</Link>
+              <Link to="/subscribe/posts">구독</Link>
+              <Link to="/library">보관함</Link>
+              <Link to="/points">포인트</Link>
+              <Link to="/logout" onClick={logout}>
+                로그아웃
+              </Link>
+            </div>
+          </div>
         ) : (
           <Link to="/login" className="nav-link">
             로그인
