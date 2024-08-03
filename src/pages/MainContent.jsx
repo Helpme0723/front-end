@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { fetchAllPosts } from '../apis/main';
 import '../styles/pages/MainContent.css';
+import { Link } from 'react-router-dom';
 
 function MainContent() {
   const [posts, setPosts] = useState([]);
@@ -33,6 +34,11 @@ function MainContent() {
     setCurrentPage(prev => (prev < totalPages ? prev + 1 : prev));
   };
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('ko-KR');
+  };
+
   if (loading) return <div>Loading posts...</div>;
 
   return (
@@ -40,14 +46,14 @@ function MainContent() {
       <h2>포스트</h2>
       {posts.length > 0 ? (
         posts.map(post => (
-          <div key={post.id} className="post-card">
+          <Link to={`/post/${post.id}`} key={post.id} className="post-card">
             <div className="post-info">
-              <div className="post-title">{post.title}</div>
-              <div className="post-description">{post.preview}</div>
-              <div className="post-author">작성자: {post.author}</div>
+              <div className="post-title">{post.title || '제목 없음'}</div>
+              <div className="post-description">{post.preview.substring(0, 20)}</div>
+              <div className="post-author">작성자 ID: {post.userId}</div>
+              <div className="post-date">생성일: {formatDate(post.createdAt)}</div>
             </div>
-            <div className="post-date">{post.date}</div>
-          </div>
+          </Link>
         ))
       ) : (
         <p>포스트가 없습니다.</p>

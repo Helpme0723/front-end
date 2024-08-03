@@ -1,17 +1,20 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { fetchLikedPosts} from '../apis/libray';
+import { useNavigate } from 'react-router-dom';
+import { fetchLikedPosts } from '../apis/libray';
 import AuthContext from '../context/AuthContext';
-import '../styles/pages/mainlibrary.css'
+import '../styles/pages/mainlibrary.css';
 import { Link } from 'react-router-dom';
 
 function LibraryPage() {
+  const navigate = useNavigate();
   const { isAuthenticated } = useContext(AuthContext);
   const [likedPosts, setLikedPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!isAuthenticated) {
-      console.log('로그인이 필요합니다.');
+      alert('로그인이 필요합니다.');
+      navigate('/'); // 메인 페이지로 리다이렉트
       return;
     }
 
@@ -31,14 +34,14 @@ function LibraryPage() {
     };
 
     fetchData();
-  }, [isAuthenticated]);
+  }, [isAuthenticated, navigate]);
 
   if (loading) return <div>로딩 중...</div>;
 
   return (
     <div className="library-container">
       <h1>보관함</h1>
-      <div className="header-container"> {/* 헤더 컨테이너 추가 */}
+      <div className="header-container">
         <h2>좋아요</h2>
         <h2><Link to="/library/purchases" className="purchase-link">구매</Link></h2>
       </div>

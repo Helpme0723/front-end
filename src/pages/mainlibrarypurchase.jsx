@@ -1,17 +1,20 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { fetchPurchasedPosts } from '../apis/libray';
 import AuthContext from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import '../styles/pages/mainlibrary.css';
 
 function PurchasedPostsPage() {
+  const navigate = useNavigate();
   const { isAuthenticated } = useContext(AuthContext);
   const [purchasedPosts, setPurchasedPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!isAuthenticated) {
-      console.log('로그인이 필요합니다.');
+      alert('로그인이 필요합니다.');
+      navigate('/'); // 메인 페이지로 리다이렉트
       return;
     }
 
@@ -29,7 +32,7 @@ function PurchasedPostsPage() {
     };
 
     fetchData();
-  }, [isAuthenticated]);
+  }, [isAuthenticated, navigate]);
 
   if (loading) return <div>로딩 중...</div>;
 
