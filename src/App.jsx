@@ -33,15 +33,15 @@ function App() {
             <Route path="channel/create" element={<CreateChannel />} />
             <Route path="library" element={<LibraryPage />} />
             <Route path="channel/:id" element={<FindChannel />} />
-            <Route path="subscribe/posts" element={<GetSubscribeChannels />} />
+            {/* <Route path="subscribe/posts" element={<GetSubscribeChannels />} /> */}
             <Route path="library/purchases" element={<PurchasedPostsPage />} />
             <Route path="/post/:postId" element={<PostDetailsPage />} />
             <Route
-              path="subscribe/channels"
+              path="subscribes/channels"
               element={<GetSubscribeChannels />}
             />
             <Route
-              path="subscribe/posts"
+              path="subscribes/posts"
               element={<GetPostsFromSubscribeChannels />}
             />
           </Route>
