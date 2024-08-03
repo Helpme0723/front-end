@@ -1,8 +1,17 @@
-import React, { useEffect, useState,useContext } from 'react';
-import { useParams,useNavigate } from 'react-router-dom';
-import { fetchPostDetails, createPostLike, deletePostLike,likeComment,unlikeComment, fetchComments } from '../apis/post';
+import React, { useEffect, useState, useContext } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import {
+  fetchPostDetails,
+  createPostLike,
+  deletePostLike,
+  likeComment,
+  unlikeComment,
+  fetchComments,
+} from '../apis/post';
 import '../styles/pages/PostDetail.css';
 import AuthContext from '../context/AuthContext';
+import Pagination from '../components/Pagination';
+import { fetchPurchasedPosts } from '../apis/libray';
 
 function PostDetailsPage() {
   const { postId } = useParams();
@@ -14,6 +23,7 @@ function PostDetailsPage() {
   const [comments, setComments] = useState([]);
   const [commentsPage, setCommentsPage] = useState(1);
   const [totalCommentPages, setTotalCommentPages] = useState(0);
+  const [purchasedPosts, setPurchasedPosts] = useState([]); // 구매한 포스트 상태 추가
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -46,8 +56,8 @@ function PostDetailsPage() {
       try {
         const response = await fetchComments(postId, commentsPage);
         if (response && response.data) {
-          setComments(response.data.items); // Assuming response.data contains the comments
-          setTotalCommentPages(response.data.meta.totalPages); // Set total comment pages from API response
+          setComments(response.data.items); 
+          setTotalCommentPages(response.data.meta.totalPages); 
         }
       } catch (error) {
         console.error('Failed to fetch comments:', error);
@@ -56,14 +66,33 @@ function PostDetailsPage() {
       }
     };
 
+    const loadPurchasedPosts = async () => {
+      try {
+        const purchasedResponse = await fetchPurchasedPosts();
+        if (purchasedResponse && purchasedResponse.data && purchasedResponse.data.items) {
+          // 구매한 포스트의 ID들을 추출하여 저장
+          const purchasedIds = purchasedResponse.data.items.map(item => item.post.id.toString());
+          setPurchasedPosts(purchasedIds);
+        } else {
+          console.log('No purchased posts returned:', purchasedResponse);
+          setPurchasedPosts([]); // 아이템이 없는 경우 빈 배열 설정
+        }
+      } catch (error) {
+        console.error('Failed to load purchased posts:', error);
+      }
+    };
+
     fetchDetails();
     fetchPostComments();
+    loadPurchasedPosts(); // 구매한 포스트 로드
   }, [postId, isAuthenticated, navigate, commentsPage]);
+
+  const isPostPurchased = purchasedPosts.includes(postId.toString()); // 현재 포스트 구매 여부 확인
 
   const handleLike = async () => {
     try {
       await createPostLike(postId);
-      setPost((prevPost) => ({
+      setPost(prevPost => ({
         ...prevPost,
         likeCount: prevPost.likeCount + 1,
       }));
@@ -71,7 +100,9 @@ function PostDetailsPage() {
       if (error.response) {
         switch (error.response.status) {
           case 400:
-            alert('비공개 처리된 포스트이거나, 내 포스트에는 좋아요를 누를 수 없습니다.');
+            alert(
+              '비공개 처리된 포스트이거나, 내 포스트에는 좋아요를 누를 수 없습니다.',
+            );
             break;
           case 404:
             alert('포스트를 찾을 수 없습니다.');
@@ -87,11 +118,11 @@ function PostDetailsPage() {
       }
     }
   };
-  
+
   const handleUnlike = async () => {
     try {
       await deletePostLike(postId);
-      setPost((prevPost) => ({
+      setPost(prevPost => ({
         ...prevPost,
         likeCount: prevPost.likeCount - 1,
       }));
@@ -113,15 +144,15 @@ function PostDetailsPage() {
     }
   };
 
-  const handleCommentLike = async (commentId) => {
+  const handleCommentLike = async commentId => {
     try {
       await likeComment(commentId);
-      setComments((prevComments) =>
+      setComments(prevComments =>
         prevComments.map(comment =>
           comment.id === commentId
             ? { ...comment, likeCount: comment.likeCount + 1 }
-            : comment
-        )
+            : comment,
+        ),
       );
     } catch (error) {
       if (error.response) {
@@ -140,16 +171,16 @@ function PostDetailsPage() {
       }
     }
   };
-  
-  const handleCommentUnlike = async (commentId) => {
+
+  const handleCommentUnlike = async commentId => {
     try {
       await unlikeComment(commentId);
-      setComments((prevComments) =>
+      setComments(prevComments =>
         prevComments.map(comment =>
           comment.id === commentId
             ? { ...comment, likeCount: comment.likeCount - 1 }
-            : comment
-        )
+            : comment,
+        ),
       );
     } catch (error) {
       if (error.response) {
@@ -165,14 +196,15 @@ function PostDetailsPage() {
       }
     }
   };
-  
 
   const handlePrevCommentsPage = () => {
-    setCommentsPage((prevPage) => Math.max(prevPage - 1, 1));
+    setCommentsPage(prevPage => Math.max(prevPage - 1, 1));
   };
 
   const handleNextCommentsPage = () => {
-    setCommentsPage((prevPage) => (prevPage < totalCommentPages ? prevPage + 1 : prevPage));
+    setCommentsPage(prevPage =>
+      prevPage < totalCommentPages ? prevPage + 1 : prevPage,
+    );
   };
 
   if (loading) return <div>Loading...</div>;
@@ -184,11 +216,13 @@ function PostDetailsPage() {
       <div>작성자 ID: {post.userId}</div>
       <div>작성일: {new Date(post.createdAt).toLocaleDateString('ko-KR')}</div>
       <p>{post.preview}</p>
-      <p className={post.price > 0 ? 'content-blur' : ''}>{post.content}</p>
-      {post.price > 0 && (
+      <p className={post.price > 0 && !isPostPurchased ? 'content-blur' : ''}>{post.content}</p>
+      {post.price > 0 && !isPostPurchased && (
         <div className="purchase-callout">
           이 이후의 내용은 포스트를 구매해야 보실 수 있습니다.
-          <button onClick={() => console.log('구매 페이지로 이동')}>구매하기</button>
+          <button onClick={() => console.log('구매 페이지로 이동')}>
+            구매하기
+          </button>
         </div>
       )}
       <div className="like-section">
@@ -206,11 +240,14 @@ function PostDetailsPage() {
           <div>Loading comments...</div>
         ) : comments.length > 0 ? (
           <>
-            {comments.map((comment) => (
+            {comments.map(comment => (
               <div key={comment.id} className="comment">
                 <p>{comment.content}</p>
                 <div>작성자 ID: {comment.userId}</div>
-                <div>작성일: {new Date(comment.createdAt).toLocaleDateString('ko-KR')}</div>
+                <div>
+                  작성일:{' '}
+                  {new Date(comment.createdAt).toLocaleDateString('ko-KR')}
+                </div>
                 <div className="comment-like-section">
                   <button
                     onClick={() => handleCommentLike(comment.id)}
@@ -228,15 +265,12 @@ function PostDetailsPage() {
                 </div>
               </div>
             ))}
-            <div className="pagination">
-              <button onClick={handlePrevCommentsPage} disabled={commentsPage === 1}>
-                이전
-              </button>
-              <span>페이지 {commentsPage} / {totalCommentPages}</span>
-              <button onClick={handleNextCommentsPage} disabled={commentsPage === totalCommentPages}>
-                다음
-              </button>
-            </div>
+            <Pagination
+              currentPage={commentsPage}
+              totalPages={totalCommentPages}
+              onPrevPage={handlePrevCommentsPage}
+              onNextPage={handleNextCommentsPage}
+            />
           </>
         ) : (
           <p>댓글이 없습니다.</p>

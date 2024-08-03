@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { fetchAllPosts } from '../apis/main';
 import '../styles/pages/MainContent.css';
 import { Link } from 'react-router-dom';
+import Pagination from '../components/Pagination';
 
 function MainContent() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
+  
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -58,11 +60,12 @@ function MainContent() {
       ) : (
         <p>포스트가 없습니다.</p>
       )}
-       <div className="pagination">
-        <button onClick={handlePrevPage} disabled={currentPage === 1}>이전</button>
-        <span>페이지 {currentPage} / {totalPages}</span>
-        <button onClick={handleNextPage} disabled={currentPage === totalPages}>다음</button>
-      </div>
+        <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPrevPage={handlePrevPage}
+        onNextPage={handleNextPage}
+      />
     </main>
   );
 }
