@@ -14,6 +14,7 @@ import FindChannel from './pages/FindChannel';
 import PurchasedPostsPage from './pages/mainlibrarypurchase';
 import GetSubscribeChannels from './pages/GetSubscribeChannels';
 import GetPostsFromSubscribeChannels from './pages/GetPostsFromSubscribeChannels';
+import PostDetailsPage from './pages/PostDetail';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
             <Route path="channel/:id" element={<FindChannel />} />
             {/* <Route path="subscribe/posts" element={<GetSubscribeChannels />} /> */}
             <Route path="library/purchases" element={<PurchasedPostsPage />} />
+            <Route path="/post/:postId" element={<PostDetailsPage />} />
             <Route
               path="subscribes/channels"
               element={<GetSubscribeChannels />}
