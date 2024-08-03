@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { findChannel } from '../apis/channel';
 import '../styles/pages/FindChannel.css';
 
@@ -56,7 +56,9 @@ function FindChannel() {
             <div className="posts-list">
               {channel.posts.map(post => (
                 <div className="post-item" key={post.id}>
-                  <h3>{post.title}</h3>
+                  <Link to={`/post/${post.id}`}>
+                    <h3>{post.title}</h3>
+                  </Link>
                   <p>카테고리: {post.category}</p>
                   {/* <p>Tags: {post.tags.join(', ')}</p> */}
                   <p>가격: {post.price}</p>
