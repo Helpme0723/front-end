@@ -15,6 +15,7 @@ import PurchasedPostsPage from './pages/mainlibrarypurchase';
 import GetSubscribeChannels from './pages/GetSubscribeChannels';
 import GetPostsFromSubscribeChannels from './pages/GetPostsFromSubscribeChannels';
 import PostDetailsPage from './pages/PostDetail';
+import GetChannelsComponent from './components/GetChannels';
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
               path="subscribes/posts"
               element={<GetPostsFromSubscribeChannels />}
             />
+            <Route path="channels" element={<GetChannelsComponent />} />
           </Route>
         </Routes>
       </Router>

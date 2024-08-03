@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getPostsFromSubscribeChannels } from '../apis/auth';
 import '../styles/pages/GetPostsFromSubscribeChannels.css';
 import PaginationComponent from '../components/pagination';
+import { Link } from 'react-router-dom';
 
 // 구독한 채널들의 포스트 목록 조회
 function GetPostsFromSubscribeChannels() {
@@ -12,7 +13,7 @@ function GetPostsFromSubscribeChannels() {
   const pageRangeDisplayed = 5; // 표시할 페이지 범위 설정
 
   // 페이지 변경 시 호출되는 함수입니다.
-  const handlePageChange = (pageNumber) => {
+  const handlePageChange = pageNumber => {
     setActivePage(pageNumber); // 활성화된 페이지 상태 업데이트
   };
 
@@ -43,7 +44,9 @@ function GetPostsFromSubscribeChannels() {
               {currentChannels.map((post, index) => (
                 <div key={index}>
                   <div className="post-top">
-                    <div className="post-title">{post.title}</div>
+                    <Link to={`/post/${post.id}`}>
+                      <div className="post-title">{post.title}</div>
+                    </Link>
                   </div>
                   <div className="post-channelTitle">{post.channelTitle}</div>
                   <div className="post-container">

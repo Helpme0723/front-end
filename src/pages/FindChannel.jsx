@@ -38,7 +38,7 @@ function FindChannel() {
               <p>{channel.description}</p>
             </div>
           </div>
-
+          <hr></hr>
           <div className="series-section">
             <label className="label">시리즈</label>
             <div className="series-list">
@@ -50,17 +50,16 @@ function FindChannel() {
               ))}
             </div>
           </div>
-
+          <hr></hr>
           <div className="posts-section">
             <label className="label">포스트</label>
             <div className="posts-list">
               {channel.posts.map(post => (
                 <div className="post-item" key={post.id}>
                   <h3>{post.title}</h3>
-                  <img src={post.imageUrl} alt={post.title} />
-                  <p>Category: {post.category}</p>
-                  <p>Tags: {post.tags.join(', ')}</p>
-                  <p>Price: {post.price}</p>
+                  <p>카테고리: {post.category}</p>
+                  {/* <p>Tags: {post.tags.join(', ')}</p> */}
+                  <p>가격: {post.price}</p>
                 </div>
               ))}
             </div>

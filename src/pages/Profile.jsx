@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
 import { getUserInfo } from '../apis/user';
 import '../styles/pages/Profile.css';
+import GetChannelsComponent from '../components/GetChannels';
 
 function Profile() {
   const { isAuthenticated } = useContext(AuthContext);
@@ -54,6 +55,18 @@ function Profile() {
       </div>
       <div className="outuser-container">
         <p className="outuser">회원 탈퇴</p>
+      </div>
+      {/* <GetChannelsComponent userId={userInfo.id} /> */}
+      <div className="select-container">
+        <div className="select-item">
+          <Link to={`/channels?userId=${userInfo.id}`}>채널</Link>
+        </div>
+        <div className="select-item">
+          <Link to={`/series?userId=${userInfo.id}`}>시리즈</Link>
+        </div>
+        <div className="select-item">
+          <Link to={`/posts?userId=${userInfo.id}`}>포스트</Link>
+        </div>
       </div>
     </div>
   );
