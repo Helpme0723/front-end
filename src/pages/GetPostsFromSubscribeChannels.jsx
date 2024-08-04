@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getPostsFromSubscribeChannels } from '../apis/auth';
 import '../styles/pages/GetPostsFromSubscribeChannels.css';
-import PaginationComponent from '../components/pagination';
+import PaginationComponent from '../components/Pagination';
 import { Link } from 'react-router-dom';
 
 // 구독한 채널들의 포스트 목록 조회
