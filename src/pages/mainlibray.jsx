@@ -4,7 +4,7 @@ import { fetchLikedPosts } from '../apis/libray';
 import AuthContext from '../context/AuthContext';
 import '../styles/pages/mainlibrary.css';
 import { Link } from 'react-router-dom';
-import Pagination from '../components/Pagination';
+import Pagination from '../components/testpagenation';
 
 function LibraryPage() {
   const navigate = useNavigate();

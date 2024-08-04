@@ -3,7 +3,6 @@ import { useParams,useNavigate } from 'react-router-dom';
 import { fetchPostDetails, createPostLike, deletePostLike,likeComment,unlikeComment, fetchComments } from '../apis/post';
 import '../styles/pages/PostDetail.css';
 import AuthContext from '../context/AuthContext';
-import Pagination from '../components/Pagination';
 import { fetchPurchasedPosts } from '../apis/libray';
 
 function PostDetailsPage() {

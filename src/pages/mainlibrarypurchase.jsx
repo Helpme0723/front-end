@@ -4,7 +4,7 @@ import AuthContext from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import '../styles/pages/mainlibrary.css';
-import Pagination from '../components/Pagination';
+import Pagination from '../components/testpagenation';
 
 function PurchasedPostsPage() {
   const navigate = useNavigate();
