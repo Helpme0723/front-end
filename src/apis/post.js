@@ -3,6 +3,7 @@ import axios from './axiosInstance';
 export const fetchPostDetails = async (postId) => {
 	try {
 		const response = await axios.get(`/api/posts/${postId}`);
+		console.log(response.data);
 		return response.data;
 	} catch (error) {
 		console.error('Error fetching post details:', error);

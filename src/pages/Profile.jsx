@@ -3,7 +3,6 @@ import { useNavigate, Link } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
 import { getUserInfo } from '../apis/user';
 import '../styles/pages/Profile.css';
-import GetChannelsComponent from '../components/GetChannels';
 
 function Profile() {
   const { isAuthenticated } = useContext(AuthContext);
