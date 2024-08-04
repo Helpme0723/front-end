@@ -38,18 +38,30 @@
   text-align: right; /* 마지막 헤더 오른쪽 정렬 */
   margin-right: 150px;
 }
-/* Section for liked and purchased posts */
+
+
 .liked-posts, .purchased-posts {
   margin: 20px 0;
-  text-align: left; /* Aligns text to the left within the centered sections */
+  text-align: left; 
 }
 
-/* Styling for each post entry */
+
+.post-entry-link {
+  text-decoration: none; /* 링크의 밑줄 제거 */
+  color: inherit; /* 텍스트 색상을 상속 */
+}
+
 .post-entry {
   display: flex;
   align-items: center;
   border-bottom: 1px solid #e1e1e1;
   padding: 10px 0;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.post-entry:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .post-info {
@@ -68,20 +80,20 @@
   font-size: 14px;
 }
 
-/* Styling for post images */
+
 .post-image {
   width: 80px;
   height: 80px;
   border-radius: 4px;
 }
 
-/* Loading text style */
+
 .library-container > div:first-child {
   color: #666;
   font-size: 16px;
 }
 
-/* Message when no posts are liked yet */
+
 .liked-posts > p, .purchased-posts > p {
   color: #888;
   text-align: center;

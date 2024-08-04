@@ -9,11 +9,13 @@ import Logout from './pages/Logout';
 import SignUp from './pages/SignUp';
 import MainContent from './pages/MainContent';
 import CreateChannel from './pages/CreateChannel';
-import LibraryPage from './pages/mainlibray';
+import LibraryPage from './pages/Mainlibrary';
 import FindChannel from './pages/FindChannel';
-import PurchasedPostsPage from './pages/mainlibrarypurchase';
+import PurchasedPostsPage from './pages/Mainlibrarypurchase';
 import GetSubscribeChannels from './pages/GetSubscribeChannels';
 import GetPostsFromSubscribeChannels from './pages/GetPostsFromSubscribeChannels';
+import PostDetailsPage from './pages/PostDetail';
+import GetChannelsComponent from './components/GetChannels';
 
 function App() {
   return (
@@ -32,16 +34,18 @@ function App() {
             <Route path="channel/create" element={<CreateChannel />} />
             <Route path="library" element={<LibraryPage />} />
             <Route path="channel/:id" element={<FindChannel />} />
-            <Route path="subscribe/posts" element={<GetSubscribeChannels />} />
+            {/* <Route path="subscribe/posts" element={<GetSubscribeChannels />} /> */}
             <Route path="library/purchases" element={<PurchasedPostsPage />} />
+            <Route path="/post/:postId" element={<PostDetailsPage />} />
             <Route
-              path="subscribe/channels"
+              path="subscribes/channels"
               element={<GetSubscribeChannels />}
             />
             <Route
-              path="subscribe/posts"
+              path="subscribes/posts"
               element={<GetPostsFromSubscribeChannels />}
             />
+            <Route path="channels" element={<GetChannelsComponent />} />
           </Route>
         </Routes>
       </Router>

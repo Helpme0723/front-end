@@ -1,6 +1,6 @@
 import axiosInstance from './axiosInstance';
 
-export const fetchLikedPosts = async (page = 1, limit = 10, order = 'desc') => {
+export const fetchLikedPosts = async (page = 1, limit = 5, order = 'desc') => {
   console.log(`Requesting liked posts with page=${page}, limit=${limit}, order=${order}`);
   try {
     const response = await axiosInstance.get('/api/library/posts/likes', {

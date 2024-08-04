@@ -1,0 +1,82 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 20px;
+  color: #333;
+}
+
+.post {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.post-header {
+  width: 90%;
+  max-width: 1000px;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.post-info > div {
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}
+
+.post-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.post-channelTitle {
+  font-size: 14px;
+  color: #888;
+}
+
+.post-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.post-container {
+  margin-bottom: 10px;
+}
+
+.post-footer {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  color: #888;
+}
+
+.post-ownerNickname,
+.post-point,
+.post-viewCount,
+.post-likeCount,
+.post-commentCount,
+.post-createdAt {
+  margin-right: 15px;
+}
+
+.no-posts {
+  text-align: center;
+  color: #888;
+  font-size: 16px;
+}
+
+.post-channelImg {
+	width: 50px;
+	height: 50px;
+}
