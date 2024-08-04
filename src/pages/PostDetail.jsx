@@ -1,13 +1,6 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import {
-  fetchPostDetails,
-  createPostLike,
-  deletePostLike,
-  likeComment,
-  unlikeComment,
-  fetchComments,
-} from '../apis/post';
+import React, { useEffect, useState,useContext } from 'react';
+import { useParams,useNavigate } from 'react-router-dom';
+import { fetchPostDetails, createPostLike, deletePostLike,likeComment,unlikeComment, fetchComments } from '../apis/post';
 import '../styles/pages/PostDetail.css';
 import AuthContext from '../context/AuthContext';
 import Pagination from '../components/Pagination';
@@ -216,14 +209,17 @@ function PostDetailsPage() {
       <div>작성자 ID: {post.userId}</div>
       <div>작성일: {new Date(post.createdAt).toLocaleDateString('ko-KR')}</div>
       <p>{post.preview}</p>
-      <p className={post.price > 0 && !isPostPurchased ? 'content-blur' : ''}>{post.content}</p>
-      {post.price > 0 && !isPostPurchased && (
-        <div className="purchase-callout">
-          이 이후의 내용은 포스트를 구매해야 보실 수 있습니다.
-          <button onClick={() => console.log('구매 페이지로 이동')}>
-            구매하기
-          </button>
-        </div>
+      {post.content ? (
+        <p>{post.content}</p>
+      ) : (
+        post.price > 0 && (
+          <div className="purchase-callout">
+            이 이후의 내용은 포스트를 구매해야 보실 수 있습니다.
+            <button onClick={() => console.log('구매 페이지로 이동')}>
+              구매하기
+            </button>
+          </div>
+        )
       )}
       <div className="like-section">
         <button onClick={handleLike} className="like-button">
@@ -265,12 +261,23 @@ function PostDetailsPage() {
                 </div>
               </div>
             ))}
-            <Pagination
-              currentPage={commentsPage}
-              totalPages={totalCommentPages}
-              onPrevPage={handlePrevCommentsPage}
-              onNextPage={handleNextCommentsPage}
-            />
+            <div className="pagination">
+              <button
+                onClick={handlePrevCommentsPage}
+                disabled={commentsPage === 1}
+              >
+                이전
+              </button>
+              <span>
+                페이지 {commentsPage} / {totalCommentPages}
+              </span>
+              <button
+                onClick={handleNextCommentsPage}
+                disabled={commentsPage === totalCommentPages}
+              >
+                다음
+              </button>
+            </div>
           </>
         ) : (
           <p>댓글이 없습니다.</p>

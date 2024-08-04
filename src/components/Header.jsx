@@ -30,7 +30,7 @@ function Header() {
         <Link to="/" className="nav-link">
           홈
         </Link>
-        <Link to="/subscribe/posts" className="nav-link">
+        <Link to="/subscribes/posts" className="nav-link">
           구독
         </Link>
         <Link to="/library" className="nav-link">
@@ -56,7 +56,7 @@ function Header() {
             )}
             <div className="dropdown-content">
               <Link to="/profile">마이페이지</Link>
-              <Link to="/subscribe/posts">구독</Link>
+              <Link to="/subscribes/posts">구독</Link>
               <Link to="/library">보관함</Link>
               <Link to="/points">포인트</Link>
               <Link to="/logout" onClick={logout}>
