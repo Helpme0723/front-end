@@ -9,7 +9,7 @@ import Logout from './pages/Logout';
 import SignUp from './pages/SignUp';
 import MainContent from './pages/MainContent';
 import CreateChannel from './pages/CreateChannel';
-import LibraryPage from './pages/Mainlibray';
+import LibraryPage from './pages/Mainlibrary';
 import FindChannel from './pages/FindChannel';
 import PurchasedPostsPage from './pages/Mainlibrarypurchase';
 import GetSubscribeChannels from './pages/GetSubscribeChannels';

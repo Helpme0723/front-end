@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getSubscribes } from '../apis/auth';
 import '../styles/pages/GetSubscribe.css';
-import PaginationComponent from '../components/pagination';
+import PaginationComponent from '../components/Pagination';
 
 // 구독한 채널 목록 조회
 function GetSubscribeChannels() {

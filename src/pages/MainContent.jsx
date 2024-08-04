@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { fetchAllPosts } from '../apis/main';
 import '../styles/pages/MainContent.css';
 import { Link } from 'react-router-dom';
-import Pagination from '../components/testpagenation';
+import Pagination from '../components/Testpagenation';
 
 function MainContent() {
   const [posts, setPosts] = useState([]);
