@@ -1,15 +1,9 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import {
-  fetchPostDetails,
-  createPostLike,
-  deletePostLike,
-  likeComment,
-  unlikeComment,
-  fetchComments,
-} from '../apis/post';
+import React, { useEffect, useState,useContext } from 'react';
+import { useParams,useNavigate } from 'react-router-dom';
+import { fetchPostDetails, createPostLike, deletePostLike,likeComment,unlikeComment, fetchComments } from '../apis/post';
 import '../styles/pages/PostDetail.css';
 import AuthContext from '../context/AuthContext';
+import { fetchPurchasedPosts } from '../apis/libray';
 
 function PostDetailsPage() {
   const { postId } = useParams();
@@ -21,6 +15,7 @@ function PostDetailsPage() {
   const [comments, setComments] = useState([]);
   const [commentsPage, setCommentsPage] = useState(1);
   const [totalCommentPages, setTotalCommentPages] = useState(0);
+  const [purchasedPosts, setPurchasedPosts] = useState([]); // 구매한 포스트 상태 추가
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -53,8 +48,8 @@ function PostDetailsPage() {
       try {
         const response = await fetchComments(postId, commentsPage);
         if (response && response.data) {
-          setComments(response.data.items); // Assuming response.data contains the comments
-          setTotalCommentPages(response.data.meta.totalPages); // Set total comment pages from API response
+          setComments(response.data.items); 
+          setTotalCommentPages(response.data.meta.totalPages); 
         }
       } catch (error) {
         console.error('Failed to fetch comments:', error);
@@ -63,9 +58,28 @@ function PostDetailsPage() {
       }
     };
 
+    const loadPurchasedPosts = async () => {
+      try {
+        const purchasedResponse = await fetchPurchasedPosts();
+        if (purchasedResponse && purchasedResponse.data && purchasedResponse.data.items) {
+          // 구매한 포스트의 ID들을 추출하여 저장
+          const purchasedIds = purchasedResponse.data.items.map(item => item.post.id.toString());
+          setPurchasedPosts(purchasedIds);
+        } else {
+          console.log('No purchased posts returned:', purchasedResponse);
+          setPurchasedPosts([]); // 아이템이 없는 경우 빈 배열 설정
+        }
+      } catch (error) {
+        console.error('Failed to load purchased posts:', error);
+      }
+    };
+
     fetchDetails();
     fetchPostComments();
+    loadPurchasedPosts(); // 구매한 포스트 로드
   }, [postId, isAuthenticated, navigate, commentsPage]);
+
+  const isPostPurchased = purchasedPosts.includes(postId.toString()); // 현재 포스트 구매 여부 확인
 
   const handleLike = async () => {
     try {
