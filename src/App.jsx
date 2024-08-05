@@ -20,6 +20,7 @@ import ChannelInsights from './components/ChanneInsight';
 import SearchResultsPage from './pages/SearchResultsPage'; // 검색 결과 페이지 추가
 import { SearchProvider } from './context/SearchContext';
 import CategoryPostView from './pages/CategoryPostView';
+import PostPage from './pages/PostPage';
 
 function App() {
   return (
@@ -58,6 +59,7 @@ function App() {
               element={<ChannelInsights />}
             />
             <Route path="posts" element={<CategoryPostView />} />
+            <Route path="post/create" element={<PostPage />} />
           </Route>
         </Routes>
       </Router>
