@@ -1,12 +1,13 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
-import { getChannelInsights, getDailyInsights, getMonthlyInsights } from '../apis/channel'; // 통계 데이터를 가져오는 API 함수
+import { getChannelInsights, findChannel } from '../apis/channel'; // 통계 데이터를 가져오는 API 함수
 import '../styles/components/ChannelInsight.css';
 
 const ChannelInsights = () => {
   const { channelId } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
+  const [channelInfo, setChannelInfo] = useState(null); // 채널 정보 상태 추가
   const [insights, setInsights] = useState(null);
   const [dailyInsights, setDailyInsights] = useState([]);
   const [monthlyInsights, setMonthlyInsights] = useState([]);
@@ -20,19 +21,33 @@ const ChannelInsights = () => {
   }, [location.search]);
 
   useEffect(() => {
+    const fetchChannelInfo = async () => {
+      try {
+        const response = await findChannel(channelId);
+        setChannelInfo(response.data);
+      } catch (error) {
+        console.log('Error fetching channel info:', error.message);
+      }
+    };
+
+    fetchChannelInfo();
+  }, [channelId]);
+
+  useEffect(() => {
     const fetchInsights = async () => {
       try {
         const { userId } = getQueryParams();
-        const data = await getChannelInsights(channelId, userId);
-        const dailyData = await getDailyInsights(channelId, userId);
-        const monthlyData = await getMonthlyInsights(channelId, userId);
+        console.log('Fetching insights for channel:', channelId, 'with userId:', userId);
+        const response = await getChannelInsights(channelId, userId);
 
-        if (!data || !dailyData || !monthlyData) {
+        console.log('Fetched data:', response);
+
+        if (!response.data) {
           setHasInsights(false);
         } else {
-          setInsights(data);
-          setDailyInsights(Array.isArray(dailyData.data) ? dailyData.data : []);
-          setMonthlyInsights(Array.isArray(monthlyData.data) ? monthlyData.data : []);
+          setInsights(response.data);
+          setDailyInsights(response.data.dailyInsights ? [response.data.dailyInsights] : []);
+          setMonthlyInsights(response.data.monthlyInsights ? [response.data.monthlyInsights] : []);
           setHasInsights(true);
         }
       } catch (error) {
@@ -50,54 +65,72 @@ const ChannelInsights = () => {
 
   return (
     <div className="insights-container">
-      {insights && (
-        <>
-          <h2>{insights.channelName} 통계</h2>
+      <div className="channel-info-container">
+        {channelInfo && (
           <div className="channel-info">
-            <img src={insights.channelImage} alt={insights.channelName} className="channel-image" />
+            <img src={channelInfo.channelImage} alt={channelInfo.channelName} className="channel-image" />
             <div className="channel-details">
-              <div className="channel-title">{insights.channelName}</div>
-              <div className="channel-description">{insights.description}</div>
-              <div className="channel-subscribers">구독자: {insights.subscribers}</div>
+              <div className="channel-title">{channelInfo.channelName}</div>
+              <div className="channel-subscribers">구독자: {channelInfo.subscribers}명</div>
+              <div className="channel-description">{channelInfo.description}</div>
+              <div className="channel-extra-info">123</div>
             </div>
           </div>
-        </>
-      )}
-      <div className="insights-section">
-        <h3>일별 통계</h3>
-        <div className="insights-grid">
-          {dailyInsights.length > 0 ? (
-            dailyInsights.map((insight, index) => (
-              <div className="insight-card" key={index}>
-                <div>날짜: {insight.date}</div>
-                <div>조회수: {insight.views}</div>
-                <div>좋아요 수: {insight.likes}</div>
-                <div>판매액: {insight.sales}</div>
-              </div>
-            ))
-          ) : (
-            <div>통계가 없습니다</div>
-          )}
-        </div>
+        )}
       </div>
-      <div className="insights-section">
-        <h3>월별 통계</h3>
-        <div className="insights-grid">
-          {monthlyInsights.length > 0 ? (
-            monthlyInsights.map((insight, index) => (
-              <div className="insight-card" key={index}>
-                <div>월: {insight.month}</div>
-                <div>조회수: {insight.views}</div>
-                <div>좋아요 수: {insight.likes}</div>
-                <div>판매액: {insight.sales}</div>
-              </div>
-            ))
-          ) : (
-            <div>통계가 없습니다</div>
-          )}
+      <div className="insights-data-container">
+        <div className="insights-section">
+          <h3>일별 통계</h3>
+          <div className="insights-grid">
+            {dailyInsights.length > 0 ? (
+              dailyInsights.map((insight, index) => (
+                <React.Fragment key={index}>
+                  <div className="insight-card">
+                    <div className="insight-card-title">조회수</div>
+                    <div className="insight-card-value">{insight.viewCount}</div>
+                  </div>
+                  <div className="insight-card">
+                    <div className="insight-card-title">좋아요 수</div>
+                    <div className="insight-card-value">{insight.likeCount}</div>
+                  </div>
+                  <div className="insight-card">
+                    <div className="insight-card-title">판매량</div>
+                    <div className="insight-card-value">{insight.salesCount}</div>
+                  </div>
+                </React.Fragment>
+              ))
+            ) : (
+              <div>통계가 없습니다</div>
+            )}
+          </div>
         </div>
+        <div className="insights-section">
+          <h3>월별 통계</h3>
+          <div className="insights-grid">
+            {monthlyInsights.length > 0 ? (
+              monthlyInsights.map((insight, index) => (
+                <React.Fragment key={index}>
+                  <div className="insight-card">
+                    <div className="insight-card-title">조회수</div>
+                    <div className="insight-card-value">{insight.viewCount}</div>
+                  </div>
+                  <div className="insight-card">
+                    <div className="insight-card-title">좋아요 수</div>
+                    <div className="insight-card-value">{insight.likeCount}</div>
+                  </div>
+                  <div className="insight-card">
+                    <div className="insight-card-title">판매량</div>
+                    <div className="insight-card-value">{insight.salesCount}</div>
+                  </div>
+                </React.Fragment>
+              ))
+            ) : (
+              <div>통계가 없습니다</div>
+            )}
+          </div>
+        </div>
+        <button className="back-button" onClick={() => navigate(`/channels?userId=${getQueryParams().userId}`)}>목록으로</button>
       </div>
-      <button className="back-button" onClick={() => navigate(`/channels?userId=${getQueryParams().userId}`)}>목록으로</button>
     </div>
   );
 };

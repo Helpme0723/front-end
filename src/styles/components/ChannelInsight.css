@@ -1,11 +1,26 @@
+/* 컨테이너 설정 */
 .insights-container {
+  display: flex;
   padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
+/* 채널 정보 컨테이너 설정 */
+.channel-info-container {
+  flex: 0 0 300px;
+  margin-right: 20px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 채널 정보 스타일 */
 .channel-info {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  margin-bottom: 20px;
 }
 
 .channel-image {
@@ -13,55 +28,99 @@
   height: 100px;
   border-radius: 50%;
   object-fit: cover;
-  margin-right: 20px;
+  margin-bottom: 20px;
 }
 
 .channel-details {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .channel-title {
-  font-size: 24px;
+  font-size: 1.5em;
   font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.channel-description {
-  font-size: 14px;
   margin-bottom: 5px;
 }
 
 .channel-subscribers {
-  font-size: 14px;
+  margin-bottom: 10px;
   color: #666;
 }
 
-.insights-section {
-  margin-top: 20px;
+.channel-description {
+  margin-bottom: 10px;
+  color: #333;
+  text-align: center;
 }
 
+.channel-extra-info {
+  color: #888;
+}
+
+/* 통계 데이터 컨테이너 설정 */
+.insights-data-container {
+  flex: 1;
+}
+
+/* 통계 섹션 스타일 */
+.insights-section {
+  margin-bottom: 20px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.insights-section h3 {
+  margin-bottom: 20px;
+}
+
+/* 통계 그리드 설정 */
 .insights-grid {
   display: flex;
-  gap: 20px;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
+/* 통계 카드 스타일 */
 .insight-card {
+  flex: 0 0 20%;
+  margin: 10px 0;
+  padding: 20px;
   border: 1px solid #ddd;
-  padding: 10px;
   border-radius: 8px;
-  width: 200px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
 
-.back-button {
+.insight-card-title {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.insight-card-value {
+  font-size: 1.2em;
+}
+
+/* 통계 없을 때 스타일 */
+.no-insights {
+  text-align: center;
   margin-top: 20px;
+}
+
+/* 뒤로가기 버튼 스타일 */
+.back-button {
+  display: block;
+  margin: 20px auto;
   padding: 10px 20px;
+  border: none;
   background-color: #007bff;
   color: white;
-  border: none;
-  border-radius: 5px;
   cursor: pointer;
-  font-size: 14px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
 }
 
 .back-button:hover {
