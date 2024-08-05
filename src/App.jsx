@@ -17,10 +17,13 @@ import GetPostsFromSubscribeChannels from './pages/GetPostsFromSubscribeChannels
 import PostDetailsPage from './pages/PostDetail';
 import GetChannelsComponent from './components/GetChannels';
 import ChannelInsights from './components/ChanneInsight';
+import SearchResultsPage from './pages/SearchResultsPage'; // 검색 결과 페이지 추가
+import { SearchProvider } from './context/SearchContext';
 
 function App() {
   return (
     <div>
+       <SearchProvider>
       <Router>
         <Routes>
           <Route path="/" element={<Layout />}>
@@ -48,9 +51,11 @@ function App() {
             />
             <Route path="channels" element={<GetChannelsComponent />} />
             <Route path="channel/:channelId/insights" element={<ChannelInsights />} />
+            <Route path="search-results" element={<SearchResultsPage />} />
           </Route>
         </Routes>
       </Router>
+      </SearchProvider>
     </div>
   );
 }

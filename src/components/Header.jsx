@@ -1,13 +1,18 @@
 import React, { useContext, useEffect, useState, useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
 import { getUserInfo } from '../apis/user';
 import '../styles/components/Header.css';
+import { SearchContext } from '../context/SearchContext';
 
 function Header() {
   const { isAuthenticated, logout } = useContext(AuthContext);
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
+  const { performSearch, setSearchTerm } = useContext(SearchContext);
+  const [searchInput, setSearchInput] = useState(''); // State for search input
+  const [searchField, setSearchField] = useState('title'); // State for search field
+  const navigate = useNavigate()
 
   const fetchUserInfo = useCallback(async () => {
     try {
@@ -29,6 +34,23 @@ function Header() {
     }
   }, [isAuthenticated, fetchUserInfo]);
 
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    if (!searchInput.trim()) {
+      // If search input is empty, navigate to the main page
+      navigate('/');
+      return;
+    }
+    try {
+      // Perform the search using the search context
+      await performSearch(searchInput, searchField, 1, 10, 'desc');
+      setSearchTerm(searchInput);
+      navigate('/search-results'); // Navigate to search results page
+    } catch (error) {
+      console.error('Failed to perform search:', error);
+    }
+  };
+
   return (
     <header className="header">
       <div className="header-title">TalentVerse</div>
@@ -47,10 +69,20 @@ function Header() {
         </Link>
       </nav>
       <div className="header-actions">
-        <div className="search-container">
-          <input type="text" className="search-input" placeholder="검색" />
-          <button className="search-button">🔍</button>
-        </div>
+        <form onSubmit={handleSearch} className="search-container">
+          <input
+            type="text"
+            className="search-input"
+            placeholder="검색"
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+          />
+          <select value={searchField} onChange={(e) => setSearchField(e.target.value)}>
+            <option value="title">제목</option>
+            <option value="content">내용</option>
+          </select>
+          <button type="submit" className="search-button">🔍</button>
+        </form>
         {isAuthenticated ? (
           <div className="dropdown">
             {user && user.profileUrl && (

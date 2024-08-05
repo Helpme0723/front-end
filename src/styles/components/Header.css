@@ -52,21 +52,37 @@ body {
   border: 1px solid #ccc;
   border-radius: 5px;
   overflow: hidden;
-  width: auto;
+  background-color: #f0f0f0;
 }
 
 .search-input {
   border: none;
   padding: 10px;
   outline: none;
-  width: 100px; /* 검색창의 기본 너비 */
+  width: 150px; /* 검색창의 기본 너비 */
   transition: width 0.3s ease;
+}
+
+.search-input:focus {
+  width: 200px; /* 포커스 시 확장 */
 }
 
 .search-button {
   background-color: #f0f0f0;
   border: none;
   padding: 10px;
+  cursor: pointer;
+}
+
+.search-button:hover {
+  background-color: #ddd;
+}
+
+.search-container select {
+  border: none;
+  outline: none;
+  padding: 10px;
+  background-color: #f0f0f0;
   cursor: pointer;
 }
 
