@@ -10,7 +10,7 @@ import {
 } from '../apis/post';
 import '../styles/pages/PostDetail.css';
 import AuthContext from '../context/AuthContext';
-import { fetchPurchasedPosts } from '../apis/libray';
+import { fetchPurchasedPosts } from '../apis/library';
 import PurchasePost from './PurchasePost';
 
 function PostDetailsPage() {

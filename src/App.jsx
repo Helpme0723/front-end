@@ -16,10 +16,12 @@ import GetSubscribeChannels from './pages/GetSubscribeChannels';
 import GetPostsFromSubscribeChannels from './pages/GetPostsFromSubscribeChannels';
 import PostDetailsPage from './pages/PostDetail';
 import GetChannelsComponent from './components/GetChannels';
-import ChannelInsights from './components/ChanneInsight';
+import ChannelInsights from './components/ChannelInsight';
 import SearchResultsPage from './pages/SearchResultsPage'; // 검색 결과 페이지 추가
 import { SearchProvider } from './context/SearchContext';
 import CategoryPostView from './pages/CategoryPostView';
+import DailyInsights from './pages/DailyInsights';
+import MonthlyInsights from './pages/MonthlyInsights';
 import PurchasePost from './pages/PurchasePost';
 
 function App() {
@@ -65,6 +67,14 @@ function App() {
                 element={<ChannelInsights />}
               />
               <Route path="posts" element={<CategoryPostView />} />
+              <Route
+                path="channel/:channelId/insights/daily"
+                element={<DailyInsights />}
+              />
+              <Route
+                path="channel/:channelId/insights/monthly"
+                element={<MonthlyInsights />}
+              />
               <Route path="purchasesPost" element={<PurchasePost />} />
             </Route>
           </Routes>
