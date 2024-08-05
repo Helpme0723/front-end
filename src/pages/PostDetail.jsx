@@ -1,9 +1,16 @@
-import React, { useEffect, useState,useContext } from 'react';
-import { useParams,useNavigate } from 'react-router-dom';
-import { fetchPostDetails, createPostLike, deletePostLike,likeComment,unlikeComment, fetchComments } from '../apis/post';
+import React, { useEffect, useState, useContext } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import {
+  fetchPostDetails,
+  createPostLike,
+  deletePostLike,
+  likeComment,
+  unlikeComment,
+  fetchComments,
+} from '../apis/post';
 import '../styles/pages/PostDetail.css';
 import AuthContext from '../context/AuthContext';
-import { fetchPurchasedPosts } from '../apis/libray';
+import { fetchPurchasedPosts } from '../apis/library';
 
 function PostDetailsPage() {
   const { postId } = useParams();
@@ -48,8 +55,8 @@ function PostDetailsPage() {
       try {
         const response = await fetchComments(postId, commentsPage);
         if (response && response.data) {
-          setComments(response.data.items); 
-          setTotalCommentPages(response.data.meta.totalPages); 
+          setComments(response.data.items);
+          setTotalCommentPages(response.data.meta.totalPages);
         }
       } catch (error) {
         console.error('Failed to fetch comments:', error);
@@ -61,9 +68,15 @@ function PostDetailsPage() {
     const loadPurchasedPosts = async () => {
       try {
         const purchasedResponse = await fetchPurchasedPosts();
-        if (purchasedResponse && purchasedResponse.data && purchasedResponse.data.items) {
+        if (
+          purchasedResponse &&
+          purchasedResponse.data &&
+          purchasedResponse.data.items
+        ) {
           // 구매한 포스트의 ID들을 추출하여 저장
-          const purchasedIds = purchasedResponse.data.items.map(item => item.post.id.toString());
+          const purchasedIds = purchasedResponse.data.items.map(item =>
+            item.post.id.toString(),
+          );
           setPurchasedPosts(purchasedIds);
         } else {
           console.log('No purchased posts returned:', purchasedResponse);

@@ -1,0 +1,133 @@
+.container {
+  padding: 20px;
+}
+
+.daily-header-card,
+.post-card {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.daily-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.right-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sort-dropdown,
+.custom-date-input {
+  padding: 5px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  width: 100%;
+}
+
+h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.statistics {
+  display: flex;
+  gap: 20px;
+  justify-content: space-around;
+  margin-top: 10px;
+}
+
+.stat-card {
+  background: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  text-align: center;
+  width: 100px;
+}
+
+.stat-title {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.stat-value {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.posts {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.post-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Custom styles for react-datepicker */
+.react-datepicker {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.react-datepicker__header {
+  background-color: #f7f7f7;
+  border-bottom: 1px solid #ccc;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  padding-top: 10px;
+}
+
+.react-datepicker__current-month {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.react-datepicker__day-name,
+.react-datepicker__day,
+.react-datepicker__time-name {
+  width: 2.5rem;
+  line-height: 2.5rem;
+  margin: 0.166rem;
+  font-weight: bold;
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__day--keyboard-selected {
+  background-color: #007bff;
+  color: white;
+}
+
+.react-datepicker__day--today {
+  font-weight: bold;
+  color: #007bff;
+}
+
+.react-datepicker__day:hover {
+  background-color: #f0f0f0;
+}
+
+.react-datepicker__month {
+  margin: 0;
+  padding: 10px;
+}

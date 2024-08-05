@@ -16,8 +16,9 @@ import GetSubscribeChannels from './pages/GetSubscribeChannels';
 import GetPostsFromSubscribeChannels from './pages/GetPostsFromSubscribeChannels';
 import PostDetailsPage from './pages/PostDetail';
 import GetChannelsComponent from './components/GetChannels';
-import ChannelInsights from './components/ChanneInsight';
+import ChannelInsights from './components/ChannelInsight';
 import CategoryPostView from './pages/CategoryPostView';
+import DailyInsights from './pages/DailyInsights';
 
 function App() {
   return (
@@ -53,6 +54,10 @@ function App() {
               element={<ChannelInsights />}
             />
             <Route path="posts" element={<CategoryPostView />} />
+            <Route
+              path="channel/:channelId/insights/daily"
+              element={<DailyInsights />}
+            />
           </Route>
         </Routes>
       </Router>
