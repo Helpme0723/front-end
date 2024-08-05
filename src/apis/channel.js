@@ -67,12 +67,12 @@ export const getChannelInsights = async channelId => {
   }
 };
 
-export const getDailyInsights = async (channelId, date, sort) => {
+export const getDailyInsights = async (channelId, date, sort, page) => {
   try {
     const response = await axiosInstance.get(
       `/api/channels/${channelId}/insights/daily`,
       {
-        params: { date, sort },
+        params: { date, sort, page },
       },
     );
     return response.data;
@@ -82,11 +82,15 @@ export const getDailyInsights = async (channelId, date, sort) => {
   }
 };
 
-export const getMonthlyInsights = async channelId => {
+export const getMonthlyInsights = async (channelId, date, sort, page) => {
   try {
     const response = await axiosInstance.get(
       `/api/channels/${channelId}/insights/monthly`,
+      {
+        params: { date, sort, page },
+      },
     );
+
     return response.data;
   } catch (error) {
     console.error('Error fetching monthly insights:', error);

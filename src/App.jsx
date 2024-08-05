@@ -21,6 +21,7 @@ import SearchResultsPage from './pages/SearchResultsPage'; // 검색 결과 페�
 import { SearchProvider } from './context/SearchContext';
 import CategoryPostView from './pages/CategoryPostView';
 import DailyInsights from './pages/DailyInsights';
+import MonthlyInsights from './pages/MonthlyInsights';
 
 function App() {
   return (
@@ -68,6 +69,10 @@ function App() {
               <Route
                 path="channel/:channelId/insights/daily"
                 element={<DailyInsights />}
+              />
+              <Route
+                path="channel/:channelId/insights/monthly"
+                element={<MonthlyInsights />}
               />
             </Route>
           </Routes>
