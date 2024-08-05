@@ -52,6 +52,7 @@ export const getUserChannels = async (userId, page, limit) => {
 	}
 };
 
+//실질 통계 호출
 export const getChannelInsights = async (channelId) => {
 	try {
 		const response = await axiosInstance.get(`/api/channels/${channelId}/insights`);
