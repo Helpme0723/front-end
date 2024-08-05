@@ -64,3 +64,15 @@ export const fetchComments = async (postId, page = 1, limit = 5) => {
 		throw error;
 	}
 };
+
+export const categoryPostView = async (categoryId = 1, page = 1, limit = 5) => {
+	try {
+		const response = await axios.get('/api/posts', {
+			params: { categoryId, page, limit },
+		});
+		return response.data;
+	} catch (error) {
+		console.error(error);
+		throw error;
+	}
+};

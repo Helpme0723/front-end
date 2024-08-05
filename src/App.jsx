@@ -16,6 +16,7 @@ import GetSubscribeChannels from './pages/GetSubscribeChannels';
 import GetPostsFromSubscribeChannels from './pages/GetPostsFromSubscribeChannels';
 import PostDetailsPage from './pages/PostDetail';
 import GetChannelsComponent from './components/GetChannels';
+import CategoryPostView from './pages/CategoryPostView';
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
               element={<GetPostsFromSubscribeChannels />}
             />
             <Route path="channels" element={<GetChannelsComponent />} />
+            <Route path="posts" element={<CategoryPostView />} />
           </Route>
         </Routes>
       </Router>
