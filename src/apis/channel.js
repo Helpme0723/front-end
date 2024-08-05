@@ -51,3 +51,34 @@ export const getUserChannels = async (userId, page, limit) => {
 		throw new Error(error.response?.data?.message || '채널 목록 조회 실패')
 	}
 };
+
+export const getChannelInsights = async (channelId) => {
+	try {
+		const response = await axiosInstance.get(`/api/channels/${channelId}/insights`);
+		return response.data;
+	} catch (error) {
+		console.error('Error fetching channel insights:', error);
+		throw error;
+	}
+};
+
+export const getDailyInsights = async (channelId) => {
+	try {
+		const response = await axiosInstance.get(`/api/channels/${channelId}/insights/daily`);
+		return response.data;
+	} catch (error) {
+		console.error('Error fetching daily insights:', error);
+		throw error;
+	}
+};
+
+export const getMonthlyInsights = async (channelId) => {
+	try {
+		const response = await axiosInstance.get(`/api/channels/${channelId}/insights/monthly`);
+		return response.data;
+	} catch (error) {
+		console.error('Error fetching monthly insights:', error);
+		throw error;
+	}
+};
+
