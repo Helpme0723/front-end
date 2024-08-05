@@ -8,7 +8,6 @@ const ChannelInsights = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [channelInfo, setChannelInfo] = useState(null); // 채널 정보 상태 추가
-  const [insights, setInsights] = useState(null);
   const [dailyInsights, setDailyInsights] = useState([]);
   const [monthlyInsights, setMonthlyInsights] = useState([]);
   const [hasInsights, setHasInsights] = useState(true); // 통계 여부 상태 추가
@@ -45,7 +44,6 @@ const ChannelInsights = () => {
         if (!response.data) {
           setHasInsights(false);
         } else {
-          setInsights(response.data);
           setDailyInsights(response.data.dailyInsights ? [response.data.dailyInsights] : []);
           setMonthlyInsights(response.data.monthlyInsights ? [response.data.monthlyInsights] : []);
           setHasInsights(true);
