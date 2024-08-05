@@ -205,8 +205,10 @@ function PostDetailsPage() {
   return (
     <div className="post-details-container">
       <h1>{post.title || '제목 없음'}</h1>
-      <div>작성자 ID: {post.userId}</div>
+      <div>작성자: {post.userName}</div>
       <div>작성일: {new Date(post.createdAt).toLocaleDateString('ko-KR')}</div>
+      <div>조회수: {post.viewCount}</div>
+      <br></br>
       <p>{post.preview}</p>
       {post.content ? (
         <p>{post.content}</p>
