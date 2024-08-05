@@ -132,6 +132,9 @@ const ChannelInsights = () => {
         </div>
         <div className="insights-section">
           <h3>월별 통계</h3>
+          <button>
+            <Link to={`/channel/${channelId}/insights/monthly`}>자세히</Link>
+          </button>
           <div className="insights-grid">
             {monthlyInsights.length > 0 ? (
               monthlyInsights.map((insight, index) => (

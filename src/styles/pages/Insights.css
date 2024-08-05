@@ -3,6 +3,7 @@
 }
 
 .daily-header-card,
+.monthly-header-card,
 .post-card {
   background: white;
   border-radius: 10px;
@@ -12,7 +13,8 @@
   margin-bottom: 20px;
 }
 
-.daily-header {
+.daily-header,
+.monthly-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
