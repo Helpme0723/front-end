@@ -22,6 +22,7 @@ import { SearchProvider } from './context/SearchContext';
 import CategoryPostView from './pages/CategoryPostView';
 import DailyInsights from './pages/DailyInsights';
 import MonthlyInsights from './pages/MonthlyInsights';
+import PurchasePost from './pages/PurchasePost';
 
 function App() {
   return (
@@ -74,6 +75,7 @@ function App() {
                 path="channel/:channelId/insights/monthly"
                 element={<MonthlyInsights />}
               />
+              <Route path="purchasesPost" element={<PurchasePost />} />
             </Route>
           </Routes>
         </Router>

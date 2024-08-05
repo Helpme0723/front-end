@@ -93,7 +93,7 @@ function DailyInsights() {
       <div className="posts">
         {dailyInsights.items && dailyInsights.items.length > 0 ? (
           dailyInsights.items.map(item => (
-            <div key={item.id} className="post-card">
+            <div key={item.id} className="insights-post-card">
               <div className="post-title">포스트 제목: {item.title}</div>
               <div className="statistics">
                 <div className="stat-card">

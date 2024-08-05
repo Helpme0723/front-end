@@ -94,7 +94,7 @@ function MonthlyInsights() {
       <div className="posts">
         {monthlyInsights.items && monthlyInsights.items.length > 0 ? (
           monthlyInsights.items.map(item => (
-            <div key={item.id} className="post-card">
+            <div key={item.id} className="insights-post-card">
               <div className="post-title">포스트 제목: {item.title}</div>
               <div className="statistics">
                 <div className="stat-card">
