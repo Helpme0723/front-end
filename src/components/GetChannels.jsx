@@ -1,22 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { getUserChannels } from '../apis/channel';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import '../styles/components/GetChannels.css';
 
 // 유저의 채널 목록 조회
 const GetChannelsComponent = () => {
   const [channels, setChannels] = useState([]);
   const location = useLocation();
+  const navigate = useNavigate();
 
   // query 값 가져옴
-  const getQueryParams = () => {
+  const getQueryParams = useCallback(() => {
     const params = new URLSearchParams(location.search);
     return {
       userId: params.get('userId') || false,
       page: params.get('page') || 1,
       limit: params.get('limit') || 10,
     };
-  };
+  }, [location.search]);
 
   useEffect(() => {
     const fetchChannels = async () => {
@@ -31,7 +32,12 @@ const GetChannelsComponent = () => {
       }
     };
     fetchChannels();
-  }, [location.search]); // location.search를 의존성으로 추가
+  }, [location.search, getQueryParams]); // location.search와 getQueryParams를 의존성으로 추가
+
+  const handleInsightClick = (channelId) =>{
+    const { userId } = getQueryParams();
+    navigate(`/channel/${channelId}/insights?userId=${userId}`);
+  }
 
   return (
     <div className="container">
@@ -54,7 +60,11 @@ const GetChannelsComponent = () => {
               </div>
               <div className="channel-description">{channel.description}</div>
             </div>
-            <button className="subscribe-button">+ 구독</button>
+            <button 
+              className="insight-button"
+              onClick={() => handleInsightClick(channel.id)}
+            >
+              통계</button>
           </div>
         ))
       ) : (
@@ -63,4 +73,5 @@ const GetChannelsComponent = () => {
     </div>
   );
 };
+
 export default GetChannelsComponent;
