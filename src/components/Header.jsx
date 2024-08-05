@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
 import { getUserInfo } from '../apis/user';
@@ -7,21 +7,27 @@ import '../styles/components/Header.css';
 function Header() {
   const { isAuthenticated, logout } = useContext(AuthContext);
   const [user, setUser] = useState(null);
+  const [error, setError] = useState(null);
+
+  const fetchUserInfo = useCallback(async () => {
+    try {
+      const userInfo = await getUserInfo();
+      setUser(userInfo.data);
+    } catch (error) {
+      console.error('Error fetching user info:', error);
+      setError(error.message);
+      if (error.response && error.response.status === 401) {
+        // 토큰 만료 등으로 인해 401 오류가 발생한 경우 로그아웃 처리
+        logout();
+      }
+    }
+  }, [logout]);
 
   useEffect(() => {
-    const fetchUserInfo = async () => {
-      try {
-        const userInfo = await getUserInfo();
-        setUser(userInfo.data);
-      } catch (error) {
-        console.error('Error fetching user info:', error);
-      }
-    };
-
     if (isAuthenticated) {
       fetchUserInfo();
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, fetchUserInfo]);
 
   return (
     <header className="header">
@@ -70,6 +76,7 @@ function Header() {
           </Link>
         )}
       </div>
+      {error && <div className="error-message">{error}</div>}
     </header>
   );
 }
