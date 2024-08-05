@@ -7,6 +7,7 @@
   background-color: #f9f9f9;
   border: 1px solid #ccc;
   border-radius: 8px;
+  position: relative;
 }
 
 .content-blur {
@@ -75,8 +76,7 @@
   text-align: right; /* 오른쪽 정렬 */
 }
 
-.like-section,
-.comment-like-section {
+.like-section{
   display: flex;
   align-items: center;
   justify-content: center;
@@ -142,4 +142,21 @@
 .pagination span {
   font-size: 16px;
   color: #333;
+}
+
+.delete-button {
+  position: absolute; /* 절대 위치 */
+  top: 20px; /* 상단에서 20px의 위치 */
+  right: 20px; /* 우측에서 20px의 위치 */
+  padding: 8px 16px;
+  background-color: #dc3545; /* 삭제 버튼은 주로 빨간색으로 표시 */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.delete-button:hover {
+  background-color: #c82333; /* 호버 시 색상 변경 */
 }

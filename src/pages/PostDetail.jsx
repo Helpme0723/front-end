@@ -1,9 +1,10 @@
 import React, { useEffect, useState,useContext } from 'react';
 import { useParams,useNavigate } from 'react-router-dom';
-import { fetchPostDetails, createPostLike, deletePostLike,likeComment,unlikeComment, fetchComments } from '../apis/post';
+import { fetchPostDetails, createPostLike, deletePostLike,likeComment,unlikeComment, fetchComments, deletePost } from '../apis/post';
 import '../styles/pages/PostDetail.css';
 import AuthContext from '../context/AuthContext';
 import { fetchPurchasedPosts } from '../apis/libray';
+import Pagination from '../components/Testpagenation';
 
 function PostDetailsPage() {
   const { postId } = useParams();
@@ -16,6 +17,7 @@ function PostDetailsPage() {
   const [commentsPage, setCommentsPage] = useState(1);
   const [totalCommentPages, setTotalCommentPages] = useState(0);
   const [purchasedPosts, setPurchasedPosts] = useState([]); // 구매한 포스트 상태 추가
+  
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -81,6 +83,25 @@ function PostDetailsPage() {
 
   const isPostPurchased = purchasedPosts.includes(postId.toString()); // 현재 포스트 구매 여부 확인
 
+  const handleDelete = async () => {
+    if (!window.confirm('정말로 이 포스트를 삭제하시겠습니까?')) return;
+    try {
+      await deletePost(postId);
+      alert('포스트가 삭제되었습니다. 메인페이지에 반영은 시간이 걸릴 수 있습니다.');
+      navigate('/'); // 홈 페이지로 리다이렉트
+    } catch (error) {
+      // 오류 응답에 따른 조건부 경고 메시지 처리
+      if (error.status === 404) {
+        alert('해당포스트를 찾을 수 없거나, 삭제권한이 없습니다.');
+      } else if (error.status === 403) {
+        alert('삭제 권한이 없습니다.');
+      } else {
+        alert(error.message); // 다른 오류 메시지 출력
+      }
+      console.error('Failed to delete post:', error);
+    }
+  };
+  
   const handleLike = async () => {
     try {
       await createPostLike(postId);
@@ -192,15 +213,15 @@ function PostDetailsPage() {
   const handlePrevCommentsPage = () => {
     setCommentsPage(prevPage => Math.max(prevPage - 1, 1));
   };
-
+  
   const handleNextCommentsPage = () => {
     setCommentsPage(prevPage =>
       prevPage < totalCommentPages ? prevPage + 1 : prevPage,
     );
   };
 
-  if (loading) return <div>Loading...</div>;
-  if (!post) return <div>Post not found.</div>;
+  if (loading) return <div>로딩중....</div>;
+  if (!post) return <div>해당 포스트를 찾을 수 없습니다(삭제된 포스트거나, 비공개 처리된 포스트입니다)</div>;
 
   return (
     <div className="post-details-container">
@@ -234,7 +255,7 @@ function PostDetailsPage() {
       <div className="comments-container">
         <h2>댓글</h2>
         {commentsLoading ? (
-          <div>Loading comments...</div>
+          <div>댓글 로딩중....</div>
         ) : comments.length > 0 ? (
           <>
             {comments.map(comment => (
@@ -262,28 +283,18 @@ function PostDetailsPage() {
                 </div>
               </div>
             ))}
-            <div className="pagination">
-              <button
-                onClick={handlePrevCommentsPage}
-                disabled={commentsPage === 1}
-              >
-                이전
-              </button>
-              <span>
-                페이지 {commentsPage} / {totalCommentPages}
-              </span>
-              <button
-                onClick={handleNextCommentsPage}
-                disabled={commentsPage === totalCommentPages}
-              >
-                다음
-              </button>
-            </div>
+             <Pagination
+              currentPage={commentsPage}
+              totalPages={totalCommentPages}
+              onPrevPage={handlePrevCommentsPage}
+              onNextPage={handleNextCommentsPage}
+            />
           </>
         ) : (
           <p>댓글이 없습니다.</p>
         )}
       </div>
+      <button onClick={handleDelete} className="delete-button">삭제</button>
     </div>
   );
 }

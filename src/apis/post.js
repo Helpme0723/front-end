@@ -76,3 +76,15 @@ export const categoryPostView = async (categoryId = 1, page = 1, limit = 5) => {
 		throw error;
 	}
 };
+
+export const deletePost = async (postId) => {
+	try {
+	  const response = await axios.delete(`/api/posts/${postId}`);
+	  return response.data;
+	} catch (error) {
+	  console.error('Error deleting post:', error);
+	  const err = new Error(error.response?.data?.message || "포스트 삭제 중 오류가 발생했습니다.");
+	  err.status = error.response?.status;
+	  throw err;
+	}
+  };	
