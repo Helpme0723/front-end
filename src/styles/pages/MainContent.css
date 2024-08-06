@@ -1,66 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #eef2f5;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .main-content {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 한 줄에 2개의 칼럼 생성 */
-  gap: 20px; /* 칼럼 사이의 간격 */
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(300px, 1fr)
+  ); /* 반응형 그리드 */
+  gap: 20px;
   padding: 20px;
-  max-width: 800px; 
-  margin: 0 auto; 
-  background-color: #f9f9f9; /* 배경색 설정 */
+  max-width: 1000px;
+  margin: 0 auto;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
 }
 
-/* CSS to specifically target the h2 (포스트) to center it */
-.main-content > h2 {
-  grid-column: 1 / -1; 
-  text-align: center; 
+.header {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px; /* 제목과 버튼 사이의 간격 추가 */
+  color: #333;
+  font-size: 2em;
+  margin-bottom: 20px;
+  font-weight: 700;
+  white-space: nowrap; /* 줄바꿈 방지 */
 }
 
-.post-card {
+.button-group {
+  display: flex;
+  gap: 5px; /* 버튼 사이의 간격 */
+}
+
+.button-group button {
+  padding: 5px 10px;
+  margin: 0;
+  background-color: #007bff;
+  border: none;
+  color: white;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button-group button:hover {
+  background-color: #0056b3;
+}
+
+.post-card,
+.series-card {
   background: white;
-  border: 1px solid #ccc;
+  border: none;
   border-radius: 8px;
-  padding: 15px;
+  padding: 20px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+  color: inherit;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.post-card:hover,
+.series-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.post-info,
+.series-info {
   display: flex;
   flex-direction: column;
-  text-decoration: none; /* 밑줄 제거 */
-  color: inherit; /* 링크 색상을 상위 요소에서 상속 */
-  transition:
-    background-color 0.3s ease,
-    transform 0.3s ease; /* 호버 효과를 위한 전환 추가 */
 }
 
-.post-card:hover{
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.post-info {
-  flex: 1; 
+.post-title,
+.series-title {
+  font-size: 1.5em;
+  font-weight: 500;
+  color: #007bff;
   margin-bottom: 10px;
 }
 
-.post-title {
-  font-size: 18px;
-  font-weight: bold;
-  color: #333;
-}
-
-.post-description {
-  font-size: 14px;
-  color: #666;
+.post-description,
+.series-description {
+  font-size: 1em;
+  color: #555;
+  margin-bottom: 10px;
 }
 
 .post-author,
-.post-date {
-  font-size: 12px;
+.post-date,
+.post-price {
+  font-size: 0.9em;
   color: #999;
   text-align: right;
-  margin-top: auto; 
+  margin-top: auto;
 }
 
 .pagination {
   display: flex;
-  margin-right: -400px;
   justify-content: center;
   align-items: center;
   margin-top: 20px;

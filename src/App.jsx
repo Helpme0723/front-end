@@ -25,6 +25,7 @@ import DailyInsights from './pages/DailyInsights';
 import MonthlyInsights from './pages/MonthlyInsights';
 import PurchasePost from './pages/PurchasePost';
 import PostPage from './pages/PostPage';
+import MySeriesPage from './pages/MySeries.jsx';
 import UpdateChannel from './pages/UpdateChannel';
 
 function App() {
@@ -82,6 +83,8 @@ function App() {
                 element={<MonthlyInsights />}
               />
               <Route path="purchasesPost" element={<PurchasePost />} />
+
+              <Route path="series/my" element={<MySeriesPage />} />
               <Route
                 path="/channel/:channelId/update"
                 element={<UpdateChannel />}

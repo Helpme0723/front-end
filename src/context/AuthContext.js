@@ -37,7 +37,7 @@ export const AuthProvider = ({ children }) => {
     // 사용자 정보 갱신
     try {
       const response = await axiosInstance.get('/api/users/me');
-      setUserId(response.data.id);
+      setUserId(response.data.data.id);
     } catch (error) {
       console.error('Error fetching user info:', error);
       logout(); // 오류가 발생하면 로그아웃 처리
