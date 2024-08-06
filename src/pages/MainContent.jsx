@@ -1,32 +1,47 @@
 import React, { useEffect, useState } from 'react';
 import { fetchAllPosts } from '../apis/main';
+import { findAllSeries } from '../apis/series';
 import '../styles/pages/MainContent.css';
 import { Link } from 'react-router-dom';
 import Pagination from '../components/Testpagenation';
 
 function MainContent() {
   const [posts, setPosts] = useState([]);
+  const [series, setSeries] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
-  
+  const [view, setView] = useState('posts');
 
   useEffect(() => {
-    const fetchPosts = async () => {
+    const fetchData = async () => {
       setLoading(true);
       try {
-        const response = await fetchAllPosts(undefined, currentPage);
-        console.log("API Response:", response); // API 응답 로깅
-        setPosts(response.data.posts);
-        setTotalPages(response.data.meta.totalPages); // 응답에서 제공된 총 페이지 수 사용
+        if (view === 'posts') {
+          const response = await fetchAllPosts(undefined, currentPage);
+          console.log('API Response:', response);
+          setPosts(response.data.posts);
+          setTotalPages(response.data.meta.totalPages);
+        } else if (view === 'series') {
+          const response = await findAllSeries(
+            undefined,
+            currentPage,
+            9,
+            'asc',
+          );
+          console.log('Series API Response:', response);
+          setSeries(response.data.series || []);
+          setTotalPages(response.data.meta.totalPages);
+        }
       } catch (error) {
-        console.error('Error fetching posts:', error);
+        console.error('Error fetching data:', error);
       } finally {
         setLoading(false);
       }
     };
-    fetchPosts();
-  }, [currentPage]);
+
+    fetchData();
+  }, [currentPage, view]);
 
   const handlePrevPage = () => {
     setCurrentPage(prev => Math.max(1, prev - 1));
@@ -36,35 +51,58 @@ function MainContent() {
     setCurrentPage(prev => (prev < totalPages ? prev + 1 : prev));
   };
 
-  const formatDate = (dateString) => {
+  const formatDate = dateString => {
     const date = new Date(dateString);
     return date.toLocaleDateString('ko-KR');
   };
-  
 
-  if (loading) return <div>포스트 읽어오는중.....</div>;
+  if (loading) return <div>데이터를 불러오는 중...</div>;
 
   return (
     <main className="main-content">
-      <h2>포스트</h2>
-      {posts.length > 0 ? (
+      <div className="mainheader">
+        <span>{view === 'posts' ? '포스트' : '시리즈'}</span>
+        <div className="button-group">
+          <button onClick={() => setView('posts')}>포스트 보기</button>
+          <button onClick={() => setView('series')}>시리즈 보기</button>
+        </div>
+      </div>
+      {view === 'posts' && posts.length > 0 ? (
         posts.map(post => (
           <Link to={`/post/${post.id}`} key={post.id} className="post-card">
             <div className="post-info">
               <div className="post-title">{post.title || '제목 없음'}</div>
-              <div className="post-description">{post.preview.substring(0, 20)}</div>
+              <div className="post-description">
+                {post.preview.substring(0, 20)}
+              </div>
               <div className="post-author">
-              <img src={post.userImage} alt={`Profile of ${post.nickname}`} className="profile-image" />
-                작성자: {post.userName}</div>
-              <div className="post-date">생성일: {formatDate(post.createdAt)}</div>
-              <div className="post-price">가격:{post.price}원</div>
+                <img
+                  src={post.userImage}
+                  alt={`Profile of ${post.nickname}`}
+                  className="profile-image"
+                />
+                작성자: {post.userName}
+              </div>
+              <div className="post-date">
+                생성일: {formatDate(post.createdAt)}
+              </div>
+              <div className="post-price">가격: {post.price} 포인트</div>
             </div>
           </Link>
         ))
+      ) : view === 'series' && series.length > 0 ? (
+        series.map(serie => (
+          <div key={serie.id} className="series-card">
+            <div className="series-info">
+              <div className="series-title">{serie.title}</div>
+              <div className="series-description">{serie.description}</div>
+            </div>
+          </div>
+        ))
       ) : (
-        <p>포스트가 없습니다.</p>
+        <p>{view === 'posts' ? '포스트가 없습니다.' : '시리즈가 없습니다.'}</p>
       )}
-        <Pagination
+      <Pagination
         currentPage={currentPage}
         totalPages={totalPages}
         onPrevPage={handlePrevPage}

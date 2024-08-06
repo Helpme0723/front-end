@@ -58,6 +58,7 @@
 /* 개별 댓글 스타일링 */
 .comment {
   padding: 10px;
+  margin-top: 10px;
   margin-bottom: 10px;
   background-color: white; /* 백그라운드 색상 */
   border: 1px solid #ccc; /* 경계선 */

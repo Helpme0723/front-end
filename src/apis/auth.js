@@ -105,19 +105,19 @@ export const refreshAccessToken = async () => {
 				'Authorization': `Bearer ${refreshToken}`
 			}
 		});
-		const { accessToken, refreshToken: newRefreshToken } = response.data.data;
+		const { accessToken, refreshToken: refreshedToken } = response.data.data;
 		localStorage.setItem('accessToken', accessToken);
-		localStorage.setItem('refreshToken', newRefreshToken);
-		return accessToken;
+		localStorage.setItem('refreshToken', refreshedToken);
+		return { accessToken, refreshToken: refreshedToken };
 	} catch (error) {
 		throw new Error('Token refresh failed');
 	}
 };
 
 export const logoutUser = () => {
-	localStorage.removeItem('accessToken');
-	localStorage.removeItem('refreshToken');
-	window.location.href = '/login';
+  localStorage.removeItem('accessToken');
+  localStorage.removeItem('refreshToken');
+  window.location.href = '/login';
 };
 
 

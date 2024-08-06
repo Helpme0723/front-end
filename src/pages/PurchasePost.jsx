@@ -42,8 +42,6 @@ function PurchasePost({ isOpen, onRequestClose, post }) {
     }
   }, [isAuthenticated, navigate]);
 
-  useEffect(() => {});
-
   return (
     <ReactModal
       isOpen={isOpen} // 모달 창 열기/닫기 상태
@@ -51,11 +49,11 @@ function PurchasePost({ isOpen, onRequestClose, post }) {
       style={customStyles} // 모달 창 스타일
       contentLabel="Purchase Post Modal" // 모달 창 접근성 라벨
     >
-      <h2>Purchase Post</h2>
+      <h2>포스트 구매</h2>
       <form className="purchase-form" onSubmit={handleSubmit}>
         <div>
-          <label>Post Title: {post.title}</label>
-          <label>Post Price: {post.price}</label>
+          <label>제목: {post.title}</label>
+          <label>가격: {post.price} 포인트</label>
         </div>
         <div className="button-container">
           <button type="submit">구매</button>
