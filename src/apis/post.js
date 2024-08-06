@@ -1,20 +1,21 @@
 import axiosInstance from './axiosInstance';
 
 export const createPost = async (createPostDto) => {
-  try {
-    const response = await axiosInstance.post('/api/posts', createPostDto);
-    console.log(response.data);
-    return response.data;
-  } catch (error) {
-    console.error('Error creating post:', error);
-    throw error;
-  }
+
+	try {
+		const response = await axiosInstance.post('/api/posts', createPostDto);
+
+		return response.data;
+	} catch (error) {
+		console.error('Error creating post:', error);
+		throw error;
+	}
 };
 
 export const fetchPostDetails = async (postId) => {
 	try {
 		const response = await axiosInstance.get(`/api/posts/${postId}`);
-		console.log(response.data);
+
 		return response.data;
 	} catch (error) {
 		console.error('Error fetching post details:', error);
@@ -87,3 +88,17 @@ export const categoryPostView = async (categoryId = 1, page = 1, limit = 5) => {
 		throw error;
 	}
 };
+
+export const getSeries = async (channelId, page = 1, limit = 9, sort = 'desc') => {
+	try {
+		const response = await axiosInstance.get('api/series/my', {
+			params: { channelId, page, limit, sort }
+		});
+
+		return response.data;
+
+	} catch (error) {
+		console.error('Error fetching series:', error);
+		throw error;
+	}
+}

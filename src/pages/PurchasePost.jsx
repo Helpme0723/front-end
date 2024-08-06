@@ -42,8 +42,6 @@ function PurchasePost({ isOpen, onRequestClose, post }) {
     }
   }, [isAuthenticated, navigate]);
 
-  useEffect(() => {});
-
   return (
     <ReactModal
       isOpen={isOpen} // 모달 창 열기/닫기 상태
