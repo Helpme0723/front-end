@@ -88,3 +88,39 @@ export const deletePost = async (postId) => {
 	  throw err;
 	}
   };	
+
+  export const createComment = async (postId, content) => {
+	try {
+	  const response = await axios.post('/api/comments', {
+		postId,
+		content,
+	  });
+	  return response.data;
+	} catch (error) {
+	  console.error('Failed to create comment:', error);
+	  throw error;
+	}
+  };
+
+  export const updateComment = async (commentId, content) => {
+	try {
+	  const response = await axios.patch(`/api/comments/${commentId}`, {
+		content,
+	  });
+	  return response.data;
+	} catch (error) {
+	  console.error('Failed to update comment:', error);
+	  throw error;
+	}
+  };
+  
+  // 댓글 삭제
+  export const deleteComment = async (commentId) => {
+	try {
+	  const response = await axios.delete(`/api/comments/${commentId}`);
+	  return response.data;
+	} catch (error) {
+	  console.error('Failed to delete comment:', error);
+	  throw error;
+	}
+  };
