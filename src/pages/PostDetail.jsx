@@ -23,7 +23,7 @@ function PostDetailsPage() {
   const navigate = useNavigate(); // useNavigate 훅 사용
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
-  const { isAuthenticated } = useContext(AuthContext);
+  const { isAuthenticated, userId } = useContext(AuthContext);
   const [commentsLoading, setCommentsLoading] = useState(true);
   const [comments, setComments] = useState([]);
   const [commentsPage, setCommentsPage] = useState(1);
@@ -131,7 +131,7 @@ function PostDetailsPage() {
     loadPurchasedPosts(); // 구매한 포스트 로드
   }, [postId, isAuthenticated, navigate, commentsPage]);
 
-  const isPostPurchased = purchasedPosts.includes(postId.toString()); // 현재 포스트 구매 여부 확인
+  // const isPostPurchased = purchasedPosts.includes(postId.toString()); // 현재 포스트 구매 여부 확인
 
   //댓글생성
   const handleCreateComment = async () => {
@@ -438,26 +438,30 @@ function PostDetailsPage() {
                   <span>좋아요 수: {comment.likeCount}</span>
                 </div>
                 <div className="comment-action-section">
-                  <button
-                    onClick={() => {
-                      const newContent = prompt(
-                        '수정할 내용을 입력하세요:',
-                        comment.content,
-                      );
-                      if (newContent !== null) {
-                        handleUpdateComment(comment.id, newContent);
-                      }
-                    }}
-                    className="edit-button"
-                  >
-                    수정
-                  </button>
-                  <button
-                    onClick={() => handleDeleteComment(comment.id)}
-                    className="comment-delete-button"
-                  >
-                    삭제
-                  </button>
+                  {comment.userId === userId && ( // userId를 비교하여 조건부 렌더링
+                    <>
+                      <button
+                        onClick={() => {
+                          const newContent = prompt(
+                            '수정할 내용을 입력하세요:',
+                            comment.content,
+                          );
+                          if (newContent !== null) {
+                            handleUpdateComment(comment.id, newContent);
+                          }
+                        }}
+                        className="edit-button"
+                      >
+                        수정
+                      </button>
+                      <button
+                        onClick={() => handleDeleteComment(comment.id)}
+                        className="comment-delete-button"
+                      >
+                        삭제
+                      </button>
+                    </>
+                  )}
                 </div>
               </div>
             ))}
@@ -472,9 +476,11 @@ function PostDetailsPage() {
           <p>댓글이 없습니다.</p>
         )}
       </div>
-      <button onClick={handleDelete} className="post-delete-button">
-        삭제
-      </button>
+      {post.userId === userId && (
+        <button onClick={handleDelete} className="post-delete-button">
+          삭제
+        </button>
+      )}
     </div>
   );
 }

@@ -57,7 +57,7 @@ function MainContent() {
               <img src={post.userImage} alt={`Profile of ${post.nickname}`} className="profile-image" />
                 작성자: {post.userName}</div>
               <div className="post-date">생성일: {formatDate(post.createdAt)}</div>
-              <div className="post-price">가격:{post.price}원</div>
+              <div className="post-price">가격:{post.price} 포인트</div>
             </div>
           </Link>
         ))
