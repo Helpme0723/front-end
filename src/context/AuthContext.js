@@ -5,7 +5,7 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(
-    !!localStorage.getItem('accessToken')
+    !!localStorage.getItem('accessToken'),
   );
   const [userId, setUserId] = useState(null);
 
@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
     const fetchUserId = async () => {
       try {
         const response = await axiosInstance.get('/api/users/me');
-        setUserId(response.data.id);
+        setUserId(response.data.data.id);
       } catch (error) {
         console.error('Error fetching user info:', error);
         logout(); // 오류가 발생하면 로그아웃 처리
