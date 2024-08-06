@@ -61,7 +61,7 @@ function Profile() {
           <Link to={`/channels?userId=${userInfo.id}`}>채널</Link>
         </div>
         <div className="select-item">
-          <Link to={`/series?userId=${userInfo.id}`}>시리즈</Link>
+          <Link to={`/series/my`}>시리즈</Link>
         </div>
         <div className="select-item">
           <Link to={`/posts?userId=${userInfo.id}`}>포스트</Link>

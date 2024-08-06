@@ -28,7 +28,7 @@ function LibraryPage() {
         const response = await fetchLikedPosts(currentPage, 5, 'desc');
         console.log('Response Data:', response); // 디버깅을 위한 로그
         // response.data.items에 접근하여 아이템 배열 가져오기
-        const likedItems = response.data.items || [];
+        const likedItems = response.data.item || [];
         setLikedPosts(likedItems);
         setTotalPages(response.data.meta.totalPages);
       } catch (error) {
@@ -75,11 +75,6 @@ function LibraryPage() {
                   <p>{post.post.preview.substring(0, 20)}...</p>
                   <p>좋아요: {post.post.likeCount || 0}</p>
                 </div>
-                <img
-                  src="/path/to/sample-image.jpg"
-                  alt="Sample"
-                  className="post-image"
-                />
               </div>
             </Link>
           ))

@@ -20,10 +20,13 @@ import ChannelInsights from './components/ChannelInsight';
 import SearchResultsPage from './pages/SearchResultsPage'; // 검색 결과 페이지 추가
 import { SearchProvider } from './context/SearchContext';
 import CategoryPostView from './pages/CategoryPostView';
+import PointHistoryPage from './pages/PointHistory.jsx';
 import DailyInsights from './pages/DailyInsights';
 import MonthlyInsights from './pages/MonthlyInsights';
 import PurchasePost from './pages/PurchasePost';
 import PostPage from './pages/PostPage';
+import MySeriesPage from './pages/MySeries.jsx';
+import UpdateChannel from './pages/UpdateChannel';
 
 function App() {
   return (
@@ -68,6 +71,8 @@ function App() {
                 element={<ChannelInsights />}
               />
               <Route path="posts" element={<CategoryPostView />} />
+
+              <Route path="points" element={<PointHistoryPage />} />
               <Route path="post/create/:channelId" element={<PostPage />} />
               <Route
                 path="channel/:channelId/insights/daily"
@@ -78,6 +83,12 @@ function App() {
                 element={<MonthlyInsights />}
               />
               <Route path="purchasesPost" element={<PurchasePost />} />
+
+              <Route path="series/my" element={<MySeriesPage />} />
+              <Route
+                path="/channel/:channelId/update"
+                element={<UpdateChannel />}
+              />
             </Route>
           </Routes>
         </Router>
