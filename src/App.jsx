@@ -23,6 +23,7 @@ import CategoryPostView from './pages/CategoryPostView';
 import DailyInsights from './pages/DailyInsights';
 import MonthlyInsights from './pages/MonthlyInsights';
 import PurchasePost from './pages/PurchasePost';
+import PostPage from './pages/PostPage';
 
 function App() {
   return (
@@ -67,6 +68,7 @@ function App() {
                 element={<ChannelInsights />}
               />
               <Route path="posts" element={<CategoryPostView />} />
+              <Route path="post/create" element={<PostPage />} />
               <Route
                 path="channel/:channelId/insights/daily"
                 element={<DailyInsights />}
