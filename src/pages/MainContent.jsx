@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { fetchAllPosts } from '../apis/main';
 import { findAllSeries } from '../apis/series';
 import '../styles/pages/MainContent.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Pagination from '../components/Testpagenation';
 
 function MainContent() {
@@ -12,6 +12,7 @@ function MainContent() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [view, setView] = useState('posts');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -91,11 +92,15 @@ function MainContent() {
           </Link>
         ))
       ) : view === 'series' && series.length > 0 ? (
-        series.map(serie => (
-          <div key={serie.id} className="series-card">
+        series.map(series => (
+          <div
+            key={series.id}
+            className="series-card"
+            onClick={() => navigate(`/series/${series.id}`)}
+          >
             <div className="series-info">
-              <div className="series-title">{serie.title}</div>
-              <div className="series-description">{serie.description}</div>
+              <div className="series-title">{series.title}</div>
+              <div className="series-description">{series.description}</div>
             </div>
           </div>
         ))

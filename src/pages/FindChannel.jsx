@@ -52,7 +52,7 @@ function FindChannel() {
             <div className="channel-header">
               <img src={channel.imageUrl} alt={channel.title} />
               {isAuthenticated && currentUserId === userId ? (
-                <div className="button-container">
+                <div className="channel-button-container">
                   <button
                     className="update-button"
                     onClick={() => navigate(`/channel/${id}/update`)}

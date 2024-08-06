@@ -111,7 +111,7 @@ p {
 }
 
 /* 버튼 스타일 */
-.button-container {
+.channel-button-container {
   position: absolute;
   top: 20px;
   right: 20px;
