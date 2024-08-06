@@ -1,5 +1,5 @@
-import React, { forwardRef, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { forwardRef, useContext, useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getDailyInsights } from '../apis/channel';
 import '../styles/pages/Insights.css';
 import DatePicker from 'react-datepicker';
@@ -8,6 +8,7 @@ import { ko } from 'date-fns/locale';
 import { FaCalendarAlt } from 'react-icons/fa';
 import 'react-datepicker/dist/react-datepicker.css';
 import Pagination from '../components/Testpagenation';
+import AuthContext from '../context/AuthContext';
 
 const CustomDateInput = forwardRef(({ value, onClick }, ref) => (
   <button className="custom-date-input" onClick={onClick} ref={ref}>
@@ -23,6 +24,17 @@ function DailyInsights() {
   const [selectedDate, setSelectedDate] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
+  const { isAuthenticated } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState('');
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      alert('로그인 후 이용해 주세요.');
+      navigate('/');
+      return;
+    }
+  }, [isAuthenticated, navigate]);
 
   useEffect(() => {
     const fetchDailyInsights = async () => {
@@ -41,6 +53,7 @@ function DailyInsights() {
         setTotalPages(response.data.meta.totalPages);
       } catch (error) {
         console.log('Error fetching channel daily insights:', error.message);
+        setErrorMessage(error.response.data.message);
       }
     };
     fetchDailyInsights();
@@ -116,7 +129,9 @@ function DailyInsights() {
             </div>
           ))
         ) : (
-          <div>통계가 집계되지 않았습니다.</div>
+          <div>
+            {errorMessage ? `${errorMessage}` : ' 통계가 집계되지 않았습니다.'}
+          </div>
         )}
         <Pagination
           currentPage={currentPage}
