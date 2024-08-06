@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { fetchLikedPosts } from '../apis/libray';
+import { fetchLikedPosts } from '../apis/library';
 import AuthContext from '../context/AuthContext';
 import '../styles/pages/mainlibrary.css';
 import { Link } from 'react-router-dom';
