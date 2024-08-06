@@ -1,9 +1,17 @@
-import React, { useEffect, useState,useContext } from 'react';
-import { useParams,useNavigate } from 'react-router-dom';
-import { fetchPostDetails, createPostLike, deletePostLike,likeComment,unlikeComment, fetchComments } from '../apis/post';
+import React, { useEffect, useState, useContext } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import {
+  fetchPostDetails,
+  createPostLike,
+  deletePostLike,
+  likeComment,
+  unlikeComment,
+  fetchComments,
+} from '../apis/post';
 import '../styles/pages/PostDetail.css';
 import AuthContext from '../context/AuthContext';
-import { fetchPurchasedPosts } from '../apis/libray';
+import { fetchPurchasedPosts } from '../apis/library';
+import PurchasePost from './PurchasePost';
 
 function PostDetailsPage() {
   const { postId } = useParams();
@@ -16,6 +24,20 @@ function PostDetailsPage() {
   const [commentsPage, setCommentsPage] = useState(1);
   const [totalCommentPages, setTotalCommentPages] = useState(0);
   const [purchasedPosts, setPurchasedPosts] = useState([]); // 구매한 포스트 상태 추가
+
+  const [modalIsOpen, setModalIsOpen] = useState(false); // 모달 창 열기/닫기 상태
+  const [selectedPostId, setSelectedPostId] = useState(null); // 선택된 포스트 ID 상태
+  // 모달 창 열기 함수
+  const openModal = () => {
+    setSelectedPostId(postId);
+    setModalIsOpen(true);
+  };
+
+  // 모달 창 닫기 함수
+  const closeModal = () => {
+    setModalIsOpen(false);
+    setSelectedPostId(null);
+  };
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -48,8 +70,8 @@ function PostDetailsPage() {
       try {
         const response = await fetchComments(postId, commentsPage);
         if (response && response.data) {
-          setComments(response.data.items); 
-          setTotalCommentPages(response.data.meta.totalPages); 
+          setComments(response.data.items);
+          setTotalCommentPages(response.data.meta.totalPages);
         }
       } catch (error) {
         console.error('Failed to fetch comments:', error);
@@ -61,9 +83,15 @@ function PostDetailsPage() {
     const loadPurchasedPosts = async () => {
       try {
         const purchasedResponse = await fetchPurchasedPosts();
-        if (purchasedResponse && purchasedResponse.data && purchasedResponse.data.items) {
+        if (
+          purchasedResponse &&
+          purchasedResponse.data &&
+          purchasedResponse.data.items
+        ) {
           // 구매한 포스트의 ID들을 추출하여 저장
-          const purchasedIds = purchasedResponse.data.items.map(item => item.post.id.toString());
+          const purchasedIds = purchasedResponse.data.items.map(item =>
+            item.post.id.toString(),
+          );
           setPurchasedPosts(purchasedIds);
         } else {
           console.log('No purchased posts returned:', purchasedResponse);
@@ -215,10 +243,13 @@ function PostDetailsPage() {
       ) : (
         post.price > 0 && (
           <div className="purchase-callout">
-            이 이후의 내용은 포스트를 구매해야 보실 수 있습니다.
-            <button onClick={() => console.log('구매 페이지로 이동')}>
-              구매하기
-            </button>
+            <button onClick={openModal}>구매</button> {/* 모달 창 열기 버튼 */}
+            <PurchasePost
+              isOpen={modalIsOpen}
+              onRequestClose={closeModal}
+              post={post}
+            />{' '}
+            {/* 모달 창 컴포넌트 */}
           </div>
         )
       )}
