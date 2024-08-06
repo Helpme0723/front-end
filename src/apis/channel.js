@@ -97,3 +97,12 @@ export const getMonthlyInsights = async (channelId, date, sort, page) => {
     throw error;
   }
 };
+
+export const deleteChannel = async channelId => {
+  try {
+    await axiosInstance.delete(`/api/channels/${channelId}`);
+  } catch (error) {
+    console.error('Error delete channel:', error);
+    throw error;
+  }
+};

@@ -1,5 +1,5 @@
 /* 전체 컨테이너 스타일 */
-.container {
+.find-channel-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -8,6 +8,32 @@
   max-width: 1200px;
   margin: 0 auto;
   background-color: #f9f9f9;
+  position: relative; /* 상대 위치 지정 */
+}
+
+/* 삭제 버튼 스타일 */
+.delete-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #dc3545;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.delete-button:hover {
+  background-color: #c82333;
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* 채널 정보 섹션 스타일 */
