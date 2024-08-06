@@ -60,7 +60,7 @@ function MainContent() {
 
   return (
     <main className="main-content">
-      <div className="header">
+      <div className="mainheader">
         <span>{view === 'posts' ? '포스트' : '시리즈'}</span>
         <div className="button-group">
           <button onClick={() => setView('posts')}>포스트 보기</button>
