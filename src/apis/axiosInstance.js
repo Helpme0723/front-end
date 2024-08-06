@@ -28,9 +28,11 @@ axiosInstance.interceptors.response.use(
     if (error.response && error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
       try {
-        const newAccessToken = await refreshAccessToken();
-        axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${newAccessToken}`;
-        originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
+        const { accessToken, refreshToken } = await refreshAccessToken();
+        localStorage.setItem('accessToken', accessToken); // 새로운 엑세스 토큰 저장
+        localStorage.setItem('refreshToken', refreshToken); // 새로운 리프레시 토큰 저장
+        axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+        originalRequest.headers['Authorization'] = `Bearer ${accessToken}`;
         return axiosInstance(originalRequest);
       } catch (refreshError) {
         logoutUser();
