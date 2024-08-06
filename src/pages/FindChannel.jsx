@@ -89,7 +89,12 @@ function FindChannel() {
           </div>
           <hr />
           <div className="posts-section">
-            <label className="label">포스트</label>
+            <div className="postslist-header">
+              <label className="label">포스트</label>
+              <Link to={`/post/create/${id}`}>
+                <div>포스트 생성</div>
+              </Link>
+            </div>
             <div className="posts-list">
               {channel.posts.map(post => (
                 <div className="post-item" key={post.id}>

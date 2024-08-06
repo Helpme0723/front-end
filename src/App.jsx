@@ -73,7 +73,7 @@ function App() {
               <Route path="posts" element={<CategoryPostView />} />
 
               <Route path="points" element={<PointHistoryPage />} />
-              <Route path="post/create" element={<PostPage />} />
+              <Route path="post/create/:channelId" element={<PostPage />} />
               <Route
                 path="channel/:channelId/insights/daily"
                 element={<DailyInsights />}
