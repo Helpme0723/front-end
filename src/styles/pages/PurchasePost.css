@@ -1,0 +1,105 @@
+/* 모달 오버레이 스타일 */
+.ReactModal__Overlay {
+  background-color: rgba(0, 0, 0, 0.5); /* 반투명 배경 */
+  display: flex; /* 화면 가운데 정렬을 위한 flexbox 사용 */
+  align-items: center;
+  justify-content: center;
+}
+
+/* 모달 컨텐츠 스타일 */
+.ReactModal__Content {
+  position: relative;
+  width: 90%; /* 모달 폭을 화면 폭의 90%로 설정 */
+  max-width: 600px; /* 최대 폭을 600px로 설정 */
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin: auto; /* 화면 중앙 정렬 */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 콘텐츠 중앙 정렬 */
+  justify-content: center; /* 콘텐츠 중앙 정렬 */
+  max-height: 60vh; /* 최대 높이를 화면의 60%로 설정 */
+  overflow-y: auto; /* 콘텐츠가 넘칠 경우 스크롤 추가 */
+}
+
+/* 모달 제목 스타일 */
+.ReactModal__Content h2 {
+  margin-top: 0;
+  color: #333;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center; /* 제목 중앙 정렬 */
+  margin-bottom: 20px; /* 제목과 폼 사이의 간격 */
+}
+
+/* 폼 스타일 */
+.purchase-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 폼 내용 중앙 정렬 */
+  margin-bottom: 20px; /* 폼과 응답 메시지 사이의 간격 */
+}
+
+/* 폼 내 요소들 스타일 */
+.purchase-form div {
+  margin-bottom: 20px; /* 제목과 가격 사이의 간격 */
+  text-align: center; /* 폼 내용 중앙 정렬 */
+}
+
+.purchase-form label {
+  display: block;
+  margin-bottom: 10px; /* 제목과 가격 사이의 간격 */
+  color: #555;
+}
+
+/* 버튼을 가로 방향으로 배치 */
+.button-container {
+  display: flex;
+  justify-content: center !important; /* 중앙 정렬 강제 적용 */
+  align-items: center !important; /* 수직 방향에서도 중앙 정렬 강제 적용 */
+  width: 100%; /* 컨테이너 너비를 100%로 설정 */
+  transform: translateX(20px); /* 오른쪽으로 20px 이동 */
+  margin-top: 300px !important; /* 버튼을 아래로 밀어내기 */
+  gap: 10px;
+}
+
+/* 버튼 스타일 */
+.purchase-form button,
+.close-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* 구매 버튼 스타일 */
+.purchase-form button {
+  background-color: #007bff; /* 파란색 배경색 */
+  color: #fff;
+}
+
+.purchase-form button:hover {
+  background-color: #0056b3; /* 어두운 파란색 */
+}
+
+/* 닫기 버튼 스타일 */
+.purchase-form .close-button {
+  background-color: #6c757d; /* 회색 배경색 */
+  color: #fff;
+}
+
+.purchase-form .close-button:hover {
+  background-color: #5a6268; /* 어두운 회색 */
+}
+
+/* 응답 메시지 스타일 */
+.response-message {
+  margin-top: 15px;
+  color: #d9534f;
+  font-size: 14px;
+  text-align: center; /* 응답 메시지 중앙 정렬 */
+}

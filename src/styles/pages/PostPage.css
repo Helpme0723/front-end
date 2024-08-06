@@ -1,0 +1,76 @@
+.post-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.post-page-title {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.post-title-input,
+.post-preview-textarea,
+.post-content-textarea {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.post-inline-inputs {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.post-visibility-select,
+.post-category-select,
+.post-price-input,
+.post-series-select {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  height: 40px; /* 동일한 높이를 맞추기 위해 설정 */
+}
+
+.post-preview-textarea {
+  height: 150px;
+}
+
+.post-content-textarea {
+  height: 300px;
+}
+
+.save-button {
+  display: block;
+  width: 100px;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.save-button:hover {
+  background-color: #0056b3;
+}
+
+.wrapper-class {
+  border: 1px solid #f1f1f1;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+.editor-class {
+  min-height: 300px;
+  padding: 10px;
+  border: 1px solid #f1f1f1;
+  border-radius: 4px;
+}

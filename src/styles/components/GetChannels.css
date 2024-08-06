@@ -7,6 +7,17 @@
   padding: 20px;
 }
 
+/* 버튼 꾸미기 */
+.create-channel-button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
 /* 각 채널 카드 스타일 */
 .channel-card {
   display: flex;

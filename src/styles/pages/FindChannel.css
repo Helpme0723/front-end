@@ -1,5 +1,5 @@
 /* 전체 컨테이너 스타일 */
-.container {
+.find-channel-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -8,6 +8,7 @@
   max-width: 1200px;
   margin: 0 auto;
   background-color: #f9f9f9;
+  position: relative; /* 상대 위치 지정 */
 }
 
 /* 채널 정보 섹션 스타일 */
@@ -107,4 +108,70 @@
 
 p {
   margin: 5px 0;
+}
+
+/* 버튼 스타일 */
+.button-container {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  gap: 10px; /* 버튼 사이 간격 */
+}
+
+.update-button,
+.delete-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.update-button {
+  background-color: #007bff;
+  color: white;
+}
+
+.update-button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.delete-button {
+  background-color: #dc3545;
+  color: white;
+}
+
+.delete-button:hover {
+  background-color: #c82333;
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.postslist-header {
+  display: flex; /* Flexbox 사용 */
+  align-items: center; /* 수직 정렬 */
+  justify-content: space-between; /* 요소들 사이의 공간을 균등하게 배치 */
+  padding: 10px; /* 패딩 추가, 필요에 따라 조정 */
+  background-color: #f8f9fa; /* 배경색 설정, 필요에 따라 조정 */
+  border-bottom: 1px solid #dee2e6; /* 아래쪽 경계선 추가, 필요에 따라 조정 */
+}
+
+.postslist-header .label {
+  font-size: 18px; /* 글씨 크기 설정 */
+  font-weight: bold; /* 글씨 굵기 설정 */
+  color: #333; /* 글씨 색상 설정 */
+}
+
+.postslist-header div {
+  font-size: 16px; /* 글씨 크기 설정 */
+  color: #007bff; /* 글씨 색상 설정 */
+  cursor: pointer; /* 커서 설정 */
 }

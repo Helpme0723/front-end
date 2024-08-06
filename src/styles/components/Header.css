@@ -64,7 +64,7 @@ body {
 }
 
 .search-input:focus {
-  width: 200px; /* 포커스 시 확장 */
+  width: 300px; /* 포커스 시 확장 */
 }
 
 .search-button {
