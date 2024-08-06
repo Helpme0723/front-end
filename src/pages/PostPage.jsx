@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { createPost, getSeries } from '../apis/post'; // 포스트 생성 함수
 import '../styles/pages/PostPage.css';
 import { useNavigate, useParams } from 'react-router-dom';
+import AuthContext from '../context/AuthContext';
 
 const PostPage = () => {
+  const { isAuthenticated } = useContext(AuthContext);
   const navigate = useNavigate();
   const { channelId } = useParams();
   const [series, setSeries] = useState([]);
@@ -14,6 +16,14 @@ const PostPage = () => {
   const [seriesId, setSeriesId] = useState('');
   const [categoryId, setCategoryId] = useState('1');
   const [content, setContent] = useState('');
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      alert('로그인 후 이용해 주세요.');
+      navigate('/');
+      return;
+    }
+  });
 
   useEffect(() => {
     const fetchSeries = async () => {
