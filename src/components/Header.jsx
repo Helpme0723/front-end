@@ -27,7 +27,6 @@ function Header() {
     }
   }, [logout]);
 
-
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');
     const refreshToken = localStorage.getItem('refreshToken');
@@ -82,16 +81,11 @@ function Header() {
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
           />
-          <select
-            value={searchField}
-            onChange={(e) => setSearchField(e.target.value)}
-          >
+          <select value={searchField} onChange={(e) => setSearchField(e.target.value)}>
             <option value="title">제목</option>
             <option value="content">내용</option>
           </select>
-          <button type="submit" className="search-button">
-            🔍
-          </button>
+          <button type="submit" className="search-button">🔍</button>
         </form>
         {isAuthenticated ? (
           <div className="dropdown">
