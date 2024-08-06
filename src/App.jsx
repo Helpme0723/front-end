@@ -25,6 +25,7 @@ import DailyInsights from './pages/DailyInsights';
 import MonthlyInsights from './pages/MonthlyInsights';
 import PurchasePost from './pages/PurchasePost';
 import PostPage from './pages/PostPage';
+import MySeriesPage from './pages/MySeries.jsx';
 
 function App() {
   return (
@@ -81,6 +82,7 @@ function App() {
                 element={<MonthlyInsights />}
               />
               <Route path="purchasesPost" element={<PurchasePost />} />
+              <Route path="series/my" element={<MySeriesPage />} />
             </Route>
           </Routes>
         </Router>
