@@ -20,7 +20,7 @@ export const SearchProvider = ({ children }) => {
 
   const performSearch = useCallback(async (keyword, field, page, limit, sort) => {
     try {
-      const response = await searchPosts(keyword, field, page, limit, sort);
+      const response = await searchPosts(keyword, field, page, limit=9, sort);
       setSearchResults({
         posts: response.posts,
         meta: {

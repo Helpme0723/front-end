@@ -1,6 +1,6 @@
 import axios from './axiosInstance';
 
-export const fetchAllPosts = async (channelId, page = 1, limit = 10, sort = 'desc') => {
+export const fetchAllPosts = async (channelId, page = 1, limit = 9, sort = 'desc') => {
 	try {
 		const response = await axios.get('/api/posts', {
 			params: { channelId, page, limit, sort }
