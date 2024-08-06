@@ -90,7 +90,7 @@ export const categoryPostView = async (categoryId = 1, page = 1, limit = 5) => {
 
 export const deletePost = async (postId) => {
 	try {
-	  const response = await axios.delete(`/api/posts/${postId}`);
+	  const response = await axiosInstance.delete(`/api/posts/${postId}`);
 	  return response.data;
 	} catch (error) {
 	  console.error('Error deleting post:', error);
@@ -102,7 +102,7 @@ export const deletePost = async (postId) => {
 
   export const createComment = async (postId, content) => {
 	try {
-	  const response = await axios.post('/api/comments', {
+	  const response = await axiosInstance.post('/api/comments', {
 		postId,
 		content,
 	  });
@@ -115,7 +115,7 @@ export const deletePost = async (postId) => {
 
   export const updateComment = async (commentId, content) => {
 	try {
-	  const response = await axios.patch(`/api/comments/${commentId}`, {
+	  const response = await axiosInstance.patch(`/api/comments/${commentId}`, {
 		content,
 	  });
 	  return response.data;
@@ -128,7 +128,7 @@ export const deletePost = async (postId) => {
   // 댓글 삭제
   export const deleteComment = async (commentId) => {
 	try {
-	  const response = await axios.delete(`/api/comments/${commentId}`);
+	  const response = await axiosInstance.delete(`/api/comments/${commentId}`);
 	  return response.data;
 	} catch (error) {
 	  console.error('Failed to delete comment:', error);
