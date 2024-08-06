@@ -28,7 +28,7 @@ function LibraryPage() {
         const response = await fetchLikedPosts(currentPage, 5, 'desc');
         console.log('Response Data:', response); // 디버깅을 위한 로그
         // response.data.items에 접근하여 아이템 배열 가져오기
-        const likedItems = response.data.items || [];
+        const likedItems = response.data.item || [];
         setLikedPosts(likedItems);
         setTotalPages(response.data.meta.totalPages);
       } catch (error) {

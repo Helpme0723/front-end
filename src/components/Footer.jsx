@@ -6,7 +6,7 @@ const Footer = () => {
     <footer>
       <Container id="footer">
         <Nav className="ml-auto" />
-        <div style={{ textAlign: 'center' }}>Footer</div>
+        <div style={{ textAlign: 'center' }}></div>
       </Container>
     </footer>
   );
