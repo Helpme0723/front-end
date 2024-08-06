@@ -10,7 +10,7 @@ function CategoryPostView() {
   const getQueryParams = () => {
     const params = new URLSearchParams(location.search);
     return {
-      categoryId: params.get('categoryId') || false,
+      categoryId: params.get('categoryId') || 1,
       page: params.get('page') || 1,
       limit: params.get('limit') || 10,
     };

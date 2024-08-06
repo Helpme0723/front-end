@@ -27,6 +27,8 @@ import PurchasePost from './pages/PurchasePost';
 import PostPage from './pages/PostPage';
 import MySeriesPage from './pages/MySeries.jsx';
 import UpdateChannel from './pages/UpdateChannel';
+import GetMySeriesDetail from './pages/GetMySeriesDetail.jsx';
+import GetSeriesDetail from './pages/GetSeriesDetail.jsx';
 
 function App() {
   return (
@@ -89,6 +91,13 @@ function App() {
                 path="/channel/:channelId/update"
                 element={<UpdateChannel />}
               />
+              {/* 내 시리즈 상세 조회 */}
+              <Route
+                path="series/:seriesId/my"
+                element={<GetMySeriesDetail />}
+              />
+              {/* 타 유저 시리즈 상세 조회 */}
+              <Route path="series/:seriesId" element={<GetSeriesDetail />} />
             </Route>
           </Routes>
         </Router>
