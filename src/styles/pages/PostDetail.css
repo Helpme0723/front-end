@@ -7,6 +7,7 @@
   background-color: #f9f9f9;
   border: 1px solid #ccc;
   border-radius: 8px;
+  position: relative;
 }
 
 .content-blur {
@@ -75,8 +76,7 @@
   text-align: right; /* 오른쪽 정렬 */
 }
 
-.like-section,
-.comment-like-section {
+.like-section{
   display: flex;
   align-items: center;
   justify-content: center;
@@ -142,4 +142,120 @@
 .pagination span {
   font-size: 16px;
   color: #333;
+}
+
+.post-delete-button {
+  position: absolute; /* 절대 위치 */
+  top: 20px; /* 상단에서 20px의 위치 */
+  right: 20px; /* 우측에서 20px의 위치 */
+  padding: 8px 16px;
+  background-color: #dc3545; /* 삭제 버튼은 주로 빨간색으로 표시 */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.post-delete-button:hover {
+  background-color: #c82333; /* 호버 시 색상 변경 */
+}
+
+/* 댓글 입력 컨테이너 스타일링 */
+.comment-input-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #ffffff; /* 흰색 배경 */
+  border: 1px solid #ccc; /* 경계선 */
+  border-radius: 8px; /* 모서리 둥글게 */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 */
+}
+
+/* 댓글 입력 필드 스타일링 */
+.comment-input {
+  width: 735px;
+  height: 80px; /* 입력 칸 높이 */
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  resize: vertical; /* 수직 크기 조절 허용 */
+}
+
+/* 댓글 버튼 스타일링 */
+.comment-button {
+  align-self: flex-end; /* 버튼을 오른쪽으로 정렬 */
+  padding: 10px 20px;
+  background-color: #28a745; /* 녹색 배경 */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+/* 댓글 버튼 호버 시 색상 변경 */
+.comment-button:hover {
+  background-color: #218838; /* 더 진한 녹색 */
+}
+
+/* 댓글 버튼 비활성화 스타일 */
+.comment-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.profile-image {
+  width: 40px;           /* 적당한 크기로 조정 */
+  height: 40px;
+  border-radius: 50%;    /* 원형 이미지 */
+  margin-right: 10px;    /* 이미지와 텍스트 사이 간격 */
+  object-fit: cover;     /* 이미지 비율 유지 */
+}
+
+.author-info {
+  display: flex;
+  align-items: center;  /* 세로 중앙 정렬 */
+  margin-bottom: 5px;    /* 필요에 따라 조절 */
+}
+
+.comment-action-section {
+  display: flex;
+  gap: 10px;
+}
+
+.edit-button {
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.edit-button:hover{
+  background-color: #0056b3;
+}
+
+.edit-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.comment-delete-button {
+  padding: 5px 10px;
+  background-color: #dc3545; /* 빨간색 배경 */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.comment-delete-button:hover {
+  background-color: #c82333; /* 호버 시 색상 변경 */
 }
