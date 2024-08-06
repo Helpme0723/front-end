@@ -21,7 +21,6 @@ function FindChannel() {
         setUserId(data.data.userId);
       } catch (error) {
         console.log('%%%%%%%%', error.message);
-        setFindChannelMessage('Error Channel Find');
       }
     };
     fetchChannel();
@@ -37,11 +36,9 @@ function FindChannel() {
     try {
       await deleteChannel(id);
       alert('채널 삭제에 성공했습니다.');
-      setFindChannelMessage('채널을 삭제했습니다.');
       navigate(`/channels?userId=${userId}`);
     } catch (error) {
       console.log('Error deleting channel:', error.message);
-      setFindChannelMessage('Error Deleting Channel');
       alert(error.response.data.message);
     }
   };
@@ -53,9 +50,17 @@ function FindChannel() {
           <div className="channel-info">
             <div className="channel-header">
               <img src={channel.imageUrl} alt={channel.title} />
-              <button className="delete-button" onClick={handleDeleteChannel}>
-                삭제
-              </button>
+              <div className="button-container">
+                <button
+                  className="update-button"
+                  onClick={() => navigate(`/channel/${id}/update`)}
+                >
+                  수정
+                </button>
+                <button className="delete-button" onClick={handleDeleteChannel}>
+                  삭제
+                </button>
+              </div>
             </div>
             <div className="channel-details">
               <label className="label">채널</label>
