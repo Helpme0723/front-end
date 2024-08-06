@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import TextEditor from '../components/editor/TextEditor'; // TextEditor 컴포넌트 임포트
+import TextEditorForm from '../components/editor/TextEditorForm'; // TextEditorForm 컴포넌트 임포트
 import { createPost } from '../apis/post'; // 포스트 생성 함수
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import draftToHtml from 'draftjs-to-html';
@@ -33,8 +33,7 @@ const PostPage = () => {
   const saveContentAsHtml = async () => {
     const contentState = editorState.getCurrentContent();
     const htmlContent = draftToHtml(convertToRaw(contentState));
-    console.log('HTML Content:', htmlContent);
-
+    
     const createPostDto = {
       title: title,
       preview: preview,
@@ -45,8 +44,6 @@ const PostPage = () => {
       seriesId: parseInt(seriesId), // 숫자형으로 변환
       categoryId: parseInt(categoryId), // 숫자형으로 변환
     };
-
-    console.log('createPostDto:', createPostDto); // 요청 데이터 콘솔 로그
 
     try {
       const response = await createPost(createPostDto);
@@ -111,7 +108,7 @@ const PostPage = () => {
         placeholder="Enter category ID"
         className="post-categoryId-input"
       />
-      <TextEditor editorState={editorState} onEditorStateChange={onEditorStateChange} />
+      <TextEditorForm editorState={editorState} onEditorStateChange={onEditorStateChange} />
       <button onClick={saveContentAsHtml} className="save-button">Save as HTML</button>
     </div>
   );
