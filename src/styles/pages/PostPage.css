@@ -29,7 +29,7 @@
 .post-visibility-select,
 .post-category-select,
 .post-price-input,
-.post-seriesId-input {
+.post-series-select {
   flex: 1;
   padding: 10px;
   border: 1px solid #ccc;
@@ -60,4 +60,17 @@
 
 .save-button:hover {
   background-color: #0056b3;
+}
+
+.wrapper-class {
+  border: 1px solid #f1f1f1;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+.editor-class {
+  min-height: 300px;
+  padding: 10px;
+  border: 1px solid #f1f1f1;
+  border-radius: 4px;
 }
