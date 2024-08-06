@@ -26,7 +26,7 @@ function MainContent() {
           const response = await findAllSeries(
             undefined,
             currentPage,
-            10,
+            9,
             'asc',
           );
           console.log('Series API Response:', response);

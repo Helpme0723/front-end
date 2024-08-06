@@ -34,31 +34,36 @@ function SearchResultsPage() {
     };
   
     return (
-      <main className="main-content">
-        <h2>검색결과"{searchTerm}"</h2>
-        {searchResults.posts.length > 0 ? (
-          searchResults.posts.map((post) => (
-            <Link to={`/post/${post.id}`} key={post.id} className="post-card">
-              <div className="post-info">
-                <div className="post-title">{post.title || '제목 없음'}</div>
-                <div className="post-description">{(post.preview || '').substring(0, 20)}</div>
-                <div className="post-author">
-                <img src={post.profileUrl} alt={`Profile of ${post.nickname}`} className="profile-image" />작성자: {post.nickname}</div>
-                <div className="post-date">생성일: {formatDate(post.createdAt)}</div>
-                <div className="post-price">가격:{post.price}원</div>
-              </div>
-            </Link>
-          ))
-        ) : (
-          <p>No posts found.</p>
-        )}
-        <Pagination
-          currentPage={currentPage}
-          totalPages={searchResults.meta.totalPages}
-          onPrevPage={handlePrevPage}
-          onNextPage={handleNextPage}
-        />
-      </main>
+      <>
+      <br></br>
+        <h2 className="search-tag">검색결과 "{searchTerm}"</h2>
+        <main className="main-content">
+          {searchResults.posts.length > 0 ? (
+            searchResults.posts.map((post) => (
+              <Link to={`/post/${post.id}`} key={post.id} className="post-card">
+                <div className="post-info">
+                  <div className="post-title">{post.title || '제목 없음'}</div>
+                  <div className="post-description">{(post.preview || '').substring(0, 20)}</div>
+                  <div className="post-author">
+                    <img src={post.profileUrl} alt={`Profile of ${post.nickname}`} className="profile-image" />
+                    작성자: {post.nickname}
+                  </div>
+                  <div className="post-date">생성일: {formatDate(post.createdAt)}</div>
+                  <div className="post-price">가격: {post.price}원</div>
+                </div>
+              </Link>
+            ))
+          ) : (
+            <p>No posts found.</p>
+          )}
+          <Pagination
+            currentPage={currentPage}
+            totalPages={searchResults.meta.totalPages}
+            onPrevPage={handlePrevPage}
+            onNextPage={handleNextPage}
+          />
+        </main>
+      </>
     );
   }
 
