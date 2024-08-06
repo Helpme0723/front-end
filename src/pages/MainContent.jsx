@@ -86,7 +86,7 @@ function MainContent() {
               <div className="post-date">
                 생성일: {formatDate(post.createdAt)}
               </div>
-              <div className="post-price">가격: {post.price}원</div>
+              <div className="post-price">가격: {post.price} 포인트</div>
             </div>
           </Link>
         ))

@@ -75,11 +75,6 @@ function LibraryPage() {
                   <p>{post.post.preview.substring(0, 20)}...</p>
                   <p>좋아요: {post.post.likeCount || 0}</p>
                 </div>
-                <img
-                  src="/path/to/sample-image.jpg"
-                  alt="Sample"
-                  className="post-image"
-                />
               </div>
             </Link>
           ))

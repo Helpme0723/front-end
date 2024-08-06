@@ -73,11 +73,6 @@ function PurchasedPostsPage() {
                   <h3>{post.post.title || '제목 없음'}</h3>
                   <p>{post.post.preview.substring(0, 20)}</p>
                 </div>
-                <img
-                  src="/path/to/sample-image.jpg"
-                  alt="Sample"
-                  className="post-image"
-                />
               </div>
             </Link>
           ))

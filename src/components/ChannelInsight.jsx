@@ -97,10 +97,15 @@ const ChannelInsights = () => {
       </div>
       <div className="insights-data-container">
         <div className="insights-section">
-          <h3>일별 통계</h3>
-          <button>
-            <Link to={`/channel/${channelId}/insights/daily`}>자세히</Link>
-          </button>
+          <div className="section-header">
+            <h3>일별 통계</h3>
+            <button
+              className="insight-button"
+              onClick={() => navigate(`/channel/${channelId}/insights/daily`)}
+            >
+              자세히
+            </button>
+          </div>
           <div className="insights-grid">
             {dailyInsights.length > 0 ? (
               dailyInsights.map((insight, index) => (
@@ -131,10 +136,15 @@ const ChannelInsights = () => {
           </div>
         </div>
         <div className="insights-section">
-          <h3>월별 통계</h3>
-          <button>
-            <Link to={`/channel/${channelId}/insights/monthly`}>자세히</Link>
-          </button>
+          <div className="section-header">
+            <h3>월별 통계</h3>
+            <button
+              className="insight-button"
+              onClick={() => navigate(`/channel/${channelId}/insights/monthly`)}
+            >
+              자세히
+            </button>
+          </div>
           <div className="insights-grid">
             {monthlyInsights.length > 0 ? (
               monthlyInsights.map((insight, index) => (
