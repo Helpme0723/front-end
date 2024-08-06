@@ -16,6 +16,7 @@ import '../styles/pages/PostDetail.css';
 import AuthContext from '../context/AuthContext';
 import { fetchPurchasedPosts } from '../apis/libray';
 import Pagination from '../components/Testpagenation';
+import PurchasePost from './PurchasePost';
 
 function PostDetailsPage() {
   const { postId } = useParams();
@@ -44,6 +45,20 @@ function PostDetailsPage() {
     } finally {
       setCommentsLoading(false);
     }
+  };
+
+  const [modalIsOpen, setModalIsOpen] = useState(false); // 모달 창 열기/닫기 상태
+  const [selectedPostId, setSelectedPostId] = useState(null); // 선택된 포스트 ID 상태
+  // 모달 창 열기 함수
+  const openModal = () => {
+    setSelectedPostId(postId);
+    setModalIsOpen(true);
+  };
+
+  // 모달 창 닫기 함수
+  const closeModal = () => {
+    setModalIsOpen(false);
+    setSelectedPostId(null);
   };
 
   useEffect(() => {
@@ -356,10 +371,13 @@ function PostDetailsPage() {
       ) : (
         post.price > 0 && (
           <div className="purchase-callout">
-            이 이후의 내용은 포스트를 구매해야 보실 수 있습니다.
-            <button onClick={() => console.log('구매 페이지로 이동')}>
-              구매하기
-            </button>
+            <button onClick={openModal}>구매</button> {/* 모달 창 열기 버튼 */}
+            <PurchasePost
+              isOpen={modalIsOpen}
+              onRequestClose={closeModal}
+              post={post}
+            />{' '}
+            {/* 모달 창 컴포넌트 */}
           </div>
         )
       )}

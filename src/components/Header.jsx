@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState, useCallback } from 'react';
-import { Link, useNavigate} from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
 import { getUserInfo } from '../apis/user';
 import '../styles/components/Header.css';
@@ -12,7 +12,8 @@ function Header() {
   const { performSearch, setSearchTerm } = useContext(SearchContext);
   const [searchInput, setSearchInput] = useState(''); // State for search input
   const [searchField, setSearchField] = useState('title'); // State for search field
-  const navigate = useNavigate()
+  const [isLoggingOut, setIsLoggingOut] = useState(false); // State for logout status
+  const navigate = useNavigate();
 
   const fetchUserInfo = useCallback(async () => {
     try {
@@ -23,16 +24,20 @@ function Header() {
       setError(error.message);
       if (error.response && error.response.status === 401) {
         // 토큰 만료 등으로 인해 401 오류가 발생한 경우 로그아웃 처리
-        logout();
+        if (!isLoggingOut) {
+          setIsLoggingOut(true);
+          await logout();
+          setIsLoggingOut(false);
+        }
       }
     }
-  }, [logout]);
+  }, [logout, isLoggingOut]);
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isAuthenticated && !isLoggingOut) {
       fetchUserInfo();
     }
-  }, [isAuthenticated, fetchUserInfo]);
+  }, [isAuthenticated, fetchUserInfo, isLoggingOut]);
 
   const handleSearch = async (e) => {
     e.preventDefault();
