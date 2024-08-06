@@ -34,13 +34,21 @@ const GetChannelsComponent = () => {
     fetchChannels();
   }, [location.search, getQueryParams]); // location.search와 getQueryParams를 의존성으로 추가
 
-  const handleInsightClick = (channelId) =>{
+  const handleInsightClick = channelId => {
     const { userId } = getQueryParams();
     navigate(`/channel/${channelId}/insights?userId=${userId}`);
-  }
+  };
 
   return (
     <div className="container">
+      <div className="create-channel-button-container">
+        <button
+          className="create-channel-button"
+          onClick={() => navigate('/channel/create')}
+        >
+          채널 생성
+        </button>
+      </div>
       {channels.length > 0 ? (
         channels.map(channel => (
           <div className="channel-card" key={channel.id}>
@@ -60,11 +68,12 @@ const GetChannelsComponent = () => {
               </div>
               <div className="channel-description">{channel.description}</div>
             </div>
-            <button 
+            <button
               className="insight-button"
               onClick={() => handleInsightClick(channel.id)}
             >
-              통계</button>
+              통계
+            </button>
           </div>
         ))
       ) : (
