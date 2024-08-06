@@ -26,7 +26,8 @@ function Header() {
         // 토큰 만료 등으로 인해 401 오류가 발생한 경우 로그아웃 처리
         if (!isLoggingOut) {
           setIsLoggingOut(true);
-          logout();
+          await logout();
+          setIsLoggingOut(false);
         }
       }
     }
