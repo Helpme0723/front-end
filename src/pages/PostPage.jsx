@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import TextEditorForm from '../components/editor/TextEditorForm'; // TextEditorForm 컴포넌트 임포트
-import { createPost } from '../apis/post'; // 포스트 생성 함수
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import TextEditorForm from '../components/editor/TextEditorForm';
+import { createPost } from '../apis/post';
 import draftToHtml from 'draftjs-to-html';
 import { EditorState, convertToRaw } from 'draft-js';
 import '../styles/pages/PostPage.css';
@@ -24,12 +23,6 @@ const PostPage = () => {
     };
   }, []);
 
-  const onEditorStateChange = (editorState) => {
-    if (isMounted.current) {
-      setEditorState(editorState);
-    }
-  };
-
   const saveContentAsHtml = async () => {
     const contentState = editorState.getCurrentContent();
     const htmlContent = draftToHtml(convertToRaw(contentState));
@@ -39,10 +32,10 @@ const PostPage = () => {
       preview: preview,
       content: htmlContent,
       price: price,
-      channelId: parseInt(channelId), // 숫자형으로 변환
+      channelId: parseInt(channelId),
       visibility: visibility,
-      seriesId: parseInt(seriesId), // 숫자형으로 변환
-      categoryId: parseInt(categoryId), // 숫자형으로 변환
+      seriesId: parseInt(seriesId),
+      categoryId: parseInt(categoryId),
     };
 
     try {
@@ -76,7 +69,7 @@ const PostPage = () => {
       <input
         type="number"
         value={price}
-        onChange={(e) => setPrice(parseInt(e.target.value))} // 숫자형으로 변환
+        onChange={(e) => setPrice(parseInt(e.target.value))}
         placeholder="Enter post price"
         className="post-price-input"
       />
@@ -108,7 +101,10 @@ const PostPage = () => {
         placeholder="Enter category ID"
         className="post-categoryId-input"
       />
-      <TextEditorForm editorState={editorState} onEditorStateChange={onEditorStateChange} />
+      <TextEditorForm
+        editorState={editorState}
+        onEditorStateChange={setEditorState}
+      />
       <button onClick={saveContentAsHtml} className="save-button">Save as HTML</button>
     </div>
   );

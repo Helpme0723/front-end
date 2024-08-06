@@ -1,0 +1,19 @@
+.toolbar-class {
+  margin-bottom: 20px;
+}
+
+.wrapper-class {
+  border: 1px solid #f1f1f1;
+  padding: 4px;
+  border-radius: 2px;
+  height: auto;
+  margin-top: 20px;
+}
+
+.editor-class {
+  min-height: 300px;
+  padding: 10px;
+  border: 1px solid #f1f1f1;
+  border-radius: 2px;
+  background-color: #fff;
+}
