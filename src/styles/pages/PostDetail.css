@@ -277,3 +277,49 @@
 .comment-delete-button:hover {
   background-color: #c82333; /* 호버 시 색상 변경 */
 }
+
+.modal-overlay {
+  position: fixed;
+  top: 140px;
+  left: 532px;
+  display: flex;
+  align-items: start;
+  justify-content: start;
+  z-index: 1000;
+  visibility: hidden; /* 기본적으로 보이지 않음 */
+  opacity: 0;
+  transition: visibility 0s linear 0.5s, opacity 0.5s; /* opacity만 0.5초 동안 변화 */
+}
+
+.modal-overlay.open {
+  visibility: visible; /* open 클래스가 추가되면 보이게 함 */
+  opacity: 1;
+  transition: opacity 0.5s; /* 닫힐 때 visibility 지연 없이 즉시 작동 */
+}
+
+.modal {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.subscribe-button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.close-button {
+  padding: 10px 20px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
