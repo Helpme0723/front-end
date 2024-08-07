@@ -60,7 +60,11 @@ function MySeriesPage() {
       ) : (
         <ul className="list">
           {series.map(item => (
-            <li key={item.id} className="list-item">
+            <li
+              key={item.id}
+              className="list-item"
+              onClick={() => navigate(`/series/${item.id}/my`)}
+            >
               <h2>{item.title}</h2>
               <p>{item.description}</p>
             </li>

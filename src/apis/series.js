@@ -24,3 +24,38 @@ export const findAllSeries = async (channelId, page, limit, sort) => {
     throw error;
   }
 };
+
+// 내 시리즈 상세 조회
+export const findMyOneSeries = async seriesId => {
+  try {
+    const response = await axiosInstance.get(`/api/series/${seriesId}/me`);
+
+    return response.data;
+  } catch (error) {
+    console.error('시리즈 조회 실패', error.response.data.message);
+    throw error;
+  }
+};
+
+//타 유저의 시리즈 상세 조회
+export const findOneSeries = async seriesId => {
+  try {
+    const response = await axiosInstance.get(`/api/series/${seriesId}`);
+
+    return response.data;
+  } catch (error) {
+    console.error('시리즈 조회 실패', error.response.data.message);
+    throw error;
+  }
+};
+
+export const deleteSeries = async seriesId => {
+  try {
+    await axiosInstance.delete(`/api/series/${seriesId}`);
+
+    return true;
+  } catch (error) {
+    console.error('시리즈 삭제 실패', error.response.data.message);
+    throw error;
+  }
+};

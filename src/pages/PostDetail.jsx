@@ -367,7 +367,7 @@ function PostDetailsPage() {
       <br></br>
       <p>{post.preview}</p>
       {post.content ? (
-        <p>{post.content}</p>
+        <div dangerouslySetInnerHTML={{ __html: post.content }} />
       ) : (
         post.price > 0 && (
           <div className="purchase-callout">

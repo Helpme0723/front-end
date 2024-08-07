@@ -5,7 +5,7 @@ export const uploadImage = async (file) => {
   formData.append('file', file);
 
   try {
-    const response = await axiosInstance.post('/images', formData, {
+    const response = await axiosInstance.post('api/images', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },

@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
+import TextEditorForm from '../components/editor/TextEditorForm';
 import { createPost, getSeries } from '../apis/post'; // 포스트 생성 함수
+import draftToHtml from 'draftjs-to-html';
+import { EditorState, convertToRaw } from 'draft-js';
 import '../styles/pages/PostPage.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
@@ -15,7 +18,7 @@ const PostPage = () => {
   const [visibility, setVisibility] = useState('PUBLIC');
   const [seriesId, setSeriesId] = useState('');
   const [categoryId, setCategoryId] = useState('1');
-  const [content, setContent] = useState('');
+  const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -23,7 +26,7 @@ const PostPage = () => {
       navigate('/');
       return;
     }
-  });
+  }, [isAuthenticated, navigate]);
 
   useEffect(() => {
     const fetchSeries = async () => {
@@ -48,10 +51,13 @@ const PostPage = () => {
   ];
 
   const clickButton = async () => {
+    const contentState = editorState.getCurrentContent();
+    const htmlContent = draftToHtml(convertToRaw(contentState));
+
     const createPostDto = {
       title: title,
       preview: preview,
-      content: content,
+      content: htmlContent,
       price: price,
       channelId: parseInt(channelId), // 숫자형으로 변환
       visibility: visibility,
@@ -130,12 +136,10 @@ const PostPage = () => {
         className="post-preview-textarea"
       ></textarea>
       <h3>콘텐츠</h3>
-      <textarea
-        value={content}
-        onChange={e => setContent(e.target.value)}
-        placeholder="Enter content"
-        className="post-content-textarea"
-      ></textarea>
+      <TextEditorForm
+        editorState={editorState}
+        onEditorStateChange={setEditorState}
+      />
       <button onClick={clickButton} className="save-button">
         작성
       </button>
