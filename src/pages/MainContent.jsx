@@ -71,6 +71,11 @@ function MainContent() {
       {view === 'posts' && posts.length > 0 ? (
         posts.map(post => (
           <Link to={`/post/${post.id}`} key={post.id} className="post-card">
+             <div
+                className={`post-type ${post.price > 0 ? 'post-paid' : 'post-free'}`}
+              >
+                {post.price > 0 ? '유료' : '무료'}
+              </div>
             <div className="post-info">
               <div className="post-title">{post.title || '제목 없음'}</div>
               <div className="post-description">
@@ -87,7 +92,9 @@ function MainContent() {
               <div className="post-date">
                 생성일: {formatDate(post.createdAt)}
               </div>
-              <div className="post-price">가격: {post.price} 포인트</div>
+              {post.price > 0 && (
+                <div className="post-price">가격: {post.price} 포인트</div>
+              )}
             </div>
           </Link>
         ))
