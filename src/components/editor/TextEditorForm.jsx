@@ -1,5 +1,4 @@
 import React from 'react';
-import { EditorState, AtomicBlockUtils } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import styled from 'styled-components';
@@ -19,30 +18,23 @@ const MyBlock = styled.div`
   }
 `;
 
-const uploadImageCallBack = async (file, editorState, onEditorStateChange) => {
-  try {
-    const response = await uploadImage(file);
-    const contentState = editorState.getCurrentContent();
-    const contentStateWithEntity = contentState.createEntity(
-      'IMAGE',
-      'IMMUTABLE',
-      { src: response.imageUrl },
-    );
-    const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
-    const newEditorState = AtomicBlockUtils.insertAtomicBlock(
-      EditorState.set(editorState, { currentContent: contentStateWithEntity }),
-      entityKey,
-      ' ',
-    );
-    onEditorStateChange(newEditorState);
-    return { data: { link: response.imageUrl } };
-  } catch (error) {
-    console.error('Error uploading image:', error);
-    throw error;
-  }
-};
+const TextEditorForm = ({
+  editorState,
+  onEditorStateChange,
+  pendingImageUrl,
+  setPendingImageUrl,
+}) => {
+  const uploadImageCallBack = async file => {
+    try {
+      const response = await uploadImage(file);
+      setPendingImageUrl(response.imageUrl); // 이미지 URL을 상태로 저장
+      return { data: { link: response.imageUrl } };
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      throw error;
+    }
+  };
 
-const TextEditorForm = ({ editorState, onEditorStateChange }) => {
   return (
     <MyBlock>
       <Editor
@@ -55,13 +47,12 @@ const TextEditorForm = ({ editorState, onEditorStateChange }) => {
           link: { inDropdown: true },
           history: { inDropdown: false },
           image: {
-            uploadCallback: file =>
-              uploadImageCallBack(file, editorState, onEditorStateChange),
+            uploadCallback: uploadImageCallBack,
             alt: { present: true, mandatory: false },
             previewImage: true,
           },
         }}
-        placeholder="구매 후에만 열람할 수있는 필드입니다."
+        placeholder="유료 포스트인 경우 구매 후 열람할 수있는 필드입니다."
         localization={{
           locale: 'ko',
         }}
