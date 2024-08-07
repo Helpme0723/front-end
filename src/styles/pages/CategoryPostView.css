@@ -1,39 +1,126 @@
-.container {
-  width: 80%;
-  margin: 0 auto;
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #eef2f5;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.category-content {
   padding: 20px;
+  max-width: 1250px;
+  margin: 0 auto;
   background-color: #f9f9f9;
-  border-radius: 8px;
+  border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-h2 {
-  text-align: center;
+.category-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
   color: #333;
+  font-size: 2em;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.category-buttons {
+  display: flex;
+  justify-content: center;
   margin-bottom: 20px;
 }
 
-.post {
+.category-button {
+  background-color: #f0f0f0;
+  border: none;
+  padding: 10px 20px;
+  margin: 0 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.category-button.selected {
+  background-color: #007bff;
+  color: white;
+}
+
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* 한 줄에 3개씩 나타나도록 설정 */
+  gap: 20px;
+}
+
+.post-card {
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 8px;
   background-color: #fff;
-  padding: 15px;
-  margin-bottom: 15px;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.post-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .post-title {
-  font-size: 1.2em;
   font-weight: bold;
-  margin-bottom: 10px;
+  font-size: 1.2em;
+}
+
+.post-type {
+  padding: 5px 10px;
+  border-radius: 12px;
+  font-size: 0.8em;
+}
+
+.post-free {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.post-paid {
+  background-color: #f8d7da;
+  color: #721c24;
 }
 
 .post-preview {
-  color: #666;
-  margin-bottom: 10px;
+  margin-top: 10px;
+  font-size: 1em;
 }
 
-.post-date {
+.post-author {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.profile-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.post-date,
+.post-price {
+  margin-top: 10px;
+  color: gray;
   font-size: 0.9em;
-  color: #999;
-  text-align: right;
 }
