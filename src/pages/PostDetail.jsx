@@ -371,6 +371,9 @@ function PostDetailsPage() {
       ) : (
         post.price > 0 && (
           <div className="purchase-callout">
+            <p style={{ color: 'red' }}>
+              이 콘텐츠는 구매 후에만 감상하실 수 있습니다.
+            </p>
             <button onClick={openModal}>구매</button> {/* 모달 창 열기 버튼 */}
             <PurchasePost
               isOpen={modalIsOpen}
