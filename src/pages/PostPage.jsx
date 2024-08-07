@@ -86,13 +86,13 @@ const PostPage = () => {
     const contentStateWithEntity = contentState.createEntity(
       'IMAGE',
       'IMMUTABLE',
-      { src: pendingImageUrl }
+      { src: pendingImageUrl },
     );
     const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
     const newEditorState = AtomicBlockUtils.insertAtomicBlock(
       EditorState.set(editorState, { currentContent: contentStateWithEntity }),
       entityKey,
-      ' '
+      ' ',
     );
     setEditorState(newEditorState);
     setPendingImageUrl(null); // 삽입 후 URL 초기화
@@ -100,68 +100,87 @@ const PostPage = () => {
 
   return (
     <div className="post-page">
-      <h1 className="post-page-title">Create a New Post</h1>
+      <h1 className="post-page-title">포스트 작성</h1>
       <input
         type="text"
         value={title}
         onChange={e => setTitle(e.target.value)}
-        placeholder="Enter post title"
+        placeholder="포스트 제목을 입력해 주세요."
         className="post-title-input"
       />
       <div className="post-inline-inputs">
-        <select
-          value={visibility}
-          onChange={e => setVisibility(e.target.value)}
-          className="post-visibility-select"
-        >
-          <option value="PUBLIC">PUBLIC</option>
-          <option value="PRIVATE">PRIVATE</option>
-        </select>
-        <select
-          value={categoryId}
-          onChange={e => setCategoryId(e.target.value)}
-          className="post-category-select"
-        >
-          {categories.map(option => (
-            <option key={option.id} value={option.id}>
-              {option.name}
-            </option>
-          ))}
-        </select>
-        <select
-          value={seriesId}
-          onChange={e => setSeriesId(e.target.value)}
-          className="post-series-select"
-        >
-          {series.map(option => (
-            <option key={option.id} value={option.id}>
-              {option.title}
-            </option>
-          ))}
-        </select>
-        <input
-          type="number"
-          value={price}
-          onChange={e => setPrice(parseInt(e.target.value))} // 숫자형으로 변환
-          placeholder="Enter post price"
-          className="post-price-input"
-        />
+        <div className="post-inline-input">
+          <label htmlFor="visibility-select">포스트 공개/비공개 설정</label>
+          <select
+            id="visibility-select"
+            value={visibility}
+            onChange={e => setVisibility(e.target.value)}
+            className="post-visibility-select"
+          >
+            <option value="PUBLIC">공개</option>
+            <option value="PRIVATE">비공개</option>
+          </select>
+        </div>
+        <div className="post-inline-input">
+          <label htmlFor="category-select">카테고리</label>
+          <select
+            id="category-select"
+            value={categoryId}
+            onChange={e => setCategoryId(e.target.value)}
+            className="post-category-select"
+          >
+            {categories.map(option => (
+              <option key={option.id} value={option.id}>
+                {option.name}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="post-inline-input">
+          <label htmlFor="series-select">시리즈</label>
+          <select
+            id="series-select"
+            value={seriesId}
+            onChange={e => setSeriesId(e.target.value)}
+            className="post-series-select"
+          >
+            {series.map(option => (
+              <option key={option.id} value={option.id}>
+                {option.title}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="post-inline-input">
+          <label htmlFor="price-input">포인트</label>
+          <input
+            id="price-input"
+            type="number"
+            min="0"
+            value={price}
+            onChange={e => setPrice(parseInt(e.target.value))} // 숫자형으로 변환
+            placeholder="포스트 가격을 입력해 주세요."
+            className="post-price-input"
+          />
+        </div>
       </div>
       <hr />
       <h3>프리뷰</h3>
       <textarea
         value={preview}
         onChange={e => setPreview(e.target.value)}
-        placeholder="Enter post preview"
+        placeholder="구매 여부와 관계없이 열람 가능한 필드입니다."
         className="post-preview-textarea"
       ></textarea>
       <h3>콘텐츠</h3>
-      <TextEditorForm
-        editorState={editorState}
-        onEditorStateChange={setEditorState}
-        pendingImageUrl={pendingImageUrl}
-        setPendingImageUrl={setPendingImageUrl}
-      />
+      <div className="content-container">
+        <TextEditorForm
+          editorState={editorState}
+          onEditorStateChange={setEditorState}
+          pendingImageUrl={pendingImageUrl}
+          setPendingImageUrl={setPendingImageUrl}
+        />
+      </div>
       <button onClick={clickButton} className="save-button">
         작성
       </button>
