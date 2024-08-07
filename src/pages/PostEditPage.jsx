@@ -30,8 +30,8 @@ function PostEditPage() {
   const [preview, setPreview] = useState('');
   const [price, setPrice] = useState('');
   const [categoryId, setCategoryId] = useState('');
-  const [channelName, setChannelName] = useState('');
-  const [seriesName, setSeriesName] = useState('');
+  const [channelTitle, setChannelTitle] = useState('');
+  const [seriesTitle, setSeriesTitle] = useState('');
   const [visibility, setVisibility] = useState('PUBLIC');
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
@@ -49,7 +49,7 @@ function PostEditPage() {
         const response = await fetchPostDetails(postId);
 
         if (response && response.data) {
-          const { content, channelName, seriesName, ...rest } = response.data;
+          const { content, channelTitle, seriesTitle, ...rest } = response.data;
 
           if (isMounted) {
             setPost(rest);
@@ -57,8 +57,8 @@ function PostEditPage() {
             setPreview(rest.preview);
             setPrice(rest.price);
             setCategoryId(rest.categoryId);
-            setChannelName(channelName);
-            setSeriesName(seriesName);
+            setChannelTitle(channelTitle);
+            setSeriesTitle(seriesTitle);
             setVisibility(rest.visibility);
 
             const blocksFromHtml = htmlToDraft(content);
@@ -229,7 +229,7 @@ function PostEditPage() {
           <input
             className="pe-post-edit-input"
             type="text"
-            value={channelName}
+            value={channelTitle}
             readOnly
           />
         </div>
@@ -238,7 +238,7 @@ function PostEditPage() {
           <input
             className="pe-post-edit-input"
             type="text"
-            value={seriesName}
+            value={seriesTitle}
             readOnly
           />
         </div>
