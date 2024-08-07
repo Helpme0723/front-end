@@ -290,6 +290,7 @@ function PostEditPage() {
               },
             }}
             customBlockRenderFunc={imageBlockRenderer} // 사용자 정의 블록 렌더러 추가
+            placeholder="유료 포스트인 경우 구매 후 열람할 수있는 필드입니다."
           />
         </div>
         <button type="submit" className="pe-submit-button">
