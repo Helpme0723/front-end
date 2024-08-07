@@ -256,8 +256,8 @@ function PostEditPage() {
             value={visibility}
             onChange={e => setVisibility(e.target.value)}
           >
-            <option value="PUBLIC">PUBLIC</option>
-            <option value="PRIVATE">PRIVATE</option>
+            <option value="PUBLIC">공개</option>
+            <option value="PRIVATE">비공개</option>
           </select>
         </div>
         <div className="form-group">
