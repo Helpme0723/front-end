@@ -11,6 +11,8 @@ import {
   createComment,
   updateComment,
   deleteComment,
+  fetchChannelDetails,
+  subscribeToChannel,
 } from '../apis/post';
 import '../styles/pages/PostDetail.css';
 import AuthContext from '../context/AuthContext';
@@ -30,6 +32,10 @@ function PostDetailsPage() {
   const [totalCommentPages, setTotalCommentPages] = useState(0);
   const [purchasedPosts, setPurchasedPosts] = useState([]); // 구매한 포스트 상태 추가
   const [newComment, setNewComment] = useState(''); // 새로운 댓글 입력 상태
+
+  //채널 모달창
+  const [channelModalIsOpen, setChannelModalIsOpen] = useState(false);
+  const [channelDetails, setChannelDetails] = useState(null); // 채널 상세 정보 상태
 
   //댓글 새로고침
   const fetchPostComments = async () => {
@@ -59,6 +65,23 @@ function PostDetailsPage() {
   const closeModal = () => {
     setModalIsOpen(false);
     setSelectedPostId(null);
+  };
+
+  //채널 모달창 열기
+  const openChannelModal = () => {
+    if (post && post.channelId) {
+      fetchChannelDetails(post.channelId)
+        .then(data => {
+          setChannelDetails(data.data); // 채널 정보 저장
+          setChannelModalIsOpen(true);
+        })
+        .catch(error =>
+          console.error('Failed to fetch channel details:', error),
+        );
+    }
+  };
+  const closeChannelModal = () => {
+    setChannelModalIsOpen(false);
   };
 
   useEffect(() => {
@@ -343,6 +366,19 @@ function PostDetailsPage() {
     );
   };
 
+  //구독하기
+  const handleSubscribe = async () => {
+    try {
+      const result = await subscribeToChannel(post.channelId);
+      alert(result.message);
+      // 성공적으로 구독했다면 채널 정보를 다시 불러옴
+      openChannelModal();
+    } catch (error) {
+      console.error('Subscription error:', error);
+      alert(error.response?.data?.message || '구독을 완료하지 못했습니다.');
+    }
+  };
+
   if (loading) return <div>로딩중....</div>;
   if (!post)
     return (
@@ -362,10 +398,43 @@ function PostDetailsPage() {
       />
       <br></br>
       <div>작성자: {post.userName}</div>
+      {post.channelTitle && (
+        <div
+          onClick={openChannelModal}
+          style={{
+            cursor: 'pointer',
+            fontWeight: 'bold',
+            textDecoration: 'none',
+          }}
+        >
+          채널: {post.channelTitle}
+        </div>
+      )}
       <div>작성일: {new Date(post.createdAt).toLocaleDateString('ko-KR')}</div>
       <div>조회수: {post.viewCount}</div>
       <br></br>
       <p>{post.preview}</p>
+      <div className={`modal-overlay ${channelModalIsOpen ? 'open' : ''}`}>
+        <div className="modal">
+          <h2>채널 정보</h2>
+          {channelDetails ? (
+            <>
+              <img src={channelDetails.imageUrl} alt="채널이미지 없음" />
+              <h3>{channelDetails.title}</h3>
+              <p>구독자 수: {channelDetails.subscribers}</p>
+              <p>{channelDetails.description || '채널 설명이 없습니다.'}</p>
+            </>
+          ) : (
+            <p>Loading channel details...</p>
+          )}
+          <button onClick={handleSubscribe} className="subscribe-button">
+            구독하기
+          </button>
+          <button onClick={closeChannelModal} className="close-button">
+            닫기
+          </button>
+        </div>
+      </div>
       {post.content ? (
         <div dangerouslySetInnerHTML={{ __html: post.content }} />
       ) : (
