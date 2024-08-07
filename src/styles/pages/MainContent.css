@@ -55,7 +55,6 @@ body {
   background-color: #0056b3;
 }
 
-.post-card,
 .series-card {
   background: white;
   border: none;
@@ -67,6 +66,18 @@ body {
   transition:
     transform 0.3s ease,
     box-shadow 0.3s ease;
+}
+
+.post-card {
+  background: white;
+  border: none;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+  color: inherit;
+  position: relative; /* 위치 상대 설정 */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .post-card:hover,
@@ -103,4 +114,23 @@ body {
   color: #999;
   text-align: right;
   margin-top: auto;
+}
+
+.post-type {
+  position: absolute;
+  top: 10px; /* 상단에서 10px 떨어진 위치 */
+  right: 10px; /* 우측에서 10px 떨어진 위치 */
+  font-weight: bold;
+  padding: 5px 10px;
+  background-color: #F0F8FF; /* 배경 반투명 검은색 */
+  color: white;
+  border-radius: 5px;
+}
+
+.post-free {
+  color: #4CAF50; /* 무료 포스트의 경우 녹색으로 표시 */
+}
+
+.post-paid {
+  color: #f44336; /* 유료 포스트의 경우 빨간색으로 표시 */
 }

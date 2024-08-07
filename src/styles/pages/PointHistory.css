@@ -37,14 +37,8 @@
 }
 
 .list-item {
-  padding: 10px;
-  margin: 10px 0;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  background-color: #f9f9f9;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column; /* 세로 정렬 */
 }
 
 .date {
@@ -53,10 +47,14 @@
 }
 
 .amount {
-  font-size: 16px;
+  font-size: 14px;
+  margin-left: 15px;
   font-weight: bold;
 }
 
+.description {
+  font-weight: bold; /* 설명 텍스트 강조 */
+}
 .amount.income {
   color: green;
 }

@@ -371,6 +371,9 @@ function PostDetailsPage() {
       ) : (
         post.price > 0 && (
           <div className="purchase-callout">
+            <p style={{ color: 'red' }}>
+              이 콘텐츠는 구매 후에만 감상하실 수 있습니다.
+            </p>
             <button onClick={openModal}>구매</button> {/* 모달 창 열기 버튼 */}
             <PurchasePost
               isOpen={modalIsOpen}
@@ -476,11 +479,21 @@ function PostDetailsPage() {
           <p>댓글이 없습니다.</p>
         )}
       </div>
-      {post.userId === userId && (
-        <button onClick={handleDelete} className="post-delete-button">
-          삭제
-        </button>
-      )}
+      <div>
+        {post.userId === userId && (
+          <div>
+            <button
+              onClick={() => navigate(`/post/${postId}/edit`)}
+              className="post-edit-button"
+            >
+              수정
+            </button>
+            <button onClick={handleDelete} className="post-delete-button">
+              삭제
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

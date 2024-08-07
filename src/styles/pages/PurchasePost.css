@@ -61,7 +61,8 @@
   align-items: center !important; /* 수직 방향에서도 중앙 정렬 강제 적용 */
   width: 100%; /* 컨테이너 너비를 100%로 설정 */
   transform: translateX(20px); /* 오른쪽으로 20px 이동 */
-  margin-top: 300px !important; /* 버튼을 아래로 밀어내기 */
+  margin-top: 30px !important; /* 버튼을 아래로 밀어내기 */
+  margin-right: 30px !important;
   gap: 10px;
 }
 

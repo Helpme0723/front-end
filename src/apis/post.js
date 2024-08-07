@@ -150,3 +150,30 @@ export const getSeries = async (channelId, page = 1, limit = 9, sort = 'desc') =
 		throw error;
 	}
 }
+
+export const updatePost = async (postId, updatePostDto) => {
+	try {
+	  const response = await axiosInstance.patch(`/api/posts/${postId}`, updatePostDto);
+	  return response.data;
+	} catch (error) {
+	  console.error('Error updating post:', error);
+	  throw error;
+	}
+  };
+
+  export const uploadImage = async (file) => {
+	const formData = new FormData();
+	formData.append('file', file);
+  
+	try {
+	  const response = await axiosInstance.post('/api/images', formData, {
+		headers: {
+		  'Content-Type': 'multipart/form-data',
+		},
+	  });
+	  return response.data;
+	} catch (error) {
+	  console.error('Error uploading image:', error);
+	  throw error;
+	}
+  };

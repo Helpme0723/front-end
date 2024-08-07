@@ -54,7 +54,7 @@ function PointHistoryPage() {
     <div className="container">
       <h1 className="title">포인트 사용 내역</h1>
       <button className="button" onClick={handleChangeType}>
-        {type === 'income' ? '포인트 출금 내역 보기' : '포인트 적립 내역 보기'}
+        {type === 'income' ? '포인트 사용 내역 보기' : '포인트 충전 내역 보기'}
       </button>
       {loading ? (
         <p className="loading">로딩 중...</p>
@@ -62,11 +62,14 @@ function PointHistoryPage() {
         <ul className="list">
           {pointHistory.map(item => (
             <li key={item.id} className="list-item">
-              <span className="date">{formatDate(item.createdAt)}</span>
-              <span className={`amount ${item.type}`}>{item.amount}</span>
-              <span className="type">
-                {item.type === 'income' ? '적립' : '출금'}
-              </span>
+              <p className="description">{item.description || 'No description available'}</p>
+              <div className="details">
+                <span className="date">{formatDate(item.createdAt)}</span>
+                <span className={`amount ${item.type}`}>{item.amount}</span>
+                <span className="type">
+                  {item.type === 'income' ? '충전' : '사용'}
+                </span>
+              </div>
             </li>
           ))}
         </ul>
