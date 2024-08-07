@@ -114,7 +114,7 @@ function EditProfile() {
           <p style={{ pointerEvents: 'none', color: 'grey' }}>알림 설정</p>
           <p style={{ pointerEvents: 'none', color: 'grey' }}>불호 태그 설정</p>
         </div>
-        <button type="submit" className="save-button">
+        <button type="submit" className="profile-save-button">
           변경사항 저장
         </button>
       </form>

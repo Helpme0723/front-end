@@ -18,8 +18,13 @@ const MyBlock = styled.div`
   }
 `;
 
-const TextEditorForm = ({ editorState, onEditorStateChange, pendingImageUrl, setPendingImageUrl }) => {
-  const uploadImageCallBack = async (file) => {
+const TextEditorForm = ({
+  editorState,
+  onEditorStateChange,
+  pendingImageUrl,
+  setPendingImageUrl,
+}) => {
+  const uploadImageCallBack = async file => {
     try {
       const response = await uploadImage(file);
       setPendingImageUrl(response.imageUrl); // 이미지 URL을 상태로 저장
@@ -47,7 +52,7 @@ const TextEditorForm = ({ editorState, onEditorStateChange, pendingImageUrl, set
             previewImage: true,
           },
         }}
-        placeholder="내용을 작성해주세요."
+        placeholder="유료 포스트인 경우 구매 후 열람할 수있는 필드입니다."
         localization={{
           locale: 'ko',
         }}
