@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import TextEditorForm from '../components/editor/TextEditorForm';
 import { createPost, getSeries } from '../apis/post'; // 포스트 생성 함수
 import draftToHtml from 'draftjs-to-html';
-import { EditorState, convertToRaw } from 'draft-js';
+import { EditorState, convertToRaw, AtomicBlockUtils } from 'draft-js';
 import '../styles/pages/PostPage.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
@@ -19,6 +19,7 @@ const PostPage = () => {
   const [seriesId, setSeriesId] = useState('');
   const [categoryId, setCategoryId] = useState('1');
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
+  const [pendingImageUrl, setPendingImageUrl] = useState(null);
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -76,6 +77,25 @@ const PostPage = () => {
         console.error('Error response data:', error.response.data);
       }
     }
+  };
+
+  const handleInsertImage = () => {
+    if (!pendingImageUrl) return;
+
+    const contentState = editorState.getCurrentContent();
+    const contentStateWithEntity = contentState.createEntity(
+      'IMAGE',
+      'IMMUTABLE',
+      { src: pendingImageUrl }
+    );
+    const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
+    const newEditorState = AtomicBlockUtils.insertAtomicBlock(
+      EditorState.set(editorState, { currentContent: contentStateWithEntity }),
+      entityKey,
+      ' '
+    );
+    setEditorState(newEditorState);
+    setPendingImageUrl(null); // 삽입 후 URL 초기화
   };
 
   return (
@@ -139,6 +159,8 @@ const PostPage = () => {
       <TextEditorForm
         editorState={editorState}
         onEditorStateChange={setEditorState}
+        pendingImageUrl={pendingImageUrl}
+        setPendingImageUrl={setPendingImageUrl}
       />
       <button onClick={clickButton} className="save-button">
         작성
