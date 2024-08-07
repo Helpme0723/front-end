@@ -279,9 +279,9 @@
 }
 
 .modal-overlay {
-  position: fixed;
-  top: 140px;
-  left: 532px;
+  position: absolute;
+  top: 20px;
+  left: 10px;
   display: flex;
   align-items: start;
   justify-content: start;
