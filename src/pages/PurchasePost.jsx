@@ -62,6 +62,7 @@ function PurchasePost({ isOpen, onRequestClose, post }) {
           </button>
         </div>
       </form>
+      <br></br><br></br>
       {responseMessage && <p className="response-message">{responseMessage}</p>}{' '}
       {/* 응답 메시지 출력 */}
     </ReactModal>

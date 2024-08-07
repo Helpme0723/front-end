@@ -27,6 +27,7 @@ import PurchasePost from './pages/PurchasePost';
 import PostPage from './pages/PostPage';
 import MySeriesPage from './pages/MySeries.jsx';
 import UpdateChannel from './pages/UpdateChannel';
+import PostEditPage from './pages/PostEditPage';
 import GetMySeriesDetail from './pages/GetMySeriesDetail.jsx';
 import GetSeriesDetail from './pages/GetSeriesDetail.jsx';
 
@@ -99,6 +100,7 @@ function App() {
               {/* 타 유저 시리즈 상세 조회 */}
               <Route path="series/:seriesId" element={<GetSeriesDetail />} />
             </Route>
+            <Route path="/post/:postId/edit" element={<PostEditPage />} />
           </Routes>
         </Router>
       </SearchProvider>

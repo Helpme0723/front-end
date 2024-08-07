@@ -145,6 +145,23 @@
   color: #333;
 }
 
+.post-edit-button {
+  position: absolute; /* 절대 위치 */
+  top: 20px; /* 상단에서 20px의 위치 */
+  right: 80px; /* 우측에서 20px의 위치 */
+  padding: 8px 16px;
+  background-color: #007bff; /* 삭제 버튼은 주로 빨간색으로 표시 */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.post-edit-button:hover {
+  background-color: #0056b3; /* 호버 시 더 진한 녹색 */
+}
+
 .post-delete-button {
   position: absolute; /* 절대 위치 */
   top: 20px; /* 상단에서 20px의 위치 */
