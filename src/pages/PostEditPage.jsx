@@ -181,12 +181,12 @@ function PostEditPage() {
   if (!post) return <div>로딩중...</div>;
 
   return (
-    <div className="post-edit-container">
-      <h2 className='post-edit-h2'>포스트 수정</h2>
+    <div className="pe-post-edit-container">
+      <h2 className='pe-post-edit-h2'>포스트 수정</h2>
       <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label className='post-edit-label'>제목</label>
-          <input className='post-edit-input'
+        <div className="pe-form-group">
+          <label className='pe-post-edit-label'>제목</label>
+          <input className='pe-post-edit-input'
             type="text"
             value={title}
             onChange={e => setTitle(e.target.value)}
@@ -194,7 +194,7 @@ function PostEditPage() {
           />
         </div>
         <div className="form-group">
-          <label className='post-edit-label'>미리보기</label>
+          <label className='pe-post-edit-label'>미리보기</label>
           <textarea
             className="form-control"
             value={preview}
@@ -204,8 +204,8 @@ function PostEditPage() {
           />
         </div>
         <div className="form-group">
-          <label className='post-edit-label'>가격</label>
-          <input className='post-edit-input'
+          <label className='pe-post-edit-label'>가격</label>
+          <input className='pe-post-edit-input'
             type="number"
             value={price}
             onChange={e => setPrice(e.target.value)}
@@ -213,8 +213,8 @@ function PostEditPage() {
           />
         </div>
         <div className="form-group">
-          <label className='post-edit-label'>카테고리 ID</label>
-          <input className='post-edit-input'
+          <label className='pe-post-edit-label'>카테고리 ID</label>
+          <input className='pe-post-edit-input'
             type="number"
             value={categoryId}
             onChange={e => setCategoryId(e.target.value)}
@@ -222,8 +222,8 @@ function PostEditPage() {
           />
         </div>
         <div className="form-group">
-          <label className='post-edit-label'>채널 ID</label>
-          <input className='post-edit-input'
+          <label className='pe-post-edit-label'>채널 ID</label>
+          <input className='pe-post-edit-input'
             type="number"
             value={channelId}
             onChange={e => setChannelId(e.target.value)}
@@ -231,16 +231,16 @@ function PostEditPage() {
           />
         </div>
         <div className="form-group">
-          <label className='post-edit-label'>시리즈 ID</label>
-          <input className='post-edit-input'
+          <label className='pe-post-edit-label'>시리즈 ID</label>
+          <input className='pe-post-edit-input'
             type="text" // 문자열로 다루기 위해 타입을 text로 설정
             value={seriesId}
             onChange={e => setSeriesId(e.target.value)}
           />
         </div>
         <div className="form-group">
-          <label className='post-edit-label'>공개여부</label>
-          <select className='post-edit-input-select'
+          <label className='pe-post-edit-label'>공개여부</label>
+          <select className='pe-post-edit-input-select'
             value={visibility}
             onChange={e => setVisibility(e.target.value)}
           >
@@ -249,7 +249,7 @@ function PostEditPage() {
           </select>
         </div>
         <div className="form-group">
-          <label className='post-edit-label'>내용</label>
+          <label className='pe-post-edit-label'>내용</label>
           <Editor
             editorState={editorState}
             onEditorStateChange={handleEditorStateChange}
@@ -279,7 +279,7 @@ function PostEditPage() {
             customBlockRenderFunc={imageBlockRenderer} // 사용자 정의 블록 렌더러 추가
           />
         </div>
-        <button type="submit" className="submit-button">
+        <button type="submit" className="pe-submit-button">
           수정
         </button>
       </form>
