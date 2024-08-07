@@ -26,13 +26,13 @@ const uploadImageCallBack = async (file, editorState, onEditorStateChange) => {
     const contentStateWithEntity = contentState.createEntity(
       'IMAGE',
       'IMMUTABLE',
-      { src: response.imageUrl }
+      { src: response.imageUrl },
     );
     const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
     const newEditorState = AtomicBlockUtils.insertAtomicBlock(
       EditorState.set(editorState, { currentContent: contentStateWithEntity }),
       entityKey,
-      ' '
+      ' ',
     );
     onEditorStateChange(newEditorState);
     return { data: { link: response.imageUrl } };
@@ -55,12 +55,13 @@ const TextEditorForm = ({ editorState, onEditorStateChange }) => {
           link: { inDropdown: true },
           history: { inDropdown: false },
           image: {
-            uploadCallback: (file) => uploadImageCallBack(file, editorState, onEditorStateChange),
+            uploadCallback: file =>
+              uploadImageCallBack(file, editorState, onEditorStateChange),
             alt: { present: true, mandatory: false },
             previewImage: true,
           },
         }}
-        placeholder="내용을 작성해주세요."
+        placeholder="구매 후에만 열람할 수있는 필드입니다."
         localization={{
           locale: 'ko',
         }}

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { EditorState, convertToRaw, ContentState ,Modifier } from 'draft-js';
+import { EditorState, convertToRaw, ContentState, Modifier } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import draftToHtml from 'draftjs-to-html';
 import { fetchPostDetails, updatePost, uploadImage } from '../apis/post';
@@ -41,7 +41,8 @@ function PostEditPage() {
         if (response && response.data) {
           const { content, ...rest } = response.data;
 
-          if (isMounted) { // 컴포넌트가 마운트된 상태인지 확인
+          if (isMounted) {
+            // 컴포넌트가 마운트된 상태인지 확인
             setPost(rest);
             setTitle(response.data.title);
             setPreview(response.data.preview);
@@ -50,12 +51,14 @@ function PostEditPage() {
             setChannelId(response.data.channelId);
             setSeriesId(String(response.data.seriesId || ''));
             setVisibility(response.data.visibility);
-            
 
             // HTML을 Draft.js 콘텐츠 상태로 변환
             const blocksFromHtml = htmlToDraft(content);
             const { contentBlocks, entityMap } = blocksFromHtml;
-            const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
+            const contentState = ContentState.createFromBlockArray(
+              contentBlocks,
+              entityMap,
+            );
             setEditorState(EditorState.createWithContent(contentState));
           }
         } else {
@@ -63,7 +66,9 @@ function PostEditPage() {
         }
       } catch (error) {
         console.error('Failed to fetch post details:', error);
-        alert('포스트 데이터를 가져오는 데 실패했습니다. 서버 응답을 확인하세요.');
+        alert(
+          '포스트 데이터를 가져오는 데 실패했습니다. 서버 응답을 확인하세요.',
+        );
       }
     };
 
@@ -95,12 +100,12 @@ function PostEditPage() {
         const contentStateWithoutEntity = Modifier.removeRange(
           contentState,
           selection,
-          'backward'
+          'backward',
         );
         const newEditorState = EditorState.push(
           editorState,
           contentStateWithoutEntity,
-          'remove-range'
+          'remove-range',
         );
         setEditorState(newEditorState);
       }
@@ -108,7 +113,7 @@ function PostEditPage() {
   };
 
   // 이미지 업로드 콜백 함수
-  const uploadImageCallBack = async (file) => {
+  const uploadImageCallBack = async file => {
     try {
       const response = await uploadImage(file); // AWS S3에 이미지 업로드
       // 서버로부터 반환된 이미지 URL을 올바른 형식으로 변경
@@ -182,11 +187,12 @@ function PostEditPage() {
 
   return (
     <div className="pe-post-edit-container">
-      <h2 className='pe-post-edit-h2'>포스트 수정</h2>
+      <h2 className="pe-post-edit-h2">포스트 수정</h2>
       <form onSubmit={handleSubmit}>
         <div className="pe-form-group">
-          <label className='pe-post-edit-label'>제목</label>
-          <input className='pe-post-edit-input'
+          <label className="pe-post-edit-label">제목</label>
+          <input
+            className="pe-post-edit-input"
             type="text"
             value={title}
             onChange={e => setTitle(e.target.value)}
@@ -194,18 +200,20 @@ function PostEditPage() {
           />
         </div>
         <div className="form-group">
-          <label className='pe-post-edit-label'>미리보기</label>
+          <label className="pe-post-edit-label">미리보기</label>
           <textarea
             className="form-control"
             value={preview}
             onChange={e => setPreview(e.target.value)}
+            placeholder="구매 여부와 관계없이 열람 가능한 필드입니다."
             required
             rows="3"
           />
         </div>
         <div className="form-group">
-          <label className='pe-post-edit-label'>가격</label>
-          <input className='pe-post-edit-input'
+          <label className="pe-post-edit-label">가격</label>
+          <input
+            className="pe-post-edit-input"
             type="number"
             value={price}
             onChange={e => setPrice(e.target.value)}
@@ -213,8 +221,9 @@ function PostEditPage() {
           />
         </div>
         <div className="form-group">
-          <label className='pe-post-edit-label'>카테고리 ID</label>
-          <input className='pe-post-edit-input'
+          <label className="pe-post-edit-label">카테고리 ID</label>
+          <input
+            className="pe-post-edit-input"
             type="number"
             value={categoryId}
             onChange={e => setCategoryId(e.target.value)}
@@ -222,8 +231,9 @@ function PostEditPage() {
           />
         </div>
         <div className="form-group">
-          <label className='pe-post-edit-label'>채널 ID</label>
-          <input className='pe-post-edit-input'
+          <label className="pe-post-edit-label">채널 ID</label>
+          <input
+            className="pe-post-edit-input"
             type="number"
             value={channelId}
             onChange={e => setChannelId(e.target.value)}
@@ -231,16 +241,18 @@ function PostEditPage() {
           />
         </div>
         <div className="form-group">
-          <label className='pe-post-edit-label'>시리즈 ID</label>
-          <input className='pe-post-edit-input'
+          <label className="pe-post-edit-label">시리즈 ID</label>
+          <input
+            className="pe-post-edit-input"
             type="text" // 문자열로 다루기 위해 타입을 text로 설정
             value={seriesId}
             onChange={e => setSeriesId(e.target.value)}
           />
         </div>
         <div className="form-group">
-          <label className='pe-post-edit-label'>공개여부</label>
-          <select className='pe-post-edit-input-select'
+          <label className="pe-post-edit-label">공개여부</label>
+          <select
+            className="pe-post-edit-input-select"
             value={visibility}
             onChange={e => setVisibility(e.target.value)}
           >
@@ -249,7 +261,7 @@ function PostEditPage() {
           </select>
         </div>
         <div className="form-group">
-          <label className='pe-post-edit-label'>내용</label>
+          <label className="pe-post-edit-label">내용</label>
           <Editor
             editorState={editorState}
             onEditorStateChange={handleEditorStateChange}
@@ -258,7 +270,8 @@ function PostEditPage() {
                 uploadCallback: uploadImageCallBack, // 이미지 업로드 콜백 설정
                 alt: { present: true, mandatory: false },
                 previewImage: true,
-                inputAccept: 'image/gif,image/jpeg,image/jpg,image/png,image/svg', // 허용되는 이미지 타입
+                inputAccept:
+                  'image/gif,image/jpeg,image/jpg,image/png,image/svg', // 허용되는 이미지 타입
               },
               fontFamily: {
                 options: [
