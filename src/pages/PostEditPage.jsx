@@ -4,11 +4,21 @@ import { EditorState, convertToRaw, ContentState, Modifier } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import draftToHtml from 'draftjs-to-html';
 import { fetchPostDetails, updatePost, uploadImage } from '../apis/post';
-import '../styles/pages/PostEditPage.css';
 import AuthContext from '../context/AuthContext';
+import '../styles/pages/PostEditPage.css';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import 'draft-js/dist/Draft.css';
 import htmlToDraft from 'html-to-draftjs';
+
+const categories = [
+  { id: 1, name: '웹툰' },
+  { id: 2, name: '영화' },
+  { id: 3, name: '소설' },
+  { id: 4, name: '정치' },
+  { id: 5, name: '경제' },
+  { id: 6, name: '지식' },
+  { id: 7, name: '일상' },
+];
 
 function PostEditPage() {
   const { postId } = useParams();
@@ -20,13 +30,13 @@ function PostEditPage() {
   const [preview, setPreview] = useState('');
   const [price, setPrice] = useState('');
   const [categoryId, setCategoryId] = useState('');
-  const [channelId, setChannelId] = useState('');
-  const [seriesId, setSeriesId] = useState('');
+  const [channelName, setChannelName] = useState('');
+  const [seriesName, setSeriesName] = useState('');
   const [visibility, setVisibility] = useState('PUBLIC');
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
   useEffect(() => {
-    let isMounted = true; // 마운트 상태 플래그
+    let isMounted = true;
 
     if (!isAuthenticated) {
       alert('로그인이 필요합니다.');
@@ -39,26 +49,21 @@ function PostEditPage() {
         const response = await fetchPostDetails(postId);
 
         if (response && response.data) {
-          const { content, ...rest } = response.data;
+          const { content, channelName, seriesName, ...rest } = response.data;
 
           if (isMounted) {
-            // 컴포넌트가 마운트된 상태인지 확인
             setPost(rest);
-            setTitle(response.data.title);
-            setPreview(response.data.preview);
-            setPrice(response.data.price);
-            setCategoryId(response.data.categoryId);
-            setChannelId(response.data.channelId);
-            setSeriesId(String(response.data.seriesId || ''));
-            setVisibility(response.data.visibility);
+            setTitle(rest.title);
+            setPreview(rest.preview);
+            setPrice(rest.price);
+            setCategoryId(rest.categoryId);
+            setChannelName(channelName);
+            setSeriesName(seriesName);
+            setVisibility(rest.visibility);
 
-            // HTML을 Draft.js 콘텐츠 상태로 변환
             const blocksFromHtml = htmlToDraft(content);
             const { contentBlocks, entityMap } = blocksFromHtml;
-            const contentState = ContentState.createFromBlockArray(
-              contentBlocks,
-              entityMap,
-            );
+            const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
             setEditorState(EditorState.createWithContent(contentState));
           }
         } else {
@@ -66,16 +71,14 @@ function PostEditPage() {
         }
       } catch (error) {
         console.error('Failed to fetch post details:', error);
-        alert(
-          '포스트 데이터를 가져오는 데 실패했습니다. 서버 응답을 확인하세요.',
-        );
+        alert('포스트 데이터를 가져오는 데 실패했습니다. 서버 응답을 확인하세요.');
       }
     };
 
     fetchDetails();
 
     return () => {
-      isMounted = false; // 컴포넌트가 언마운트될 때 플래그를 false로 설정
+      isMounted = false;
     };
   }, [isAuthenticated, navigate, postId]);
 
@@ -83,40 +86,34 @@ function PostEditPage() {
     setEditorState(state);
   };
 
-  // 이미지 삭제 핸들러 추가
   const handleDeleteEntity = () => {
     const contentState = editorState.getCurrentContent();
     const selection = editorState.getSelection();
-
-    // 현재 선택된 블록의 타입을 확인
     const blockKey = selection.getAnchorKey();
     const block = contentState.getBlockForKey(blockKey);
     const blockType = block.getType();
 
-    // 'atomic' 블록 타입이면 이미지 블록을 의미하므로 삭제
     if (blockType === 'atomic') {
       const entityKey = block.getEntityAt(0);
       if (entityKey) {
         const contentStateWithoutEntity = Modifier.removeRange(
           contentState,
           selection,
-          'backward',
+          'backward'
         );
         const newEditorState = EditorState.push(
           editorState,
           contentStateWithoutEntity,
-          'remove-range',
+          'remove-range'
         );
         setEditorState(newEditorState);
       }
     }
   };
 
-  // 이미지 업로드 콜백 함수
   const uploadImageCallBack = async file => {
     try {
-      const response = await uploadImage(file); // AWS S3에 이미지 업로드
-      // 서버로부터 반환된 이미지 URL을 올바른 형식으로 변경
+      const response = await uploadImage(file);
       return { data: { link: response.imageUrl } };
     } catch (error) {
       console.error('Failed to upload image:', error);
@@ -133,15 +130,9 @@ function PostEditPage() {
       content,
       preview,
       price: parseInt(price, 10),
-      channelId: parseInt(channelId, 10),
       categoryId: parseInt(categoryId, 10),
       visibility,
     };
-
-    // seriesId가 빈 문자열이 아닐 때만 업데이트 요청에 포함
-    if (typeof seriesId === 'string' && seriesId.trim() !== '') {
-      updatePostDto.seriesId = parseInt(seriesId, 10);
-    }
 
     try {
       const response = await updatePost(postId, updatePostDto);
@@ -155,8 +146,7 @@ function PostEditPage() {
     }
   };
 
-  // 사용자 정의 블록 렌더러 함수
-  function imageBlockRenderer(contentBlock) {
+  const imageBlockRenderer = contentBlock => {
     const type = contentBlock.getType();
     if (type === 'atomic') {
       return {
@@ -164,10 +154,9 @@ function PostEditPage() {
         editable: false,
       };
     }
-  }
+  };
 
-  // 미디어 컴포넌트
-  function MediaComponent({ block, contentState }) {
+  const MediaComponent = ({ block, contentState }) => {
     const entity = contentState.getEntity(block.getEntityAt(0));
     const { src, alt, height, width } = entity.getData();
 
@@ -177,11 +166,11 @@ function PostEditPage() {
           src={src}
           alt={alt || ''}
           style={{ height: height || 'auto', width: width || 'auto' }}
-          onClick={handleDeleteEntity} // 클릭 시 엔티티 삭제
+          onClick={handleDeleteEntity}
         />
       </div>
     );
-  }
+  };
 
   if (!post) return <div>로딩중...</div>;
 
@@ -221,32 +210,36 @@ function PostEditPage() {
           />
         </div>
         <div className="form-group">
-          <label className="pe-post-edit-label">카테고리 ID</label>
-          <input
-            className="pe-post-edit-input"
-            type="number"
+          <label className="pe-post-edit-label">카테고리</label>
+          <select
+            className="pe-post-edit-input-select"
             value={categoryId}
             onChange={e => setCategoryId(e.target.value)}
             required
+          >
+            {categories.map(category => (
+              <option key={category.id} value={category.id}>
+                {category.name}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="form-group">
+          <label className="pe-post-edit-label">채널</label>
+          <input
+            className="pe-post-edit-input"
+            type="text"
+            value={channelName}
+            readOnly
           />
         </div>
         <div className="form-group">
-          <label className="pe-post-edit-label">채널 ID</label>
+          <label className="pe-post-edit-label">시리즈</label>
           <input
             className="pe-post-edit-input"
-            type="number"
-            value={channelId}
-            onChange={e => setChannelId(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label className="pe-post-edit-label">시리즈 ID</label>
-          <input
-            className="pe-post-edit-input"
-            type="text" // 문자열로 다루기 위해 타입을 text로 설정
-            value={seriesId}
-            onChange={e => setSeriesId(e.target.value)}
+            type="text"
+            value={seriesName}
+            readOnly
           />
         </div>
         <div className="form-group">
@@ -267,11 +260,11 @@ function PostEditPage() {
             onEditorStateChange={handleEditorStateChange}
             toolbar={{
               image: {
-                uploadCallback: uploadImageCallBack, // 이미지 업로드 콜백 설정
+                uploadCallback: uploadImageCallBack,
                 alt: { present: true, mandatory: false },
                 previewImage: true,
                 inputAccept:
-                  'image/gif,image/jpeg,image/jpg,image/png,image/svg', // 허용되는 이미지 타입
+                  'image/gif,image/jpeg,image/jpg,image/png,image/svg',
               },
               fontFamily: {
                 options: [
@@ -289,7 +282,7 @@ function PostEditPage() {
                 ],
               },
             }}
-            customBlockRenderFunc={imageBlockRenderer} // 사용자 정의 블록 렌더러 추가
+            customBlockRenderFunc={imageBlockRenderer}
             placeholder="유료 포스트인 경우 구매 후 열람할 수있는 필드입니다."
           />
         </div>
