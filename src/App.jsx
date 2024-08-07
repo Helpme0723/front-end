@@ -27,6 +27,7 @@ import PurchasePost from './pages/PurchasePost';
 import PostPage from './pages/PostPage';
 import MySeriesPage from './pages/MySeries.jsx';
 import UpdateChannel from './pages/UpdateChannel';
+import PostEditPage from './pages/PostEditPage';
 
 function App() {
   return (
@@ -90,6 +91,7 @@ function App() {
                 element={<UpdateChannel />}
               />
             </Route>
+            <Route path="/post/:postId/edit" element={<PostEditPage />} />
           </Routes>
         </Router>
       </SearchProvider>
