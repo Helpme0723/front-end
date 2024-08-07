@@ -78,7 +78,7 @@ const ChannelInsights = () => {
         {channelInfo && (
           <div className="channel-info">
             <img
-              src={channelInfo.channelImage}
+              src={channelInfo.imageUrl}
               alt={channelInfo.channelName}
               className="channel-image"
             />
