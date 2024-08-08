@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { EditorState, convertToRaw, ContentState, Modifier } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import draftToHtml from 'draftjs-to-html';
-import { fetchPostDetails, updatePost, uploadImage } from '../apis/post';
+import { fetchPostDetails, updatePost, uploadImage, getSeries } from '../apis/post';
 import AuthContext from '../context/AuthContext';
 import '../styles/pages/PostEditPage.css';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
@@ -34,6 +34,13 @@ function PostEditPage() {
   const [seriesTitle, setSeriesTitle] = useState('');
   const [visibility, setVisibility] = useState('PUBLIC');
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
+  const [errors, setErrors] = useState({});
+
+  // 각 입력 필드에 대한 참조 생성
+  const titleRef = useRef(null);
+  const previewRef = useRef(null);
+  const categoryRef = useRef(null);
+  const editorRef = useRef(null);
 
   useEffect(() => {
     let isMounted = true;
@@ -121,8 +128,35 @@ function PostEditPage() {
     }
   };
 
+  const validateFields = () => {
+    const newErrors = {};
+
+    if (!title.trim()) newErrors.title = '제목을 입력하세요.';
+    if (!preview.trim()) newErrors.preview = '미리보기를 입력하세요.';
+    if (!categoryId) newErrors.categoryId = '원하는 카테고리를 하나 선택하세요.';
+    if (!editorState.getCurrentContent().hasText()) newErrors.content = '내용을 입력하세요.';
+
+    setErrors(newErrors);
+
+    // 첫 번째 오류 필드로 포커스 이동
+    if (newErrors.title && titleRef.current) {
+      titleRef.current.focus();
+    } else if (newErrors.preview && previewRef.current) {
+      previewRef.current.focus();
+    } else if (newErrors.categoryId && categoryRef.current) {
+      categoryRef.current.focus();
+    } else if (newErrors.content && editorRef.current) {
+      editorRef.current.focus();
+    }
+
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleSubmit = async e => {
     e.preventDefault();
+    if (!validateFields()) {
+      return; // 오류가 있을 경우 제출을 중단
+    }
     const content = draftToHtml(convertToRaw(editorState.getCurrentContent()));
 
     const updatePostDto = {
@@ -179,25 +213,39 @@ function PostEditPage() {
       <h2 className="pe-post-edit-h2">포스트 수정</h2>
       <form onSubmit={handleSubmit}>
         <div className="pe-form-group">
-          <label className="pe-post-edit-label">제목</label>
+        <label className="pe-post-edit-label">제목</label>
           <input
-            className="pe-post-edit-input"
+            ref={titleRef}
+            className={`pe-post-edit-input ${errors.title ? 'pe-error-border' : ''}`}
             type="text"
             value={title}
-            onChange={e => setTitle(e.target.value)}
-            required
+            onChange={e => {
+              setTitle(e.target.value);
+              if (e.target.value.trim()) {
+                setErrors(prevErrors => ({ ...prevErrors, title: null }));
+              }
+            }}
+            // required
           />
+          {errors.title && <div className="pe-error-message">{errors.title}</div>}
         </div>
         <div className="form-group">
           <label className="pe-post-edit-label">미리보기</label>
           <textarea
-            className="form-control"
+            ref={previewRef}
+            className={`form-control ${errors.preview ? 'pe-error-border' : ''}`}
             value={preview}
-            onChange={e => setPreview(e.target.value)}
+            onChange={e => {
+              setPreview(e.target.value);
+              if (e.target.value.trim()) {
+                setErrors(prevErrors => ({ ...prevErrors, preview: null }));
+              }
+            }}
             placeholder="구매 여부와 관계없이 열람 가능한 필드입니다."
-            required
+            // required
             rows="3"
           />
+          {errors.preview && <div className="pe-error-message">{errors.preview}</div>}
         </div>
         <div className="form-group">
           <label className="pe-post-edit-label">가격</label>
@@ -206,15 +254,21 @@ function PostEditPage() {
             type="number"
             value={price}
             onChange={e => setPrice(e.target.value)}
-            required
+            // required
           />
         </div>
         <div className="form-group">
           <label className="pe-post-edit-label">카테고리</label>
           <select
-            className="pe-post-edit-input-select"
+            ref={categoryRef}
+            className={`pe-post-edit-input-select ${errors.categoryId ? 'pe-error-border' : ''}`}
             value={categoryId}
-            onChange={e => setCategoryId(e.target.value)}
+            onChange={e => {
+              setCategoryId(e.target.value);
+              if (e.target.value) {
+                setErrors(prevErrors => ({ ...prevErrors, categoryId: null }));
+              }
+            }}
             required
           >
             {categories.map(category => (
@@ -223,6 +277,7 @@ function PostEditPage() {
               </option>
             ))}
           </select>
+          {errors.categoryId && <div className="pe-error-message">{errors.categoryId}</div>}
         </div>
         <div className="form-group">
           <label className="pe-post-edit-label">채널</label>
