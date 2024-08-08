@@ -177,3 +177,25 @@ export const updatePost = async (postId, updatePostDto) => {
 	  throw error;
 	}
   };
+
+  export const fetchChannelDetails = async (channelId) => {
+	try {
+	  const response = await axiosInstance.get(`/api/channels/${channelId}`);
+	  return response.data;
+	} catch (error) {
+	  console.error('Error fetching channel details:', error);
+	  throw error;
+	}
+  };
+
+  export const subscribeToChannel = async (channelId) => {
+	try {
+	  const response = await axiosInstance.post(`/api/subscribes`, {
+		channelId
+	  });
+	  return response.data;
+	} catch (error) {
+	  console.error('Error subscribing to channel:', error);
+	  throw error;
+	}
+  };
