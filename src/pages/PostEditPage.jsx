@@ -63,7 +63,7 @@ function PostEditPage() {
         console.log("포스트 응답 데이터:", response.data);
 
         if (response && response.data) {
-          const { content, channelTitle, seriesTitle, ...rest } = response.data;
+          const { content, channelTitle, seriesId, seriesTitle, ...rest } = response.data;
 
           if (isMounted) {
             setPost(rest);
@@ -85,7 +85,8 @@ function PostEditPage() {
             try {
               const seriesResponse = await getSeries(rest.channelId);
               setSeriesList(seriesResponse.data.series || []); // 실제 응답 구조에 맞게 조정
-              setSelectedSeriesId(seriesTitle?.id || ''); // 선택된 시리즈 설정
+               // 기존에 설정된 시리즈가 있다면 selectedSeriesId에 설정
+               setSelectedSeriesId(seriesId ? seriesId.toString() : ''); // 선택된 시리즈 설정
             } catch (seriesError) {
               console.error('Failed to fetch series:', seriesError);
             }
