@@ -32,6 +32,7 @@ function PostDetailsPage() {
   const [totalCommentPages, setTotalCommentPages] = useState(0);
   const [purchasedPosts, setPurchasedPosts] = useState([]); // 구매한 포스트 상태 추가
   const [newComment, setNewComment] = useState(''); // 새로운 댓글 입력 상태
+  const [lastAddedCommentId, setLastAddedCommentId] = useState(null);
 
   //채널 모달창
   const [channelModalIsOpen, setChannelModalIsOpen] = useState(false);
@@ -156,6 +157,17 @@ function PostDetailsPage() {
 
   // const isPostPurchased = purchasedPosts.includes(postId.toString()); // 현재 포스트 구매 여부 확인
 
+  useEffect(() => {
+    if (lastAddedCommentId) {
+      // 특정 시간 후에 new-comment 클래스를 제거합니다.
+      const timer = setTimeout(() => {
+        setLastAddedCommentId(null);
+      }, 1000); // 애니메이션 시간과 일치시킵니다.
+
+      return () => clearTimeout(timer);
+    }
+  }, [lastAddedCommentId]);
+
   //댓글생성
   const handleCreateComment = async () => {
     if (!newComment.trim()) {
@@ -179,6 +191,7 @@ function PostDetailsPage() {
       // 새로운 댓글을 배열의 시작 부분에 추가
       setComments(prevComments => [response.data, ...prevComments]); // 새 댓글을 기존 댓글 앞에 추가
       setNewComment(''); // 댓글 입력 초기화
+      setLastAddedCommentId(response.data.id); // 새로 추가된 댓글 ID를 저장
     } catch (error) {
       console.error('Failed to create comment:', error);
       alert('댓글 작성에 실패했습니다.');
@@ -480,7 +493,11 @@ function PostDetailsPage() {
         ) : comments.length > 0 ? (
           <>
             {comments.map(comment => (
-              <div key={comment.id} className="comment">
+              <div
+              key={comment.id}
+              id={`comment-${comment.id}`}
+              className={`comment ${comment.id === lastAddedCommentId ? 'new-comment' : ''}`} // 새 댓글에 애니메이션 클래스 적용
+            >
                 <div className="author-info">
                   <img
                     src={comment.user.profileUrl}
