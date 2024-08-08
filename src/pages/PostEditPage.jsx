@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { EditorState, convertToRaw, ContentState, Modifier } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import draftToHtml from 'draftjs-to-html';
-import { fetchPostDetails, updatePost, uploadImage, getSeries } from '../apis/post';
+import { fetchPostDetails, updatePost, uploadImage } from '../apis/post';
 import AuthContext from '../context/AuthContext';
 import '../styles/pages/PostEditPage.css';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
