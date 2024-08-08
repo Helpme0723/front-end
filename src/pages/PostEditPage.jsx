@@ -54,6 +54,7 @@ function PostEditPage() {
     const fetchDetails = async () => {
       try {
         const response = await fetchPostDetails(postId);
+        console.log("응답 데이터 확인",response.data);
 
         if (response && response.data) {
           const { content, channelTitle, seriesTitle, ...rest } = response.data;
@@ -65,7 +66,7 @@ function PostEditPage() {
             setPrice(rest.price);
             setCategoryId(rest.categoryId);
             setChannelTitle(channelTitle);
-            setSeriesTitle(seriesTitle);
+            setSeriesTitle(seriesTitle || '');
             setVisibility(rest.visibility);
 
             const blocksFromHtml = htmlToDraft(content);
