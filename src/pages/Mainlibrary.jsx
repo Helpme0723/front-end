@@ -65,7 +65,7 @@ function LibraryPage() {
         {likedPosts.length > 0 ? (
           likedPosts.map(post => (
             <Link
-              to={`/post/${post.post.id}`}
+              to={`/post/${post.postId}`}
               key={post.id}
               className="post-entry-link"
             >
