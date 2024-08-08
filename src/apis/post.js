@@ -142,7 +142,7 @@ export const getSeries = async (channelId, page = 1, limit = 9, sort = 'desc') =
 		const response = await axiosInstance.get('api/series/my', {
 			params: { channelId, page, limit, sort }
 		});
-
+		console.log("시리즈 API 응답 데이터:", response.data);
 		return response.data;
 
 	} catch (error) {

@@ -3,7 +3,12 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { EditorState, convertToRaw, ContentState, Modifier } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import draftToHtml from 'draftjs-to-html';
-import { fetchPostDetails, updatePost, uploadImage } from '../apis/post';
+import {
+  fetchPostDetails,
+  updatePost,
+  uploadImage,
+  getSeries,
+} from '../apis/post';
 import AuthContext from '../context/AuthContext';
 import '../styles/pages/PostEditPage.css';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
@@ -31,10 +36,11 @@ function PostEditPage() {
   const [price, setPrice] = useState('');
   const [categoryId, setCategoryId] = useState('');
   const [channelTitle, setChannelTitle] = useState('');
-  const [seriesTitle, setSeriesTitle] = useState('');
   const [visibility, setVisibility] = useState('PUBLIC');
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const [errors, setErrors] = useState({});
+  const [seriesList, setSeriesList] = useState([]);
+  const [selectedSeriesId, setSelectedSeriesId] = useState('');
 
   // 각 입력 필드에 대한 참조 생성
   const titleRef = useRef(null);
@@ -54,7 +60,7 @@ function PostEditPage() {
     const fetchDetails = async () => {
       try {
         const response = await fetchPostDetails(postId);
-        console.log("응답 데이터 확인",response.data);
+        console.log("포스트 응답 데이터:", response.data);
 
         if (response && response.data) {
           const { content, channelTitle, seriesTitle, ...rest } = response.data;
@@ -66,20 +72,32 @@ function PostEditPage() {
             setPrice(rest.price);
             setCategoryId(rest.categoryId);
             setChannelTitle(channelTitle);
-            setSeriesTitle(seriesTitle || '');
             setVisibility(rest.visibility);
 
             const blocksFromHtml = htmlToDraft(content);
             const { contentBlocks, entityMap } = blocksFromHtml;
-            const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
+            const contentState = ContentState.createFromBlockArray(
+              contentBlocks,
+              entityMap,
+            );
             setEditorState(EditorState.createWithContent(contentState));
+            // 시리즈 목록 가져오기
+            try {
+              const seriesResponse = await getSeries(rest.channelId);
+              setSeriesList(seriesResponse.data.series || []); // 실제 응답 구조에 맞게 조정
+              setSelectedSeriesId(seriesTitle?.id || ''); // 선택된 시리즈 설정
+            } catch (seriesError) {
+              console.error('Failed to fetch series:', seriesError);
+            }
           }
         } else {
           console.error('Invalid response from server');
         }
       } catch (error) {
         console.error('Failed to fetch post details:', error);
-        alert('포스트 데이터를 가져오는 데 실패했습니다. 서버 응답을 확인하세요.');
+        alert(
+          '포스트 데이터를 가져오는 데 실패했습니다. 서버 응답을 확인하세요.',
+        );
       }
     };
 
@@ -107,12 +125,12 @@ function PostEditPage() {
         const contentStateWithoutEntity = Modifier.removeRange(
           contentState,
           selection,
-          'backward'
+          'backward',
         );
         const newEditorState = EditorState.push(
           editorState,
           contentStateWithoutEntity,
-          'remove-range'
+          'remove-range',
         );
         setEditorState(newEditorState);
       }
@@ -134,8 +152,10 @@ function PostEditPage() {
 
     if (!title.trim()) newErrors.title = '제목을 입력하세요.';
     if (!preview.trim()) newErrors.preview = '미리보기를 입력하세요.';
-    if (!categoryId) newErrors.categoryId = '원하는 카테고리를 하나 선택하세요.';
-    if (!editorState.getCurrentContent().hasText()) newErrors.content = '내용을 입력하세요.';
+    if (!categoryId)
+      newErrors.categoryId = '원하는 카테고리를 하나 선택하세요.';
+    if (!editorState.getCurrentContent().hasText())
+      newErrors.content = '내용을 입력하세요.';
 
     setErrors(newErrors);
 
@@ -166,6 +186,7 @@ function PostEditPage() {
       preview,
       price: parseInt(price, 10),
       categoryId: parseInt(categoryId, 10),
+      seriesId: selectedSeriesId ? parseInt(selectedSeriesId, 10) : null, // 선택된 시리즈 ID 추가
       visibility,
     };
 
@@ -214,7 +235,7 @@ function PostEditPage() {
       <h2 className="pe-post-edit-h2">포스트 수정</h2>
       <form onSubmit={handleSubmit}>
         <div className="pe-form-group">
-        <label className="pe-post-edit-label">제목</label>
+          <label className="pe-post-edit-label">제목</label>
           <input
             ref={titleRef}
             className={`pe-post-edit-input ${errors.title ? 'pe-error-border' : ''}`}
@@ -228,7 +249,9 @@ function PostEditPage() {
             }}
             // required
           />
-          {errors.title && <div className="pe-error-message">{errors.title}</div>}
+          {errors.title && (
+            <div className="pe-error-message">{errors.title}</div>
+          )}
         </div>
         <div className="form-group">
           <label className="pe-post-edit-label">미리보기</label>
@@ -246,7 +269,9 @@ function PostEditPage() {
             // required
             rows="3"
           />
-          {errors.preview && <div className="pe-error-message">{errors.preview}</div>}
+          {errors.preview && (
+            <div className="pe-error-message">{errors.preview}</div>
+          )}
         </div>
         <div className="form-group">
           <label className="pe-post-edit-label">가격</label>
@@ -278,7 +303,9 @@ function PostEditPage() {
               </option>
             ))}
           </select>
-          {errors.categoryId && <div className="pe-error-message">{errors.categoryId}</div>}
+          {errors.categoryId && (
+            <div className="pe-error-message">{errors.categoryId}</div>
+          )}
         </div>
         <div className="form-group">
           <label className="pe-post-edit-label">채널</label>
@@ -291,12 +318,22 @@ function PostEditPage() {
         </div>
         <div className="form-group">
           <label className="pe-post-edit-label">시리즈</label>
-          <input
-            className="pe-post-edit-input"
-            type="text"
-            value={seriesTitle}
-            readOnly
-          />
+          <select
+            className="pe-post-edit-input-select"
+            value={selectedSeriesId}
+            onChange={e => setSelectedSeriesId(e.target.value)}
+          >
+            <option value="">지정안함</option>
+            {seriesList.length > 0 ? (
+              seriesList.map(series => (
+                <option key={series.id} value={series.id}>
+                  {series.title} 
+                </option>
+              ))
+            ) : (
+              <option disabled>시리즈를 불러오는 중입니다...</option>
+            )}
+          </select>
         </div>
         <div className="form-group">
           <label className="pe-post-edit-label">공개여부</label>
