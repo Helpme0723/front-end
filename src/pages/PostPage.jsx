@@ -7,6 +7,33 @@ import '../styles/pages/PostPage.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
 
+// 이미지가 입력될 경우 img 태그로 변환
+function MediaComponent({ block, contentState }) {
+  const data = contentState.getEntity(block.getEntityAt(0)).getData();
+  return (
+    <div>
+      <img
+        src={data.src}
+        alt={data.alt || ""}
+        style={{ height: data.height || "auto", width: data.width || "auto" }}
+      />
+    </div>
+  );
+}
+
+// 이미지를 감지해 컴포넌트로 변환해주는 사용자 정의 함수
+function imageBlockRenderer(contentBlock) {
+  const type = contentBlock.getType();
+
+  if (type === "atomic") {
+    return {
+      component: MediaComponent,
+      editable: false,
+    };
+  }
+  return null;
+}
+
 const PostPage = () => {
   const { isAuthenticated } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -179,6 +206,7 @@ const PostPage = () => {
           onEditorStateChange={setEditorState}
           pendingImageUrl={pendingImageUrl}
           setPendingImageUrl={setPendingImageUrl}
+          customBlockRenderFunc={imageBlockRenderer} // 이미지 블록 렌더러 추가
         />
       </div>
       <button onClick={clickButton} className="save-button">

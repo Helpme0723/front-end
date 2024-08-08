@@ -23,6 +23,7 @@ const TextEditorForm = ({
   onEditorStateChange,
   pendingImageUrl,
   setPendingImageUrl,
+  customBlockRenderFunc // 추가: customBlockRenderFunc props 추가
 }) => {
   const uploadImageCallBack = async file => {
     try {
@@ -58,6 +59,7 @@ const TextEditorForm = ({
         }}
         editorState={editorState}
         onEditorStateChange={onEditorStateChange}
+        customBlockRenderFunc={customBlockRenderFunc} // 추가: customBlockRenderFunc 설정
       />
     </MyBlock>
   );

@@ -141,3 +141,14 @@
   background-color: #f0f0f0;
 }
 
+/* 오류 메시지 스타일 */
+.pe-error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+/* 오류 테두리 스타일 */
+.pe-error-border {
+  border-color: red;
+}
