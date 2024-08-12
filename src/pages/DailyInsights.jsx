@@ -50,7 +50,7 @@ function DailyInsights() {
         );
 
         setDailyInsights(response.data);
-        setTotalPages(response.data.meta.totalPages);
+        setTotalPages(response.data.meta?.totalPages);
       } catch (error) {
         console.log('Error fetching channel daily insights:', error.message);
         setErrorMessage(error.response.data.message);
@@ -97,7 +97,7 @@ function DailyInsights() {
                 customInput={<CustomDateInput />}
                 className="date-picker"
                 calendarClassName="custom-calendar"
-                maxDate={sub(new Date(), { days: 1 })}
+                maxDate={new Date()}
               />
             </div>
           </div>
@@ -105,8 +105,8 @@ function DailyInsights() {
       </div>
       <div className="posts">
         {dailyInsights.items && dailyInsights.items.length > 0 ? (
-          dailyInsights.items.map(item => (
-            <div key={item.id} className="insights-post-card">
+          dailyInsights.items.map((item, index) => (
+            <div key={index} className="insights-post-card">
               <div className="post-title">포스트 제목: {item.title}</div>
               <div className="statistics">
                 <div className="stat-card">
