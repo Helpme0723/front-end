@@ -14,8 +14,8 @@ function MediaComponent({ block, contentState }) {
     <div>
       <img
         src={data.src}
-        alt={data.alt || ""}
-        style={{ height: data.height || "auto", width: data.width || "auto" }}
+        alt={data.alt || ''}
+        style={{ height: data.height || 'auto', width: data.width || 'auto' }}
       />
     </div>
   );
@@ -25,7 +25,7 @@ function MediaComponent({ block, contentState }) {
 function imageBlockRenderer(contentBlock) {
   const type = contentBlock.getType();
 
-  if (type === "atomic") {
+  if (type === 'atomic') {
     return {
       component: MediaComponent,
       editable: false,

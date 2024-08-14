@@ -62,7 +62,9 @@ function PointHistoryPage() {
         <ul className="list">
           {pointHistory.map(item => (
             <li key={item.id} className="list-item">
-              <p className="description">{item.description || 'No description available'}</p>
+              <p className="description">
+                {item.description || 'No description available'}
+              </p>
               <div className="details">
                 <span className="date">{formatDate(item.createdAt)}</span>
                 <span className={`amount ${item.type}`}>{item.amount}</span>

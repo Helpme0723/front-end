@@ -51,21 +51,25 @@ function CategoryPostView() {
 
   const handlePrevPage = () => {
     if (currentPage > 1) {
-      navigate(`?categoryId=${selectedCategory}&page=${currentPage - 1}&limit=10`);
+      navigate(
+        `?categoryId=${selectedCategory}&page=${currentPage - 1}&limit=10`,
+      );
     }
   };
 
   const handleNextPage = () => {
     if (currentPage < totalPages) {
-      navigate(`?categoryId=${selectedCategory}&page=${currentPage + 1}&limit=10`);
+      navigate(
+        `?categoryId=${selectedCategory}&page=${currentPage + 1}&limit=10`,
+      );
     }
   };
 
-  const handleCategoryChange = (categoryId) => {
+  const handleCategoryChange = categoryId => {
     navigate(`?categoryId=${categoryId}&page=1&limit=10`);
   };
 
-  const formatDate = (dateString) => {
+  const formatDate = dateString => {
     const date = new Date(dateString);
     return date.toLocaleDateString('ko-KR');
   };
@@ -92,12 +96,16 @@ function CategoryPostView() {
           <Link to={`/post/${post.id}`} key={post.id} className="post-card">
             <div className="post-header">
               <div className="post-title">{post.title || '제목 없음'}</div>
-              <div className={`post-type ${post.price > 0 ? 'post-paid' : 'post-free'}`}>
+              <div
+                className={`post-type ${post.price > 0 ? 'post-paid' : 'post-free'}`}
+              >
                 {post.price > 0 ? '유료' : '무료'}
               </div>
             </div>
             <div className="post-info">
-              <div className="post-preview">{post.preview.substring(0, 20)}</div>
+              <div className="post-preview">
+                {post.preview.substring(0, 20)}
+              </div>
               <div className="post-author">
                 <img
                   src={post.userImage}
@@ -106,8 +114,12 @@ function CategoryPostView() {
                 />
                 작성자: {post.userName}
               </div>
-              <div className="post-date">생성일: {formatDate(post.createdAt)}</div>
-              {post.price > 0 && <div className="post-price">가격: {post.price} 포인트</div>}
+              <div className="post-date">
+                생성일: {formatDate(post.createdAt)}
+              </div>
+              {post.price > 0 && (
+                <div className="post-price">가격: {post.price} 포인트</div>
+              )}
             </div>
           </Link>
         ))}

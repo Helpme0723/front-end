@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
 import { getUserInfo } from '../apis/user';
+import { connectToNotifications } from '../apis/sse'; // SSE 연결 함수
 import '../styles/components/Header.css';
 import { SearchContext } from '../context/SearchContext';
 
@@ -9,9 +10,10 @@ function Header() {
   const { isAuthenticated, logout } = useContext(AuthContext);
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
+  const [notificationMessage, setNotificationMessage] = useState(null); // 알림 메시지 상태
   const { performSearch, setSearchTerm } = useContext(SearchContext);
-  const [searchInput, setSearchInput] = useState(''); // State for search input
-  const [searchField, setSearchField] = useState('title'); // State for search field
+  const [searchInput, setSearchInput] = useState('');
+  const [searchField, setSearchField] = useState('title');
   const navigate = useNavigate();
 
   const fetchUserInfo = useCallback(async () => {
@@ -36,20 +38,40 @@ function Header() {
     } else if (isAuthenticated) {
       fetchUserInfo();
     }
+
+    if (isAuthenticated) {
+      console.log('SSE 연결 시도 중...');
+
+      const disconnectSSE = connectToNotifications(
+        notification => {
+          console.log('알림 수신:', notification);
+          setNotificationMessage(notification.message);
+          setTimeout(() => {
+            setNotificationMessage(null);
+          }, 3000);
+        },
+        () => {
+          console.error('SSE 연결 오류 발생');
+        },
+      );
+
+      return () => {
+        disconnectSSE();
+        console.log('SSE 연결 해제');
+      };
+    }
   }, [isAuthenticated, fetchUserInfo, logout]);
 
-  const handleSearch = async (e) => {
+  const handleSearch = async e => {
     e.preventDefault();
     if (!searchInput.trim()) {
-      // If search input is empty, navigate to the main page
       navigate('/');
       return;
     }
     try {
-      // Perform the search using the search context
       await performSearch(searchInput, searchField, 1, 10, 'desc');
       setSearchTerm(searchInput);
-      navigate('/search-results'); // Navigate to search results page
+      navigate('/search-results');
     } catch (error) {
       console.error('Failed to perform search:', error);
     }
@@ -57,6 +79,9 @@ function Header() {
 
   return (
     <header className="header">
+      {notificationMessage && (
+        <div className={`notification-banner show`}>{notificationMessage}</div>
+      )}
       <div className="header-title">TalentVerse</div>
       <nav className="nav-links">
         <Link to="/" className="nav-link">
@@ -79,15 +104,23 @@ function Header() {
             className="search-input"
             placeholder="검색"
             value={searchInput}
-            onChange={(e) => setSearchInput(e.target.value)}
+            onChange={e => setSearchInput(e.target.value)}
           />
-          <select value={searchField} onChange={(e) => setSearchField(e.target.value)}>
+          <select
+            value={searchField}
+            onChange={e => setSearchField(e.target.value)}
+          >
             <option value="title">제목</option>
             <option value="content">내용</option>
             <option value="all">제목 + 내용</option>
           </select>
-          <button type="submit" className="search-button">🔍</button>
+          <button type="submit" className="search-button">
+            🔍
+          </button>
         </form>
+        <Link to="/notifications" className="notification-icon">
+          🔔
+        </Link>
         {isAuthenticated ? (
           <div className="dropdown">
             {user && user.profileUrl && (

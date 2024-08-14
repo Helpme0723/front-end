@@ -36,3 +36,48 @@ export const updateUserPassword = async updateUserPasswordDto => {
     throw error;
   }
 };
+
+// 알림 설정 조회
+export const getNotificationSettings = async () => {
+  try {
+    const response = await axiosInstance.get('/api/notifications/settings');
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching notification settings:', error);
+    throw error;
+  }
+};
+
+// 댓글 알림 설정 토글
+export const toggleCommentNotifications = async () => {
+  try {
+    const response = await axiosInstance.post('/api/notifications/settings/comment');
+    return response.data;
+  } catch (error) {
+    console.error('Error toggling comment notifications:', error);
+    throw error;
+  }
+};
+
+// 댓글 좋아요 알림 설정 토글
+export const toggleLikeNotifications = async () => {
+  try {
+    const response = await axiosInstance.post('/api/notifications/settings/comment/like');
+    return response.data;
+  } catch (error) {
+    console.error('Error toggling comment like notifications:', error);
+    throw error;
+  }
+};
+
+// 포스트 좋아요 알림 설정 토글
+export const togglePostLikeNotifications = async () => {
+  try {
+    const response = await axiosInstance.post('/api/notifications/settings/post/like');
+    return response.data;
+  } catch (error) {
+    console.error('Error toggling post like notifications:', error);
+    throw error;
+  }
+};
+

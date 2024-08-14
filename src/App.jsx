@@ -30,6 +30,8 @@ import UpdateChannel from './pages/UpdateChannel';
 import PostEditPage from './pages/PostEditPage';
 import GetMySeriesDetail from './pages/GetMySeriesDetail.jsx';
 import GetSeriesDetail from './pages/GetSeriesDetail.jsx';
+import NotificationsPage from './pages/NotificationsPage';
+import NotificationSettings from './pages/NotificationSettings';
 
 function App() {
   return (
@@ -45,6 +47,7 @@ function App() {
               <Route path="sign-up" element={<SignUp />} />
               <Route path="profile" element={<Profile />} />
               <Route path="edit-profile" element={<EditProfile />} />
+              <Route path="notification-settings" element={<NotificationSettings />} />
               <Route path="change-password" element={<ChangePassword />} />
               <Route path="channel/create" element={<CreateChannel />} />
               <Route path="library" element={<LibraryPage />} />
@@ -85,6 +88,7 @@ function App() {
                 path="channel/:channelId/insights/monthly"
                 element={<MonthlyInsights />}
               />
+               <Route path="notifications" element={<NotificationsPage />} />
               <Route path="purchasesPost" element={<PurchasePost />} />
 
               <Route path="series/my" element={<MySeriesPage />} />
