@@ -27,11 +27,11 @@ const NotificationsPage = () => {
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [viewingAll, setViewingAll] = useState(true); // true면 모든 알림 조회, false면 읽지 않은 알림 조회
+  const [viewingAll, setViewingAll] = useState(false); // 기본값을 false로 설정하여 읽지 않은 알림을 처음에 보여줌
 
   useEffect(() => {
-    // 초기 로드 시 모든 알림을 가져옵니다.
-    fetchAllNotifications(1);
+    // 초기 로드 시 읽지 않은 알림을 가져옵니다.
+    fetchUnreadNotifications();
   }, []);
 
   const fetchUnreadNotifications = async () => {
@@ -61,7 +61,7 @@ const NotificationsPage = () => {
     try {
       await markNotificationsAsRead();
       alert('모든 알림이 읽음 처리되었습니다.');
-      fetchUnreadNotifications(); // 모든 알림을 다시 불러오기
+      fetchUnreadNotifications(); // 읽지 않은 알림을 다시 불러오기
     } catch (error) {
       setError('알림을 읽음 처리하는 데 실패했습니다');
     }
