@@ -142,6 +142,6 @@ export const socialLogin = async code => {
 
     return response.data;
   } catch (error) {
-    throw new Error('네이버 로그인 오류');
+    throw new Error('소셜 로그인 오류');
   }
 };
