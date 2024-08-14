@@ -31,6 +31,9 @@ function Login() {
   const handleNaverLogin = async () => {
     window.location.href = process.env.REACT_APP_NAVER_SOCIAL_LOGIN;
   };
+  const handleKakaoLogin = async () => {
+    window.location.href = process.env.REACT_APP_KAKAO_SOCIAL_LOGIN;
+  };
 
   return (
     <div className="login-container">
@@ -71,7 +74,9 @@ function Login() {
         <button className="social-button naver" onClick={handleNaverLogin}>
           네이버
         </button>
-        <button className="social-button kakao">카카오</button>
+        <button className="social-button kakao" onClick={handleKakaoLogin}>
+          카카오
+        </button>
       </div>
       <div className="additional-links-login">
         <a href="/sign-up">회원가입</a> {/* 회원가입 링크 추가 */}
