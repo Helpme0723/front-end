@@ -50,7 +50,7 @@ function MonthlyInsights() {
         );
 
         setMonthlyInsights(response.data);
-        setTotalPages(response.data.meta.totalPages);
+        setTotalPages(response.data.meta?.totalPages);
       } catch (error) {
         console.log('Error fetching channel monthly insights:', error.message);
         setErrorMessage(error.response.data.message);
@@ -98,7 +98,7 @@ function MonthlyInsights() {
                 customInput={<CustomDateInput />}
                 className="date-picker"
                 calendarClassName="custom-calendar"
-                maxDate={sub(new Date(), { months: 1 })}
+                maxDate={new Date()}
               />
             </div>
           </div>
@@ -106,8 +106,8 @@ function MonthlyInsights() {
       </div>
       <div className="posts">
         {monthlyInsights.items && monthlyInsights.items.length > 0 ? (
-          monthlyInsights.items.map(item => (
-            <div key={item.id} className="insights-post-card">
+          monthlyInsights.items.map((item, index) => (
+            <div key={index} className="insights-post-card">
               <div className="post-title">포스트 제목: {item.title}</div>
               <div className="statistics">
                 <div className="stat-card">

@@ -32,6 +32,7 @@ import GetMySeriesDetail from './pages/GetMySeriesDetail.jsx';
 import GetSeriesDetail from './pages/GetSeriesDetail.jsx';
 import NotificationsPage from './pages/NotificationsPage';
 import NotificationSettings from './pages/NotificationSettings';
+import SocialLogin from './pages/SocialLogin.jsx';
 
 function App() {
   return (
@@ -105,6 +106,7 @@ function App() {
               <Route path="series/:seriesId" element={<GetSeriesDetail />} />
             </Route>
             <Route path="/post/:postId/edit" element={<PostEditPage />} />
+            <Route path="/social" element={<SocialLogin />} />
           </Routes>
         </Router>
       </SearchProvider>
