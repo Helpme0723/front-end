@@ -81,3 +81,13 @@ export const togglePostLikeNotifications = async () => {
   }
 };
 
+// 구독 알림 설정 토글
+export const toggleSubscribeNotifications = async () => {
+  try {
+    const response = await axiosInstance.post('/api/notifications/settings/subscribe');
+    return response.data;
+  } catch (error) {
+    console.error('Error toggling subscribe notifications:', error);
+    throw error;
+  }
+};

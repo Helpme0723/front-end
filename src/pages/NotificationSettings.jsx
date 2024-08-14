@@ -6,7 +6,8 @@ import {
   getNotificationSettings,
   toggleCommentNotifications,
   toggleLikeNotifications,
-  togglePostLikeNotifications
+  togglePostLikeNotifications,
+  toggleSubscribeNotifications,
 } from '../apis/user';
 import '../styles/pages/NotificationSettings.css';
 
@@ -17,6 +18,7 @@ function NotificationSettings() {
     commentNotifications: false,
     commentlikeNotifications: false,
     postLikeNotifications: false,
+    subscribeNotifications: false,
   });
 
   useEffect(() => {
@@ -41,7 +43,7 @@ function NotificationSettings() {
   const handleToggleCommentNotifications = async () => {
     try {
       const data = await toggleCommentNotifications();
-      setSettings((prevSettings) => ({
+      setSettings(prevSettings => ({
         ...prevSettings,
         commentNotifications: data.data.commentNotifications,
       }));
@@ -53,7 +55,7 @@ function NotificationSettings() {
   const handleToggleLikeNotifications = async () => {
     try {
       const data = await toggleLikeNotifications();
-      setSettings((prevSettings) => ({
+      setSettings(prevSettings => ({
         ...prevSettings,
         commentlikeNotifications: data.data.commentlikeNotifications,
       }));
@@ -65,12 +67,24 @@ function NotificationSettings() {
   const handleTogglePostLikeNotifications = async () => {
     try {
       const data = await togglePostLikeNotifications();
-      setSettings((prevSettings) => ({
+      setSettings(prevSettings => ({
         ...prevSettings,
         postLikeNotifications: data.data.postLikeNotifications,
       }));
     } catch (error) {
       console.error('포스트 좋아요 알림 설정을 변경하지 못했습니다.', error);
+    }
+  };
+
+  const handleToggleSubscribeNotifications = async () => {
+    try {
+      const data = await toggleSubscribeNotifications();
+      setSettings(prevSettings => ({
+        ...prevSettings,
+        subscribeNotifications: data.data.subscribeNotifications,
+      }));
+    } catch (error) {
+      console.error('구독 알림 설정을 변경하지 못했습니다.', error);
     }
   };
 
@@ -119,6 +133,24 @@ function NotificationSettings() {
           <Switch
             checked={settings.postLikeNotifications}
             onChange={handleTogglePostLikeNotifications}
+            onColor="#86d3ff"
+            onHandleColor="#2693e6"
+            handleDiameter={30}
+            uncheckedIcon={false}
+            checkedIcon={false}
+            boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+            activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+            height={20}
+            width={48}
+          />
+        </label>
+      </div>
+      <div className="noti-setting">
+        <label>
+          구독 알림
+          <Switch
+            checked={settings.subscribeNotifications}
+            onChange={handleToggleSubscribeNotifications}
             onColor="#86d3ff"
             onHandleColor="#2693e6"
             handleDiameter={30}
