@@ -35,14 +35,6 @@
   background-color: #0056b3;
 }
 
-.noti-button-mark-read {
-  background-color: #007bff;
-}
-
-.noti-button-mark-read:hover {
-  background-color: #0056b3;
-}
-
 .noti-error-message {
   color: red;
   font-weight: bold;
@@ -84,4 +76,25 @@
   font-size: 18px;
   font-weight: bold;
   margin-top: 20px;
+}
+/* 모두 읽기 버튼 컨테이너 */
+.noti-mark-all-read-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px; /* 적당한 여백을 추가 */
+}
+
+/* 버튼 스타일 */
+.noti-button-mark-read {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+.noti-button-mark-read:hover {
+  background-color: #0056b3;
 }

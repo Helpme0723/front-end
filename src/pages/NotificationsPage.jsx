@@ -4,6 +4,7 @@ import {
   getAllNotifications,
   markNotificationsAsRead,
 } from '../apis/notifications';
+import Pagination from '../components/Testpagenation'; // Pagination 컴포넌트 임포트
 import '../styles/pages/Notification.css';
 
 // 날짜 포맷 함수
@@ -24,10 +25,13 @@ const formatDate = dateString => {
 const NotificationsPage = () => {
   const [notifications, setNotifications] = useState([]);
   const [error, setError] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [viewingAll, setViewingAll] = useState(true); // true면 모든 알림 조회, false면 읽지 않은 알림 조회
 
   useEffect(() => {
     // 초기 로드 시 모든 알림을 가져옵니다.
-    fetchAllNotifications();
+    fetchAllNotifications(1);
   }, []);
 
   const fetchUnreadNotifications = async () => {
@@ -35,16 +39,19 @@ const NotificationsPage = () => {
       const data = await getUnreadNotifications();
       setNotifications(data.data);
       setError(null);
+      setViewingAll(false); // 읽지 않은 알림 조회 모드로 설정
     } catch (error) {
       setError('읽지 않은 알림을 가져오는 데 실패했습니다');
     }
   };
 
-  const fetchAllNotifications = async () => {
+  const fetchAllNotifications = async page => {
     try {
-      const data = await getAllNotifications();
-      setNotifications(data.data);
+      const data = await getAllNotifications(page);
+      setNotifications(data.data.items);
+      setTotalPages(Math.ceil(data.data.meta.totalItems / 10)); // 총 페이지 수 계산
       setError(null);
+      setViewingAll(true); // 모든 알림 조회 모드로 설정
     } catch (error) {
       setError('모든 알림을 가져오는 데 실패했습니다');
     }
@@ -54,9 +61,23 @@ const NotificationsPage = () => {
     try {
       await markNotificationsAsRead();
       alert('모든 알림이 읽음 처리되었습니다.');
-      fetchAllNotifications(); // 모든 알림을 다시 불러오기
+      fetchUnreadNotifications(); // 모든 알림을 다시 불러오기
     } catch (error) {
       setError('알림을 읽음 처리하는 데 실패했습니다');
+    }
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      fetchAllNotifications(currentPage - 1);
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      fetchAllNotifications(currentPage + 1);
+      setCurrentPage(currentPage + 1);
     }
   };
 
@@ -67,14 +88,11 @@ const NotificationsPage = () => {
         <button className="noti-button" onClick={fetchUnreadNotifications}>
           읽지 않은 알림
         </button>
-        <button className="noti-button" onClick={fetchAllNotifications}>
-          모든 알림 조회
-        </button>
         <button
-          className="noti-button noti-button-mark-read"
-          onClick={handleMarkAllAsRead}
+          className="noti-button"
+          onClick={() => fetchAllNotifications(1)}
         >
-          모두 읽기
+          모든 알림 조회
         </button>
       </div>
       {error && <div className="noti-error-message">{error}</div>}
@@ -96,6 +114,26 @@ const NotificationsPage = () => {
             ))
         )}
       </ul>
+      {/* 모든 알림 조회일 때만 페이지네이션 컴포넌트 표시 */}
+      {viewingAll && totalPages > 1 && (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPrevPage={handlePrevPage}
+          onNextPage={handleNextPage}
+        />
+      )}
+      {/* 읽지 않은 알림일 때만 "모두 읽기" 버튼 표시 */}
+      {!viewingAll && (
+        <div className="noti-mark-all-read-container">
+          <button
+            className="noti-button noti-button-mark-read"
+            onClick={handleMarkAllAsRead}
+          >
+            모두 읽기
+          </button>
+        </div>
+      )}
     </div>
   );
 };
