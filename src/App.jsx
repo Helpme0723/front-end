@@ -30,6 +30,7 @@ import UpdateChannel from './pages/UpdateChannel';
 import PostEditPage from './pages/PostEditPage';
 import GetMySeriesDetail from './pages/GetMySeriesDetail.jsx';
 import GetSeriesDetail from './pages/GetSeriesDetail.jsx';
+import SocialLogin from './pages/SocialLogin.jsx';
 import PaymentPage from './pages/payments.jsx';
 
 function App() {
@@ -102,6 +103,7 @@ function App() {
               <Route path="series/:seriesId" element={<GetSeriesDetail />} />
             </Route>
             <Route path="/post/:postId/edit" element={<PostEditPage />} />
+            <Route path="/social" element={<SocialLogin />} />
             <Route path="point/charge" element={<PaymentPage />} />
           </Routes>
         </Router>
