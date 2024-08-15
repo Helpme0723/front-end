@@ -1,9 +1,9 @@
 import React, { forwardRef, useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getMonthlyInsights } from '../apis/channel';
+import { getMonthlyInsights, getMonthlySummaryInsight } from '../apis/channel';
 import '../styles/pages/Insights.css';
 import DatePicker from 'react-datepicker';
-import { format, sub } from 'date-fns';
+import { format } from 'date-fns';
 import { ko } from 'date-fns/locale';
 import { FaCalendarAlt } from 'react-icons/fa';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -27,6 +27,7 @@ function MonthlyInsights() {
   const { isAuthenticated } = useContext(AuthContext);
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState('');
+  const [summaryInsight, setSummaryInsight] = useState({});
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -59,6 +60,30 @@ function MonthlyInsights() {
     fetchMonthlyInsights();
   }, [channelId, sort, selectedDate, currentPage]);
 
+  useEffect(() => {
+    const fetchSummaryInsight = async () => {
+      try {
+        const formattedDate = selectedDate
+          ? format(selectedDate, 'yyyy-MM')
+          : undefined;
+
+        const response = await getMonthlySummaryInsight(
+          channelId,
+          formattedDate,
+        );
+
+        setSummaryInsight(response.data);
+      } catch (error) {
+        console.log(
+          'Error fetching channel monthly summary insights:',
+          error.message,
+        );
+        setErrorMessage(error.response.data.message);
+      }
+    };
+    fetchSummaryInsight();
+  }, [channelId, selectedDate]);
+
   const handleSortChange = e => {
     setSort(e.target.value);
   };
@@ -76,6 +101,25 @@ function MonthlyInsights() {
       <div className="monthly-header-card">
         <div className="monthly-header">
           <h3>월별 통계</h3>
+          {/* 여기에 새로운 통계 박스 추가 */}
+          <div className="total-statistics">
+            <div className="stat-card">
+              <div className="stat-title">총 조회수</div>
+              <div className="stat-value">{summaryInsight.viewCount}</div>
+            </div>
+            <div className="stat-card">
+              <div className="stat-title">총 좋아요 수</div>
+              <div className="stat-value">{summaryInsight.likeCount}</div>
+            </div>
+            <div className="stat-card">
+              <div className="stat-title">총 댓글 수</div>
+              <div className="stat-value">{summaryInsight.commentCount}</div>
+            </div>
+            <div className="stat-card">
+              <div className="stat-title">총 판매량</div>
+              <div className="stat-value">{summaryInsight.salesCount}</div>
+            </div>
+          </div>
           <div className="controls">
             <div className="right-controls">
               <select
