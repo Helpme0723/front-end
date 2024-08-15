@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { createOrder, verifyPayment } from '../apis/paymentPage';
+import { useNavigate } from 'react-router-dom';
 
 const PaymentPage = () => {
   const [pointMenuId, setPointMenuId] = useState(1);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const script = document.createElement('script');
@@ -41,10 +43,13 @@ const PaymentPage = () => {
             if (response.success) {
               await verifyPayment(merchantUid, response.imp_uid);
               console.log('결제 성공:', response);
+              alert('결제가 성공적으로 완료되었습니다.');
             } else {
               // 결제가 실패했을 때 로직
               console.error('결제 실패:', response);
+              alert('결제에 실패했습니다.');
             }
+            navigate(`/points`);
           },
         );
       }
