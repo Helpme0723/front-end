@@ -50,9 +50,14 @@ function PointHistoryPage() {
     return date.toLocaleDateString();
   };
 
+  const handleNavigate = () => {
+    navigate('/point/charge');
+  };
+
   return (
     <div className="container">
       <h1 className="title">포인트 사용 내역</h1>
+      <button onClick={handleNavigate}>포인트 충전하기</button>
       <button className="button" onClick={handleChangeType}>
         {type === 'income' ? '포인트 사용 내역 보기' : '포인트 충전 내역 보기'}
       </button>
@@ -62,7 +67,9 @@ function PointHistoryPage() {
         <ul className="list">
           {pointHistory.map(item => (
             <li key={item.id} className="list-item">
-              <p className="description">{item.description || 'No description available'}</p>
+              <p className="description">
+                {item.description || 'No description available'}
+              </p>
               <div className="details">
                 <span className="date">{formatDate(item.createdAt)}</span>
                 <span className={`amount ${item.type}`}>{item.amount}</span>
