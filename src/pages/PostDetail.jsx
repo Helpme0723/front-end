@@ -494,10 +494,10 @@ function PostDetailsPage() {
           <>
             {comments.map(comment => (
               <div
-              key={comment.id}
-              id={`comment-${comment.id}`}
-              className={`comment ${comment.id === lastAddedCommentId ? 'new-comment' : ''}`} // 새 댓글에 애니메이션 클래스 적용
-            >
+                key={comment.id}
+                id={`comment-${comment.id}`}
+                className={`comment ${comment.id === lastAddedCommentId ? 'new-comment' : ''}`} // 새 댓글에 애니메이션 클래스 적용
+              >
                 <div className="author-info">
                   <img
                     src={comment.user.profileUrl}
