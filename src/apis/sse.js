@@ -1,5 +1,5 @@
 export const connectToNotifications = (onMessageCallback, onErrorCallback) => {
-  const token = localStorage.getItem('accessToken'); // JWT 토큰 가져오기
+  const token = localStorage.getItem('accessToken'); 
   if (!token) {
     console.error('No JWT token found.');
     return () => {};
