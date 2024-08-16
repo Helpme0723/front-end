@@ -35,6 +35,7 @@ import NotificationSettings from './pages/NotificationSettings';
 import SocialLogin from './pages/SocialLogin.jsx';
 import PaymentPage from './pages/payments.jsx';
 import MyPostsPage from './pages/MyPosts.jsx';
+import ChannelDetailsPage from './pages/ChannelDetailsPage';
 
 function App() {
   return (
@@ -56,6 +57,7 @@ function App() {
               />
               <Route path="change-password" element={<ChangePassword />} />
               <Route path="channel/create" element={<CreateChannel />} />
+              <Route path="/search/channel/:channelId" element={<ChannelDetailsPage />} />
               <Route path="library" element={<LibraryPage />} />
               <Route path="channel/:id" element={<FindChannel />} />
               {/* <Route path="subscribe/posts" element={<GetSubscribeChannels />} /> */}

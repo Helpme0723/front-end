@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import {
   fetchPostDetails,
   createPostLike,
@@ -429,7 +429,23 @@ function PostDetailsPage() {
           {channelDetails ? (
             <>
               <img src={channelDetails.imageUrl} alt="채널이미지 없음" />
-              <h3>{channelDetails.title}</h3>
+              <Link
+                to={`/search/channel/${post.channelId}`} // 채널 정보 페이지로 이동
+                style={{
+                  cursor: 'pointer',
+                  textDecoration: 'none',
+                  color: 'black',
+                }}
+              >
+                <h3
+                  style={{
+                    fontWeight: 'bold',
+                    margin: 0,
+                  }}
+                >
+                  {channelDetails.title}
+                </h3>
+              </Link>
               <p>구독자 수: {channelDetails.subscribers}</p>
               <p>{channelDetails.description || '채널 설명이 없습니다.'}</p>
             </>
