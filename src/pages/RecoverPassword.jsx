@@ -13,6 +13,7 @@ const RecoverPassword = () => {
   const [passwordConfirm, setPasswordConfirm] = useState('');
   const [verifyCode, setVerifyCode] = useState();
   const [isEmailEditable, setIsEmailEditable] = useState(true);
+  const [verificationSent, setVerificationSent] = useState(false);
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -35,6 +36,7 @@ const RecoverPassword = () => {
     try {
       const response = await sendVerificationEmail(email);
 
+      setVerificationSent(true);
       alert('인증번호를 발송했습니다.');
     } catch (error) {
       console.error('이메일 전송 실패', error);
@@ -43,6 +45,11 @@ const RecoverPassword = () => {
 
   const handleSubmit = async e => {
     e.preventDefault();
+
+    if (!verificationSent) {
+      alert('인증번호 발급을 받아주세요.');
+      return;
+    }
 
     if (password !== passwordConfirm) {
       alert('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
@@ -58,7 +65,9 @@ const RecoverPassword = () => {
       );
 
       alert('비밀번호를 재설정했습니다.');
-      navigate('');
+
+      const nav = isAuthenticated ? '/profile' : '/login';
+      navigate(`${nav}`);
     } catch (error) {
       console.error('비밀번호 재설정 실패', error);
     }
