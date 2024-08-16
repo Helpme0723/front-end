@@ -36,6 +36,7 @@ import SocialLogin from './pages/SocialLogin.jsx';
 import PaymentPage from './pages/payments.jsx';
 import MyPostsPage from './pages/MyPosts.jsx';
 import ChannelDetailsPage from './pages/ChannelDetailsPage';
+import Resign from './pages/Resign.jsx';
 
 function App() {
   return (
@@ -113,6 +114,7 @@ function App() {
               <Route path="series/:seriesId" element={<GetSeriesDetail />} />
               <Route path="point/charge" element={<PaymentPage />} />
               <Route path="/posts/my" element={<MyPostsPage />} />
+              <Route path="/resign" element={<Resign />} />
             </Route>
             <Route path="/post/:postId/edit" element={<PostEditPage />} />
             <Route path="/social" element={<SocialLogin />} />
