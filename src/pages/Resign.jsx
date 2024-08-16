@@ -10,6 +10,7 @@ const Resign = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { logout } = useContext(AuthContext);
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -17,19 +18,21 @@ const Resign = () => {
       navigate('/login');
       return;
     }
-  });
+  }, [isAuthenticated]);
 
   const handleSubmit = async event => {
     event.preventDefault();
 
     try {
-      const response = await resign();
+      const response = await resign(email, password);
 
       alert('회원탈퇴를 했습니다.');
       logout();
       navigate('/');
       return;
     } catch (error) {
+      setMessage(error.response?.data?.message || '회원탈퇴에 실패했습니다.');
+
       console.log(error);
     }
   };
@@ -59,6 +62,7 @@ const Resign = () => {
               required
             />
           </div>
+          {message && <div className="resign-message">{message}</div>}
           <button type="submit" className="resign-submit-button">
             회원탈퇴
           </button>
