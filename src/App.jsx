@@ -49,7 +49,10 @@ function App() {
               <Route path="sign-up" element={<SignUp />} />
               <Route path="profile" element={<Profile />} />
               <Route path="edit-profile" element={<EditProfile />} />
-              <Route path="notification-settings" element={<NotificationSettings />} />
+              <Route
+                path="notification-settings"
+                element={<NotificationSettings />}
+              />
               <Route path="change-password" element={<ChangePassword />} />
               <Route path="channel/create" element={<CreateChannel />} />
               <Route path="library" element={<LibraryPage />} />
@@ -90,7 +93,7 @@ function App() {
                 path="channel/:channelId/insights/monthly"
                 element={<MonthlyInsights />}
               />
-               <Route path="notifications" element={<NotificationsPage />} />
+              <Route path="notifications" element={<NotificationsPage />} />
               <Route path="purchasesPost" element={<PurchasePost />} />
 
               <Route path="series/my" element={<MySeriesPage />} />
@@ -105,6 +108,7 @@ function App() {
               />
               {/* 타 유저 시리즈 상세 조회 */}
               <Route path="series/:seriesId" element={<GetSeriesDetail />} />
+              <Route path="point/charge" element={<PaymentPage />} />
             </Route>
             <Route path="/post/:postId/edit" element={<PostEditPage />} />
             <Route path="/social" element={<SocialLogin />} />

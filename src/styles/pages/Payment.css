@@ -1,0 +1,73 @@
+.payment-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+
+.payment-box {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 600px;
+  height: auto; /* 고정된 높이를 제거하고, 내용에 따라 높이가 조정되도록 설정 */
+}
+
+h2 {
+  margin-bottom: 30px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.radio-group {
+  margin-bottom: 30px;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.radio-label.selected {
+  border-color: #007bff;
+  background-color: #f0f8ff;
+}
+
+.radio-label input {
+  display: none;
+}
+
+.point-name {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.point-currency {
+  font-size: 18px;
+  color: #888;
+}
+
+.payment-button {
+  width: 50%;
+  padding: 15px 30px;
+  font-size: 18px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 30px auto 0 auto; /* 버튼을 수평 가운데로 배치하고 상단에 적당한 여백 추가 */
+  display: block;
+}
+
+.payment-button:hover {
+  background-color: #0056b3;
+}
