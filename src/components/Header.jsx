@@ -123,7 +123,7 @@ function Header() {
       </nav>
       <div className="header-actions">
         <div className="search-rankings">
-          <h3>실시간 검색 랭킹</h3>
+          <h3>인기 검색어</h3>
           <ul>
             {searchRankings.length > 0 && (
               <li key={currentIndex} className="ranking-item">
