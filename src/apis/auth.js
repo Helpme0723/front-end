@@ -98,7 +98,7 @@ export const getPostsFromSubscribeChannels = async (page, limit) => {
     return response.data;
   } catch (error) {
     throw new Error(
-      error.response?.data?.messsage || '구독한 채널의 포스트 목록 조회 실패',
+      error.response?.data?.message || '구독한 채널의 포스트 목록 조회 실패',
     );
   }
 };
@@ -143,5 +143,16 @@ export const socialLogin = async code => {
     return response.data;
   } catch (error) {
     throw new Error('소셜 로그인 오류');
+  }
+};
+
+// 회원탈퇴
+export const resign = async () => {
+  try {
+    const response = await axiosInstance.delete('/api/auth/re-sign');
+
+    return response.data;
+  } catch (error) {
+    throw new Error('회원탈퇴 오류');
   }
 };
