@@ -13,6 +13,7 @@ import {
   deleteComment,
   fetchChannelDetails,
   subscribeToChannel,
+  getPostNotLogin,
 } from '../apis/post';
 import '../styles/pages/PostDetail.css';
 import AuthContext from '../context/AuthContext';
@@ -86,12 +87,27 @@ function PostDetailsPage() {
   };
 
   useEffect(() => {
-    if (!isAuthenticated) {
-      alert('로그인이 필요합니다.');
-      navigate('/'); // 로그인하지 않은 사용자를 홈 페이지로 리다이렉트
-      return;
-    }
+    // 로그인 하지 않았을 경우
+    const fetchNotLoginDetail = async () => {
+      setLoading(true);
+      if (!postId) {
+        console.error('No post ID provided');
+        setLoading(false);
+        return;
+      }
+      try {
+        const response = await getPostNotLogin(postId);
+        if (response && response.data) {
+          setPost(response.data);
+        }
+      } catch (error) {
+        console.error('Failed to fetch post details:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
+    // 로그인했을 경우
     const fetchDetails = async () => {
       setLoading(true);
       if (!postId) {
@@ -111,6 +127,14 @@ function PostDetailsPage() {
       }
     };
 
+    if (isAuthenticated) {
+      fetchDetails();
+    } else {
+      fetchNotLoginDetail();
+    }
+  }, [isAuthenticated, postId]);
+
+  useEffect(() => {
     //댓글 조회
     const fetchPostComments = async () => {
       setCommentsLoading(true);
@@ -126,36 +150,8 @@ function PostDetailsPage() {
         setCommentsLoading(false);
       }
     };
-
-    //구매포스트 조회
-    const loadPurchasedPosts = async () => {
-      try {
-        const purchasedResponse = await fetchPurchasedPosts();
-        if (
-          purchasedResponse &&
-          purchasedResponse.data &&
-          purchasedResponse.data.items
-        ) {
-          // 구매한 포스트의 ID들을 추출하여 저장
-          const purchasedIds = purchasedResponse.data.items.map(item =>
-            item.post.id.toString(),
-          );
-          setPurchasedPosts(purchasedIds);
-        } else {
-          console.log('No purchased posts returned:', purchasedResponse);
-          setPurchasedPosts([]); // 아이템이 없는 경우 빈 배열 설정
-        }
-      } catch (error) {
-        console.error('Failed to load purchased posts:', error);
-      }
-    };
-
-    fetchDetails();
     fetchPostComments();
-    loadPurchasedPosts(); // 구매한 포스트 로드
-  }, [postId, isAuthenticated, navigate, commentsPage]);
-
-  // const isPostPurchased = purchasedPosts.includes(postId.toString()); // 현재 포스트 구매 여부 확인
+  }, [postId, isAuthenticated, commentsPage]);
 
   useEffect(() => {
     if (lastAddedCommentId) {

@@ -34,13 +34,13 @@ function PurchasePost({ isOpen, onRequestClose, post }) {
     }
   };
 
-  useEffect(() => {
+  const isLoginVerification = () => {
     if (!isAuthenticated) {
-      alert('로그인이 필요합니다.');
-      navigate('/'); // 메인 페이지로 리다이렉트
-      return;
+      alert('로그인 후 구매하실 수 있습니다.');
+      navigate('/login');
     }
-  }, [isAuthenticated, navigate]);
+    return;
+  };
 
   return (
     <ReactModal
@@ -56,7 +56,9 @@ function PurchasePost({ isOpen, onRequestClose, post }) {
           <label>가격: {post.price} 포인트</label>
         </div>
         <div className="button-container">
-          <button type="submit">구매</button>
+          <button type="submit" onClick={isLoginVerification}>
+            구매
+          </button>
           <button className="close-button" onClick={onRequestClose}>
             닫기
           </button>
