@@ -53,7 +53,9 @@ function Profile() {
         </div>
       </div>
       <div className="outuser-container">
-        <p className="outuser">회원 탈퇴</p>
+        <Link to={'/resign'}>
+          <p className="outuser">회원 탈퇴</p>
+        </Link>
       </div>
       {/* <GetChannelsComponent userId={userInfo.id} /> */}
       <div className="select-container">
