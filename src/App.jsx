@@ -34,6 +34,7 @@ import NotificationsPage from './pages/NotificationsPage';
 import NotificationSettings from './pages/NotificationSettings';
 import SocialLogin from './pages/SocialLogin.jsx';
 import PaymentPage from './pages/payments.jsx';
+import MyPostsPage from './pages/MyPosts.jsx';
 
 function App() {
   return (
@@ -49,7 +50,10 @@ function App() {
               <Route path="sign-up" element={<SignUp />} />
               <Route path="profile" element={<Profile />} />
               <Route path="edit-profile" element={<EditProfile />} />
-              <Route path="notification-settings" element={<NotificationSettings />} />
+              <Route
+                path="notification-settings"
+                element={<NotificationSettings />}
+              />
               <Route path="change-password" element={<ChangePassword />} />
               <Route path="channel/create" element={<CreateChannel />} />
               <Route path="library" element={<LibraryPage />} />
@@ -90,7 +94,7 @@ function App() {
                 path="channel/:channelId/insights/monthly"
                 element={<MonthlyInsights />}
               />
-               <Route path="notifications" element={<NotificationsPage />} />
+              <Route path="notifications" element={<NotificationsPage />} />
               <Route path="purchasesPost" element={<PurchasePost />} />
 
               <Route path="series/my" element={<MySeriesPage />} />
@@ -105,6 +109,7 @@ function App() {
               />
               {/* 타 유저 시리즈 상세 조회 */}
               <Route path="series/:seriesId" element={<GetSeriesDetail />} />
+              <Route path="/posts/my" element={<MyPostsPage />} />
             </Route>
             <Route path="/post/:postId/edit" element={<PostEditPage />} />
             <Route path="/social" element={<SocialLogin />} />

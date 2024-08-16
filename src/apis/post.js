@@ -220,3 +220,17 @@ export const subscribeToChannel = async channelId => {
     throw error;
   }
 };
+
+// 내 포스트 불러오기
+export const getMyPosts = async (page, limit, sort) => {
+  try {
+    const response = await axiosInstance.get(`/api/posts/me`, {
+      params: { page, limit, sort },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('내 포스트를 불러오는데 실패하였습니다', error);
+    throw error;
+  }
+};

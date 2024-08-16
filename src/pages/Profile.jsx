@@ -64,7 +64,7 @@ function Profile() {
           <Link to={`/series/my`}>시리즈</Link>
         </div>
         <div className="select-item">
-          <Link to={`/posts?userId=${userInfo.id}`}>포스트</Link>
+          <Link to={`/posts/my`}>포스트</Link>
         </div>
       </div>
     </div>
