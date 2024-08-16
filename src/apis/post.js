@@ -234,3 +234,14 @@ export const getMyPosts = async (page, limit, sort) => {
     throw error;
   }
 };
+
+export const getPostNotLogin = async postId => {
+  try {
+    const response = await axiosInstance.get(`/api/posts/${postId}/unlogin`);
+
+    return response.data;
+  } catch (error) {
+    console.error('포스트를 불러오는데 실패하였습니다', error);
+    throw error;
+  }
+};
