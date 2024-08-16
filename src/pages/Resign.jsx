@@ -66,6 +66,12 @@ const Resign = () => {
           <button type="submit" className="resign-submit-button">
             회원탈퇴
           </button>
+          <p
+            onClick={() => navigate('/recover/password')}
+            className="recover-button"
+          >
+            비밀번호 재설정
+          </p>
         </form>
       </div>
     </div>
