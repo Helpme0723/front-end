@@ -109,11 +109,11 @@ function App() {
               />
               {/* 타 유저 시리즈 상세 조회 */}
               <Route path="series/:seriesId" element={<GetSeriesDetail />} />
+              <Route path="point/charge" element={<PaymentPage />} />
               <Route path="/posts/my" element={<MyPostsPage />} />
             </Route>
             <Route path="/post/:postId/edit" element={<PostEditPage />} />
             <Route path="/social" element={<SocialLogin />} />
-            <Route path="point/charge" element={<PaymentPage />} />
           </Routes>
         </Router>
       </SearchProvider>
