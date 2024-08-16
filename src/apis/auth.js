@@ -147,12 +147,19 @@ export const socialLogin = async code => {
 };
 
 // 회원탈퇴
-export const resign = async () => {
+export const resign = async (email, password) => {
   try {
-    const response = await axiosInstance.delete('/api/auth/re-sign');
+    console.log(email, password);
+    const response = await axiosInstance.delete('/api/auth/re-sign', {
+      data: {
+        email,
+        password,
+      },
+    });
 
     return response.data;
   } catch (error) {
-    throw new Error('회원탈퇴 오류');
+    console.error('회원탈퇴에 실패하였습니다', error);
+    throw error;
   }
 };

@@ -76,3 +76,9 @@
 .resign-submit-button:active {
   background-color: #004494;
 }
+
+.resign-message {
+  color: red;
+  text-align: center;
+  margin-bottom: 10px;
+}
