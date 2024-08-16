@@ -120,3 +120,35 @@ export const updateChannel = async (channelId, updateChannelData) => {
     throw error;
   }
 };
+
+export const getDailySummaryInsight = async (channelId, date) => {
+  try {
+    const response = await axiosInstance.get(
+      `/api/channels/${channelId}/insights/daily/summary`,
+      {
+        params: { date },
+      },
+    );
+
+    return response.data;
+  } catch (error) {
+    console.log('데일리 통합 통계 오류', error.message);
+    throw error;
+  }
+};
+
+export const getMonthlySummaryInsight = async (channelId, date) => {
+  try {
+    const response = await axiosInstance.get(
+      `/api/channels/${channelId}/insights/monthly/summary`,
+      {
+        params: { date },
+      },
+    );
+
+    return response.data;
+  } catch (error) {
+    console.log('데일리 통합 통계 오류', error.message);
+    throw error;
+  }
+};

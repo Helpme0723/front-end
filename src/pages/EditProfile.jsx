@@ -70,6 +70,10 @@ function EditProfile() {
     navigate('/change-password');
   };
 
+  const handleNotificationSettings = () => {
+    navigate('/notification-settings');
+  };
+
   return (
     <div className="edit-profile-container">
       <h2>프로필 수정</h2>
@@ -111,7 +115,7 @@ function EditProfile() {
         <div className="additional-links-edit">
           <p onClick={handlePasswordChange}>비밀번호 변경</p>
           {/* TODO: 기능 미구현 추후 수정 */}
-          <p style={{ pointerEvents: 'none', color: 'grey' }}>알림 설정</p>
+          <p onClick={handleNotificationSettings} className="clickable-link">알림 설정</p>
           <p style={{ pointerEvents: 'none', color: 'grey' }}>불호 태그 설정</p>
         </div>
         <button type="submit" className="profile-save-button">
