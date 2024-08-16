@@ -52,6 +52,12 @@ function ChangePassword() {
 
   return (
     <div className="change-password-container">
+      <p
+        onClick={() => navigate('/recover/password')}
+        className="recover-button"
+      >
+        비밀번호 재설정
+      </p>
       <h2>비밀번호 변경</h2>
       <form onSubmit={handlePasswordChange} className="change-password-form">
         <div className="input-group">
