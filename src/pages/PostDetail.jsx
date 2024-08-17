@@ -20,6 +20,7 @@ import AuthContext from '../context/AuthContext';
 import { fetchPurchasedPosts } from '../apis/library';
 import Pagination from '../components/Testpagenation';
 import PurchasePost from './PurchasePost';
+import { fetchUserDetails } from '../apis/user';
 
 function PostDetailsPage() {
   const { postId } = useParams();
@@ -38,6 +39,10 @@ function PostDetailsPage() {
   //채널 모달창
   const [channelModalIsOpen, setChannelModalIsOpen] = useState(false);
   const [channelDetails, setChannelDetails] = useState(null); // 채널 상세 정보 상태
+
+  // 사용자 정보 모달창
+  const [userModalIsOpen, setUserModalIsOpen] = useState(false);
+  const [userDetails, setUserDetails] = useState(null); // 사용자 상세 정보 상태
 
   //댓글 새로고침
   const fetchPostComments = async () => {
@@ -84,6 +89,24 @@ function PostDetailsPage() {
   };
   const closeChannelModal = () => {
     setChannelModalIsOpen(false);
+  };
+
+  // 사용자 모달창 열기
+  const openUserModal = async () => {
+    if (post && post.userId) {
+      try {
+        const userDetails = await fetchUserDetails(post.userId); // 사용자 정보 가져오기
+        setUserDetails(userDetails.data); // 사용자 정보 저장
+        setUserModalIsOpen(true);
+      } catch (error) {
+        console.error('Failed to fetch user details:', error);
+      }
+    }
+  };
+
+  // 사용자 모달창 닫기
+  const closeUserModal = () => {
+    setUserModalIsOpen(false);
   };
 
   useEffect(() => {
@@ -404,6 +427,8 @@ function PostDetailsPage() {
         src={post.userImage}
         alt={`Profile of ${post.nickname}`}
         className="profile-image"
+        onClick={openUserModal} // 이미지 클릭 시 사용자 모달 열기
+        style={{ cursor: 'pointer' }} // 마우스 커서가 손 모양으로 변경
       />
       <br></br>
       <div>작성자: {post.userName}</div>
@@ -430,7 +455,11 @@ function PostDetailsPage() {
             <>
               <img src={channelDetails.imageUrl} alt="채널이미지 없음" />
               <Link
-                to={`/search/channel/${post.channelId}`} // 채널 정보 페이지로 이동
+                to={
+                  userId === channelDetails.userId
+                    ? `/channel/${post.channelId}` // 자신의 채널이면 이 경로로
+                    : `/search/channel/${post.channelId}`
+                } // 다른 사람의 채널이면 이 경로로
                 style={{
                   cursor: 'pointer',
                   textDecoration: 'none',
@@ -591,6 +620,48 @@ function PostDetailsPage() {
             </button>
           </div>
         )}
+      </div>
+      <div className={`modal-overlay ${userModalIsOpen ? 'open' : ''}`}>
+        <div className="modal">
+          <h2>사용자 정보</h2>
+          {userDetails ? (
+            <>
+              <img src={userDetails.profileUrl} alt="사용자 이미지" />
+              <Link
+                to={
+                  userDetails.id === userId
+                    ? '/profile'
+                    : `/user/${userDetails.id}`
+                } // 로그인한 유저와 동일하면 '/profile'로, 그렇지 않으면 유저 상세 페이지로 이동
+                style={{
+                  cursor: 'pointer',
+                  textDecoration: 'none',
+                  color: 'black',
+                }}
+              >
+                <h3
+                  style={{
+                    fontWeight: 'bold',
+                    margin: 0,
+                  }}
+                >
+                  {userDetails.nickname}
+                </h3>
+              </Link>
+              <p>이메일: {userDetails.email}</p>
+              <p>
+                가입일:{' '}
+                {new Date(userDetails.createdAt).toLocaleDateString('ko-KR')}
+              </p>
+              <p>{userDetails.description || '소개글이 없습니다.'}</p>
+            </>
+          ) : (
+            <p>Loading user details...</p>
+          )}
+          <button onClick={closeUserModal} className="close-button">
+            닫기
+          </button>
+        </div>
       </div>
     </div>
   );

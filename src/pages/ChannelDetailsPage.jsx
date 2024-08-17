@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { findChannel } from '../apis/channel';
 import '../styles/pages/ChannelDetailsPage.css';
 
@@ -63,16 +63,16 @@ function ChannelDetailsPage() {
           <h2>포스트</h2>
           <div className="posts-list">
             {channel.posts.length > 0 ? (
-              channel.posts.map(post => (
-                <div key={post.id} className="post-card">
-                  <h3>{post.title}</h3>
-                  <p>카테고리: {post.category}</p>
-                  <p>가격: {post.price > 0 ? `${post.price}원` : '무료'}</p>
-                  <p>조회수: {post.viewCount}</p>
-                  <p>좋아요 수: {post.likeCount}</p>
-                  <p>작성일: {new Date(post.createdAt).toLocaleDateString()}</p>
-                </div>
-              ))
+                channel.posts.map(post => (
+                  <Link to={`/post/${post.id}`} key={post.id} className="post-card">
+                    <h3>{post.title}</h3>
+                    <p>카테고리: {post.category}</p>
+                    <p>가격: {post.price > 0 ? `${post.price}원` : '무료'}</p>
+                    <p>조회수: {post.viewCount}</p>
+                    <p>좋아요 수: {post.likeCount}</p>
+                    <p>작성일: {new Date(post.createdAt).toLocaleDateString()}</p>
+                  </Link>
+                ))
             ) : (
               <p>포스트가 없습니다.</p>
             )}

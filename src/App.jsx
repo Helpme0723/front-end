@@ -37,6 +37,7 @@ import PaymentPage from './pages/payments.jsx';
 import MyPostsPage from './pages/MyPosts.jsx';
 import ChannelDetailsPage from './pages/ChannelDetailsPage';
 import Resign from './pages/Resign.jsx';
+import UserDetailPage from './pages/UserPage.jsx';
 
 function App() {
   return (
@@ -52,6 +53,7 @@ function App() {
               <Route path="sign-up" element={<SignUp />} />
               <Route path="profile" element={<Profile />} />
               <Route path="edit-profile" element={<EditProfile />} />
+              <Route path="/user/:userId" element={<UserDetailPage />} /> 
               <Route
                 path="notification-settings"
                 element={<NotificationSettings />}

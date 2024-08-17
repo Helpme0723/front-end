@@ -91,3 +91,13 @@ export const toggleSubscribeNotifications = async () => {
     throw error;
   }
 };
+
+export const fetchUserDetails = async (userId) => {
+  try {
+    const response = await axiosInstance.get(`/api/users/${userId}`);
+    return response.data; // 데이터만 반환
+  } catch (error) {
+    console.error('Error fetching user details:', error);
+    throw error;
+  }
+};
