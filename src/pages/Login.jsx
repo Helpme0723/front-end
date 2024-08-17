@@ -80,7 +80,7 @@ function Login() {
       </div>
       <div className="additional-links-login">
         <a href="/sign-up">회원가입</a> {/* 회원가입 링크 추가 */}
-        <a href="/forgot-password">비밀번호 찾기</a>
+        <a href="/recover/password">비밀번호 재설정</a>
       </div>
     </div>
   );
