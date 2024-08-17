@@ -75,3 +75,19 @@ export const createSeries = async (channelId, title, description) => {
     throw error;
   }
 };
+
+// 시리즈 수정
+export const updateSeries = async (seriesId, channelId, title, description) => {
+  try {
+    const response = await axiosInstance.patch(`api/series/${seriesId}`, {
+      channelId,
+      title,
+      description,
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('시리즈 수정 실패', error.response.data.message);
+    throw error;
+  }
+};
