@@ -1,0 +1,93 @@
+.create-series-container {
+  margin: 0 auto;
+  padding: 20px;
+  width: 700px; /* 컨테이너 가로 크기를 설정 */
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.create-series-container h2 {
+  font-size: 24px;
+  color: #333;
+  margin-top: 10px;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.create-series-container form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+}
+
+.create-series-container label {
+  font-size: 20px;
+  color: #555;
+  margin-bottom: 5px;
+  text-align: left;
+  width: 100%;
+  padding-left: 20px;
+}
+
+.create-series-container input[type='text'],
+.create-series-container textarea {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.05);
+  resize: none;
+  width: 95%; /* 인풋 박스와 텍스트 영역의 가로 길이를 줄임 */
+  /* 최대 너비를 설정하여 균형 유지 */
+  color: #333;
+  font-family: Arial, sans-serif;
+}
+
+.create-series-container input[type='text']:focus,
+.create-series-container textarea:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.create-series-container textarea {
+  height: 150px;
+}
+
+.create-series-container button[type='submit'] {
+  padding: 12px;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 30%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.create-series-container button[type='submit']:hover {
+  background-color: #0056b3;
+}
+
+.create-series-container .create-series-message {
+  color: #e74c3c;
+  font-size: 14px;
+  text-align: center;
+  width: 100%;
+}
+
+.create-series-container input[type='text'],
+.create-series-container textarea {
+  padding-left: 10px;
+  padding-right: 10px;
+}

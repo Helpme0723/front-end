@@ -37,6 +37,8 @@ import PaymentPage from './pages/payments.jsx';
 import MyPostsPage from './pages/MyPosts.jsx';
 import Resign from './pages/Resign.jsx';
 import RecoverPassword from './pages/RecoverPassword.jsx';
+import CreateSeries from './pages/CreateSeries.jsx';
+import EditSeries from './pages/EditSeries.jsx';
 
 function App() {
   return (
@@ -95,6 +97,11 @@ function App() {
                 element={<GetMySeriesDetail />}
               />
               <Route path="series/:seriesId" element={<GetSeriesDetail />} />
+              <Route
+                path="series/create/:channelId"
+                element={<CreateSeries />}
+              />
+              <Route path="series/:seriesId/update" element={<EditSeries />} />
 
               {/* Post */}
               <Route path="posts/my" element={<MyPostsPage />} />
