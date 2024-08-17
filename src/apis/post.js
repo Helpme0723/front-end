@@ -5,6 +5,7 @@ export const createPost = async createPostDto => {
 
   try {
     const response = await axiosInstance.post('/api/posts', createPostDto);
+    console.log('####', response);
 
     return response.data;
   } catch (error) {

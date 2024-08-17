@@ -22,3 +22,14 @@ export const verifyPayment = async (merchantUid, impUid) => {
 
 	}
 }
+
+export const refund = async (impUid) => {
+	try {
+		const response = await axiosInstance.post('/api/payments/refund', { impUid });
+		console.log(response);
+		return response.data;
+	} catch (error) {
+		console.error('error', error);
+		throw error;
+	}
+}

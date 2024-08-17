@@ -147,12 +147,40 @@ export const socialLogin = async code => {
 };
 
 // 회원탈퇴
-export const resign = async () => {
+export const resign = async (email, password) => {
   try {
-    const response = await axiosInstance.delete('/api/auth/re-sign');
+    const response = await axiosInstance.delete('/api/auth/re-sign', {
+      data: {
+        email,
+        password,
+      },
+    });
 
     return response.data;
   } catch (error) {
-    throw new Error('회원탈퇴 오류');
+    console.error('회원탈퇴에 실패하였습니다', error);
+    throw error;
+  }
+};
+
+// 비밀번호 재설정
+export const recoverPassword = async (
+  email,
+  password,
+  passwordConfirm,
+  verifyCode,
+) => {
+  try {
+    const response = await axiosInstance.post('/api/auth/recovery/password', {
+      email,
+      password,
+      passwordConfirm,
+      verifyCode,
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('비밀번호 재설정에 실패하였습니다', error);
+    throw error;
   }
 };

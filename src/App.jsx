@@ -17,7 +17,7 @@ import GetPostsFromSubscribeChannels from './pages/GetPostsFromSubscribeChannels
 import PostDetailsPage from './pages/PostDetail';
 import GetChannelsComponent from './components/GetChannels';
 import ChannelInsights from './components/ChannelInsight';
-import SearchResultsPage from './pages/SearchResultsPage'; // 검색 결과 페이지 추가
+import SearchResultsPage from './pages/SearchResultsPage';
 import { SearchProvider } from './context/SearchContext';
 import CategoryPostView from './pages/CategoryPostView';
 import PointHistoryPage from './pages/PointHistory.jsx';
@@ -37,7 +37,9 @@ import PaymentPage from './pages/payments.jsx';
 import MyPostsPage from './pages/MyPosts.jsx';
 import ChannelDetailsPage from './pages/ChannelDetailsPage';
 import Resign from './pages/Resign.jsx';
-import UserDetailPage from './pages/UserPage.jsx';
+import RecoverPassword from './pages/RecoverPassword.jsx';
+import CreateSeries from './pages/CreateSeries.jsx';
+import EditSeries from './pages/EditSeries.jsx';
 
 function App() {
   return (
@@ -47,50 +49,39 @@ function App() {
           <Routes>
             <Route path="/" element={<Layout />}>
               <Route index element={<MainContent />} />
-              {/* MainContent as the default page */}
-              <Route path="login" element={<Login />} />
-              <Route path="logout" element={<Logout />} />
+
+              {/* Auth */}
               <Route path="sign-up" element={<SignUp />} />
+              <Route path="login" element={<Login />} />
+              <Route path="social" element={<SocialLogin />} />
+              <Route path="logout" element={<Logout />} />
+              <Route path="recover/password" element={<RecoverPassword />} />
+              <Route path="resign" element={<Resign />} />
+
+              {/* User */}
               <Route path="profile" element={<Profile />} />
               <Route path="edit-profile" element={<EditProfile />} />
-              <Route path="/user/:userId" element={<UserDetailPage />} /> 
+              <Route path="change-password" element={<ChangePassword />} />
+
+              {/* Notification */}
+              <Route path="notifications" element={<NotificationsPage />} />
               <Route
                 path="notification-settings"
                 element={<NotificationSettings />}
               />
-              <Route path="change-password" element={<ChangePassword />} />
-              <Route path="channel/create" element={<CreateChannel />} />
-              <Route path="/search/channel/:channelId" element={<ChannelDetailsPage />} />
-              <Route path="library" element={<LibraryPage />} />
-              <Route path="channel/:id" element={<FindChannel />} />
-              {/* <Route path="subscribe/posts" element={<GetSubscribeChannels />} /> */}
-              <Route
-                path="library/purchases"
-                element={<PurchasedPostsPage />}
-              />
-              <Route path="/post/:postId" element={<PostDetailsPage />} />
-              <Route
-                path="subscribes/channels"
-                element={<GetSubscribeChannels />}
-              />
-              <Route
-                path="subscribes/posts"
-                element={<GetPostsFromSubscribeChannels />}
-              />
-              <Route path="channels" element={<GetChannelsComponent />} />
-              <Route
-                path="channel/:channelId/insights"
-                element={<ChannelInsights />}
-              />
-              <Route path="search-results" element={<SearchResultsPage />} />
-              <Route
-                path="channel/:channelId/insights"
-                element={<ChannelInsights />}
-              />
-              <Route path="posts" element={<CategoryPostView />} />
 
-              <Route path="points" element={<PointHistoryPage />} />
-              <Route path="post/create/:channelId" element={<PostPage />} />
+              {/* Channel */}
+              <Route path="channels" element={<GetChannelsComponent />} />
+              <Route path="channel/:id" element={<FindChannel />} />
+              <Route path="channel/create" element={<CreateChannel />} />
+              <Route
+                path="channel/:channelId/update"
+                element={<UpdateChannel />}
+              />
+              <Route
+                path="channel/:channelId/insights"
+                element={<ChannelInsights />}
+              />
               <Route
                 path="channel/:channelId/insights/daily"
                 element={<DailyInsights />}
@@ -99,27 +90,54 @@ function App() {
                 path="channel/:channelId/insights/monthly"
                 element={<MonthlyInsights />}
               />
-              <Route path="notifications" element={<NotificationsPage />} />
-              <Route path="purchasesPost" element={<PurchasePost />} />
 
+              {/* Series */}
               <Route path="series/my" element={<MySeriesPage />} />
-              <Route
-                path="/channel/:channelId/update"
-                element={<UpdateChannel />}
-              />
-              {/* 내 시리즈 상세 조회 */}
               <Route
                 path="series/:seriesId/my"
                 element={<GetMySeriesDetail />}
               />
-              {/* 타 유저 시리즈 상세 조회 */}
               <Route path="series/:seriesId" element={<GetSeriesDetail />} />
+              <Route
+                path="series/create/:channelId"
+                element={<CreateSeries />}
+              />
+              <Route path="series/:seriesId/update" element={<EditSeries />} />
+
+              {/* Post */}
+              <Route path="posts/my" element={<MyPostsPage />} />
+              <Route path="posts" element={<CategoryPostView />} />
+              <Route path="post/:postId" element={<PostDetailsPage />} />
+              <Route path="post/create/:channelId" element={<PostPage />} />
+              <Route path="post/:postId/edit" element={<PostEditPage />} />
+
+              {/* Subscribe */}
+              <Route
+                path="subscribes/channels"
+                element={<GetSubscribeChannels />}
+              />
+              <Route
+                path="subscribes/posts"
+                element={<GetPostsFromSubscribeChannels />}
+              />
+
+              {/* Library */}
+              <Route path="library" element={<LibraryPage />} />
+              <Route
+                path="library/purchases"
+                element={<PurchasedPostsPage />}
+              />
+
+              {/* Search */}
+              <Route path="search-results" element={<SearchResultsPage />} />
+
+              {/* Purchase */}
+              <Route path="purchasesPost" element={<PurchasePost />} />
+
+              {/* Point */}
+              <Route path="points" element={<PointHistoryPage />} />
               <Route path="point/charge" element={<PaymentPage />} />
-              <Route path="/posts/my" element={<MyPostsPage />} />
-              <Route path="/resign" element={<Resign />} />
             </Route>
-            <Route path="/post/:postId/edit" element={<PostEditPage />} />
-            <Route path="/social" element={<SocialLogin />} />
           </Routes>
         </Router>
       </SearchProvider>
