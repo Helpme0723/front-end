@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { createOrder, verifyPayment } from '../apis/paymentPage';
+import { createOrder, refund, verifyPayment } from '../apis/paymentPage';
 import { useNavigate } from 'react-router-dom';
 import '../styles/pages/Payment.css';
 
@@ -41,9 +41,15 @@ const PaymentPage = () => {
           },
           async function (response) {
             if (response.success) {
-              await verifyPayment(merchantUid, response.imp_uid);
-              console.log('결제 성공:', response);
-              alert('결제가 성공적으로 완료되었습니다.');
+              try {
+                await verifyPayment(merchantUid, response.imp_uid);
+                console.log('결제 성공:', response);
+                alert('결제가 성공적으로 완료되었습니다.');
+              } catch (error) {
+                console.log('검증 실패', error);
+                await refund(response.imp_uid);
+                alert('결제 검증 과정에서 오류가 발생했습니다.');
+              }
             } else {
               // 결제가 실패했을 때 로직
               console.error('결제 실패:', response);
