@@ -77,7 +77,12 @@ function FindChannel() {
           </div>
           <hr />
           <div className="series-section">
-            <label className="label">시리즈</label>
+            <div className="posts-list-header">
+              <label className="label">시리즈</label>
+              <Link to={`/series/create/${id}`}>
+                <div>시리즈 생성</div>
+              </Link>
+            </div>
             <div className="series-list">
               {channel.series.map(series => (
                 <div className="series-item" key={series.id}>
@@ -89,7 +94,7 @@ function FindChannel() {
           </div>
           <hr />
           <div className="posts-section">
-            <div className="postslist-header">
+            <div className="posts-list-header">
               <label className="label">포스트</label>
               <Link to={`/post/create/${id}`}>
                 <div>포스트 생성</div>
