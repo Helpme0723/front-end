@@ -40,6 +40,7 @@ import Resign from './pages/Resign.jsx';
 import RecoverPassword from './pages/RecoverPassword.jsx';
 import CreateSeries from './pages/CreateSeries.jsx';
 import EditSeries from './pages/EditSeries.jsx';
+import UserDetailPage from './pages/UserPage.jsx'
 
 function App() {
   return (
@@ -62,6 +63,7 @@ function App() {
               <Route path="profile" element={<Profile />} />
               <Route path="edit-profile" element={<EditProfile />} />
               <Route path="change-password" element={<ChangePassword />} />
+              <Route path="/user/:userId" element={<UserDetailPage />} />
 
               {/* Notification */}
               <Route path="notifications" element={<NotificationsPage />} />
@@ -74,6 +76,7 @@ function App() {
               <Route path="channels" element={<GetChannelsComponent />} />
               <Route path="channel/:id" element={<FindChannel />} />
               <Route path="channel/create" element={<CreateChannel />} />
+              <Route path="/search/channel/:channelId" element={<ChannelDetailsPage />} />
               <Route
                 path="channel/:channelId/update"
                 element={<UpdateChannel />}
