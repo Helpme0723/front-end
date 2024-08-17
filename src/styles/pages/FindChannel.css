@@ -155,7 +155,7 @@ p {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.postslist-header {
+.posts-list-header {
   display: flex; /* Flexbox 사용 */
   align-items: center; /* 수직 정렬 */
   justify-content: space-between; /* 요소들 사이의 공간을 균등하게 배치 */
@@ -164,13 +164,13 @@ p {
   border-bottom: 1px solid #dee2e6; /* 아래쪽 경계선 추가, 필요에 따라 조정 */
 }
 
-.postslist-header .label {
+.posts-list-header .label {
   font-size: 18px; /* 글씨 크기 설정 */
   font-weight: bold; /* 글씨 굵기 설정 */
   color: #333; /* 글씨 색상 설정 */
 }
 
-.postslist-header div {
+.posts-list-header div {
   font-size: 16px; /* 글씨 크기 설정 */
   color: #007bff; /* 글씨 색상 설정 */
   cursor: pointer; /* 커서 설정 */
