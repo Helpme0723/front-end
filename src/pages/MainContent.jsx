@@ -4,6 +4,7 @@ import { findAllSeries } from '../apis/series';
 import '../styles/pages/MainContent.css';
 import { Link, useNavigate } from 'react-router-dom';
 import Pagination from '../components/Testpagenation';
+import Modal from 'react-modal';
 
 function MainContent() {
   const [posts, setPosts] = useState([]);
@@ -12,6 +13,8 @@ function MainContent() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [view, setView] = useState('posts');
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalPage, setModalPage] = useState(1); // 모달 페이지 상태 추가
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -44,6 +47,10 @@ function MainContent() {
     fetchData();
   }, [currentPage, view]);
 
+  useEffect(() => {
+    setModalIsOpen(true); // 페이지 로드 시 모달 자동 열림
+  }, []);
+
   const handlePrevPage = () => {
     setCurrentPage(prev => Math.max(1, prev - 1));
   };
@@ -57,17 +64,56 @@ function MainContent() {
     return date.toLocaleDateString('ko-KR');
   };
 
+  const handleNextModalPage = () => {
+    setModalPage(prevPage => prevPage + 1);
+  };
+
+  const handlePrevModalPage = () => {
+    setModalPage(prevPage => Math.max(1, prevPage - 1));
+  };
+
   if (loading) return <div>데이터를 불러오는 중...</div>;
 
   return (
     <main className="main-content">
       <div className="mainheader">
+        <button onClick={() => setModalIsOpen(true)}>"사용 가이드"</button>
+        <Modal
+          isOpen={modalIsOpen}
+          onRequestClose={() => setModalIsOpen(false)}
+        >
+          {/* 모달 페이지에 따른 콘텐츠 표시 */}
+          {modalPage === 1 && (
+            <div>
+              <h2>TalentVerse에 오신 여러분 환영합니다!</h2>
+              <p>여기는 첫 번째 페이지입니다.</p>
+              <button onClick={handleNextModalPage}>다음</button>
+            </div>
+          )}
+          {modalPage === 2 && (
+            <div>
+              <h2>두 번째 페이지</h2>
+              <p>여기는 두 번째 페이지입니다.</p>
+              <button onClick={handlePrevModalPage}>이전</button>
+              <button onClick={handleNextModalPage}>다음</button>
+            </div>
+          )}
+          {modalPage === 3 && (
+            <div>
+              <h2>세 번째 페이지</h2>
+              <p>여기는 세 번째 페이지입니다.</p>
+              <button onClick={handlePrevModalPage}>이전</button>
+              <button onClick={() => setModalIsOpen(false)}>닫기</button>
+            </div>
+          )}
+        </Modal>
         <span>{view === 'posts' ? '포스트' : '시리즈'}</span>
         <div className="button-group">
           <button onClick={() => setView('posts')}>포스트 보기</button>
           <button onClick={() => setView('series')}>시리즈 보기</button>
         </div>
       </div>
+
       {view === 'posts' && posts.length > 0 ? (
         posts.map(post => (
           <Link to={`/post/${post.id}`} key={post.id} className="post-card">
