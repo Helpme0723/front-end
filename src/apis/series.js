@@ -59,3 +59,19 @@ export const deleteSeries = async seriesId => {
     throw error;
   }
 };
+
+// 시리즈 생성
+export const createSeries = async (channelId, title, description) => {
+  try {
+    const response = await axiosInstance.post('api/series', {
+      channelId,
+      title,
+      description,
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('시리즈 생성 실패', error.response.data.message);
+    throw error;
+  }
+};
