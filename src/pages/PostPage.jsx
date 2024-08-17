@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import TextEditorForm from '../components/editor/TextEditorForm';
-import { createPost, getSeries } from '../apis/post'; // 포스트 생성 함수
+import { createPost, getSeries, uploadImage } from '../apis/post'; // 포스트 생성 함수
 import draftToHtml from 'draftjs-to-html';
 import { EditorState, convertToRaw, AtomicBlockUtils } from 'draft-js';
 import '../styles/pages/PostPage.css';
@@ -42,11 +42,15 @@ const PostPage = () => {
   const [title, setTitle] = useState('');
   const [preview, setPreview] = useState('');
   const [price, setPrice] = useState(0);
+  const [thumbNail, setThumbNail] = useState('');
   const [visibility, setVisibility] = useState('PUBLIC');
   const [seriesId, setSeriesId] = useState('');
   const [categoryId, setCategoryId] = useState('1');
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const [pendingImageUrl, setPendingImageUrl] = useState(null);
+  const [imageUrl, setImageUrl] = useState('');
+  const [imagePreview, setImagePreview] = useState('');
+  const [createPostMessage, setCreatePostMessage] = useState('');
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -87,6 +91,7 @@ const PostPage = () => {
       preview: preview,
       content: htmlContent,
       price: price,
+      thumbNail: thumbNail,
       channelId: parseInt(channelId), // 숫자형으로 변환
       visibility: visibility,
       seriesId: parseInt(seriesId), // 숫자형으로 변환
@@ -94,6 +99,9 @@ const PostPage = () => {
     };
 
     try {
+      if (imageUrl) {
+        createPostDto.thumbNail = imageUrl;
+      }
       const response = await createPost(createPostDto);
 
       alert('포스트 생성했습니다.');
@@ -103,6 +111,18 @@ const PostPage = () => {
       if (error.response) {
         console.error('Error response data:', error.response.data);
       }
+    }
+  };
+
+  const handleImageUpload = async event => {
+    const file = event.target.files[0];
+    if (!file) return;
+    try {
+      const data = await uploadImage(file);
+      setImageUrl(data.imageUrl);
+      setImagePreview(data.imageUrl);
+    } catch (error) {
+      setCreatePostMessage(`이미지 업로드 실패: ${error.message}`);
     }
   };
 
@@ -135,6 +155,26 @@ const PostPage = () => {
         placeholder="포스트 제목을 입력해 주세요."
         className="post-title-input"
       />
+      <div className="form-group">
+        <label>이미지 업로드</label>
+        <div className="input-group">
+          <input
+            type="text"
+            placeholder="이미지 URL을 입력해 주세요."
+            value={imageUrl}
+            onChange={e => {
+              setImageUrl(e.target.value);
+              setImagePreview(e.target.value);
+            }}
+          />
+          <input type="file" onChange={handleImageUpload} />
+        </div>
+        {imagePreview && (
+          <div className="image-preview">
+            <img src={imagePreview} alt="이미지 미리보기" />
+          </div>
+        )}
+      </div>
       <div className="post-inline-inputs">
         <div className="post-inline-input">
           <label htmlFor="visibility-select">포스트 공개/비공개 설정</label>
