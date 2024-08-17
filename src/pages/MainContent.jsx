@@ -221,6 +221,13 @@ function MainContent() {
                 />
                 작성자: {post.userName}
               </div>
+              <div className="thumbNail">
+                <img
+                  src={post.thumbNail}
+                  alt={`ThumbNail of ${post.thumbNail}`}
+                  className="thumbNail-image"
+                />
+              </div>
               <div className="post-date">
                 생성일: {formatDate(post.createdAt)}
               </div>
