@@ -1,70 +1,173 @@
-# Getting Started with Create React App
+# <img src="https://github.com/user-attachments/assets/c9ce2feb-8b0e-42eb-ba95-0e16eec610cb" alt="favicon" width="30" height="30"> TalentVerse FE
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+_TalentVerse BE Repository_
 
-## Available Scripts
+&nbsp;
 
-In the project directory, you can run:
+## 💻 **기술 스택**
 
-### `npm start`
+<img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black">
+<img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
+<img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white">
+<img src="https://img.shields.io/badge/NPM-CB3837?style=for-the-badge&logo=npm&logoColor=white">
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+&nbsp;
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 📁 **폴더 구조 및 환경 변수**
 
-### `npm test`
+<details>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**<summary>Directory Structure</summary>**
 
-### `npm run build`
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+📦src
+ ┣ 📂apis
+ ┃ ┣ auth.js
+ ┃ ┣ aws.js
+ ┃ ┣ axiosInstance.js
+ ┃ ┣ channel.js
+ ┃ ┣ library.js
+ ┃ ┣ main.js
+ ┃ ┣ notifications.js
+ ┃ ┣ paymentPage.js
+ ┃ ┣ payments.js
+ ┃ ┣ pointhistory.js
+ ┃ ┣ post.js
+ ┃ ┣ purchase.js
+ ┃ ┣ search.js
+ ┃ ┣ series.js
+ ┃ ┣ sse.js
+ ┃ ┗ user.js
+ ┣ 📂assets
+ ┃ ┗ sample.jpg
+ ┣ 📂components
+ ┃ ┣ 📂editor
+ ┃ ┃ ┗ TextEditorForm.jsx
+ ┃ ┣ ChannelInsight.jsx
+ ┃ ┣ Footer.jsx
+ ┃ ┣ GetChannels.jsx
+ ┃ ┣ Header.jsx
+ ┃ ┣ Pagination.jsx
+ ┃ ┗ Testpagenation.jsx
+ ┣ 📂context
+ ┃ ┣ AuthContext.js
+ ┃ ┗ SearchContext.js
+ ┣ 📂layouts
+ ┃ ┗ Layout.jsx
+ ┣ 📂pages
+ ┃ ┣ CategoryPostView.jsx
+ ┃ ┣ ChangePassword.jsx
+ ┃ ┣ ChannelDetailsPage.jsx
+ ┃ ┣ CreateChannel.jsx
+ ┃ ┣ CreateSeries.jsx
+ ┃ ┣ DailyInsights.jsx
+ ┃ ┣ EditProfile.jsx
+ ┃ ┣ EditSeries.jsx
+ ┃ ┣ FindChannel.jsx
+ ┃ ┣ GetMySeriesDetail.jsx
+ ┃ ┣ GetPostsFromSubscribeChannels.jsx
+ ┃ ┣ GetSeriesDetail.jsx
+ ┃ ┣ GetSubscribeChannels.jsx
+ ┃ ┣ Login.jsx
+ ┃ ┣ Logout.jsx
+ ┃ ┣ MainContent.jsx
+ ┃ ┣ Mainlibrary.jsx
+ ┃ ┣ Mainlibrarypurchase.jsx
+ ┃ ┣ MonthlyInsights.jsx
+ ┃ ┣ MyPosts.jsx
+ ┃ ┣ MySeries.jsx
+ ┃ ┣ NotificationSettings.jsx
+ ┃ ┣ NotificationsPage.jsx
+ ┃ ┣ payments.jsx
+ ┃ ┣ PointHistory.jsx
+ ┃ ┣ PostDetail.jsx
+ ┃ ┣ PostEditPage.jsx
+ ┃ ┣ PostPage.jsx
+ ┃ ┣ Profile.jsx
+ ┃ ┣ PurchasePost.jsx
+ ┃ ┣ RecoverPassword.jsx
+ ┃ ┣ Resign.jsx
+ ┃ ┣ SearchResultsPage.jsx
+ ┃ ┣ SignUp.jsx
+ ┃ ┣ SocialLogin.jsx
+ ┃ ┣ UpdateChannel.jsx
+ ┃ ┗ UserPage.jsx
+ ┣ 📂styles
+ ┃ ┣ 📂components
+ ┃ ┃ ┣ 📂editor
+ ┃ ┃ ┃ ┗ TextEditorForm.css
+ ┃ ┃ ┣ ChannelInsight.css
+ ┃ ┃ ┣ GetChannels.css
+ ┃ ┃ ┣ Header.css
+ ┃ ┃ ┣ Pagination.css
+ ┃ ┃ ┗ Testpagination.css
+ ┃ ┗ 📂pages
+ ┃ ┃ ┣ CategoryPostView.css
+ ┃ ┃ ┣ ChangePassword.css
+ ┃ ┃ ┣ ChannelDetailsPage.css
+ ┃ ┃ ┣ CreateChannel.css
+ ┃ ┃ ┣ CreateSeries.css
+ ┃ ┃ ┣ EditProfile.css
+ ┃ ┃ ┣ FindChannel.css
+ ┃ ┃ ┣ GetPostsFromSubscribeChannels.css
+ ┃ ┃ ┣ GetSubscribe.css
+ ┃ ┃ ┣ Insights.css
+ ┃ ┃ ┣ Login.css
+ ┃ ┃ ┣ MainContent.css
+ ┃ ┃ ┣ mainlibrary.css
+ ┃ ┃ ┣ MyPosts.css
+ ┃ ┃ ┣ MySeriesPage.css
+ ┃ ┃ ┣ Notification.css
+ ┃ ┃ ┣ NotificationSettings.css
+ ┃ ┃ ┣ Payment.css
+ ┃ ┃ ┣ PointHistory.css
+ ┃ ┃ ┣ PostDetail.css
+ ┃ ┃ ┣ PostEditPage.css
+ ┃ ┃ ┣ PostPage.css
+ ┃ ┃ ┣ Profile.css
+ ┃ ┃ ┣ PurchasePost.css
+ ┃ ┃ ┣ RecoverPassword.css
+ ┃ ┃ ┣ Resign.css
+ ┃ ┃ ┣ SeriesDetail.css
+ ┃ ┃ ┣ SignUp.css
+ ┃ ┃ ┗ UserDetail.css
+ ┣ App.css
+ ┣ App.jsx
+ ┣ App.test.js
+ ┣ index.css
+ ┣ index.jsx
+ ┣ logo.svg
+ ┣ reportWebVitals.js
+ ┗ setupTests.js
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+</details>
+<details>
 
-### `npm run eject`
+**<summary>env Example</summary>**
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```
+REACT_APP_API_URL=
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+REACT_APP_NAVER_SOCIAL_LOGIN=
+REACT_APP_KAKAO_SOCIAL_LOGIN=
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+</details>
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+&nbsp;
 
-## Learn More
+## 시작 가이드
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+$ git clone https://github.com/Helpme0723/front-end.git
+$ cd front-end
+$ npm ci
+$ npm run start
 
-### Code Splitting
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 화면 구성
