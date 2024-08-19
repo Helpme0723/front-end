@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { fetchAllPosts } from '../apis/main';
+import React, { useContext, useEffect, useState } from 'react';
+import { fetchAllPosts, fetchAllPostsLogIn } from '../apis/main';
 import { findAllSeries } from '../apis/series';
 import '../styles/pages/MainContent.css';
 import { Link, useNavigate } from 'react-router-dom';
 import Pagination from '../components/Testpagenation';
 import Modal from 'react-modal';
+import AuthContext from '../context/AuthContext';
 
 function MainContent() {
+  const { isAuthenticated } = useContext(AuthContext);
   const [posts, setPosts] = useState([]);
   const [series, setSeries] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -22,10 +24,17 @@ function MainContent() {
       setLoading(true);
       try {
         if (view === 'posts') {
-          const response = await fetchAllPosts(undefined, currentPage);
-          console.log('API Response:', response);
-          setPosts(response.data.posts);
-          setTotalPages(response.data.meta.totalPages);
+          if (!isAuthenticated) {
+            const response = await fetchAllPosts(undefined, currentPage);
+            console.log('API Response:', response);
+            setPosts(response.data.posts);
+            setTotalPages(response.data.meta.totalPages);
+          } else if (isAuthenticated) {
+            const response = await fetchAllPostsLogIn(undefined, currentPage);
+            console.log('@@@@@@@@@@@@API Response:', response.items);
+            setPosts(response.items);
+            setTotalPages(response.meta.totalPages);
+          }
         } else if (view === 'series') {
           const response = await findAllSeries(
             undefined,
@@ -230,14 +239,18 @@ function MainContent() {
           <button onClick={() => setView('series')}>시리즈 보기</button>
         </div>
       </div>
-
       {view === 'posts' && posts.length > 0 ? (
         posts.map(post => (
           <Link to={`/post/${post.id}`} key={post.id} className="post-card">
-            <div
-              className={`post-type ${post.price > 0 ? 'post-paid' : 'post-free'}`}
-            >
-              {post.price > 0 ? '유료' : '무료'}
+            <div className="icon-container">
+              <div
+                className={`post-type ${post.price > 0 ? 'post-paid' : 'post-free'}`}
+              >
+                {post.price > 0 ? '유료' : '무료'}
+              </div>
+              {post.isPurchased && (
+                <div className="post-purchased">구매한 포스트</div>
+              )}
             </div>
             <div className="post-info">
               <div className="post-title">{post.title || '제목 없음'}</div>
