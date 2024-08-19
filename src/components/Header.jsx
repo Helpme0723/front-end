@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState, useCallback } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
 import { getUserInfo } from '../apis/user';
 import { connectToNotifications } from '../apis/sse'; // SSE 연결 함수
@@ -18,6 +18,7 @@ function Header() {
   const [searchField, setSearchField] = useState('title');
   const [currentIndex, setCurrentIndex] = useState(0);
   const navigate = useNavigate();
+  const location = useLocation(); // 현재 경로 확인
 
   const fetchUserInfo = useCallback(async () => {
     try {
@@ -53,7 +54,15 @@ function Header() {
       fetchUserInfo();
     }
 
-    if (isAuthenticated) {
+    // 특정 경로에서만 SSE 연결 설정
+    const ssePaths = [
+      '/notifications', // 알림 페이지
+      '/', // 메인 페이지
+      `/post/${location.pathname.split('/')[2]}`, // 상세 페이지
+      '/search-results' // 검색 페이지
+    ];
+
+    if (isAuthenticated && ssePaths.includes(location.pathname)) { 
       console.log('SSE 연결 시도 중...');
 
       const disconnectSSE = connectToNotifications(
@@ -74,7 +83,7 @@ function Header() {
         console.log('SSE 연결 해제');
       };
     }
-  }, [isAuthenticated, fetchUserInfo, logout, fetchSearchRankings]);
+  }, [isAuthenticated, fetchUserInfo, logout, fetchSearchRankings, location.pathname]);
 
   useEffect(() => {
     const interval = setInterval(() => {
