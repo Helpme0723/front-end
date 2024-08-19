@@ -155,11 +155,11 @@ const PostPage = () => {
         className="post-title-input"
       />
       <div className="form-group">
-        <label>이미지 업로드</label>
+        <label>썸네일 이미지</label>
         <div className="input-group">
           <input
             type="text"
-            placeholder="이미지 URL을 입력해 주세요."
+            placeholder="썸네일 이미지 URL을 입력해 주세요."
             value={imageUrl}
             onChange={e => {
               setImageUrl(e.target.value);
@@ -210,6 +210,10 @@ const PostPage = () => {
             onChange={e => setSeriesId(e.target.value)}
             className="post-series-select"
           >
+            <option style={{ color: 'gray' }} value="">
+              선택 안함
+            </option>{' '}
+            {/* 첫 번째 빈 옵션 */}
             {series.map(option => (
               <option key={option.id} value={option.id}>
                 {option.title}
