@@ -91,7 +91,6 @@ const PostPage = () => {
       preview: preview,
       content: htmlContent,
       price: price,
-      thumbNail: thumbNail,
       channelId: parseInt(channelId), // 숫자형으로 변환
       visibility: visibility,
       seriesId: parseInt(seriesId), // 숫자형으로 변환
