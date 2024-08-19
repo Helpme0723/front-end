@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import {
   fetchPostDetails,
   createPostLike,
@@ -20,6 +20,7 @@ import AuthContext from '../context/AuthContext';
 import { fetchPurchasedPosts } from '../apis/library';
 import Pagination from '../components/Testpagenation';
 import PurchasePost from './PurchasePost';
+import { fetchUserDetails } from '../apis/user';
 
 function PostDetailsPage() {
   const { postId } = useParams();
@@ -38,6 +39,15 @@ function PostDetailsPage() {
   //채널 모달창
   const [channelModalIsOpen, setChannelModalIsOpen] = useState(false);
   const [channelDetails, setChannelDetails] = useState(null); // 채널 상세 정보 상태
+
+  // 사용자 정보 모달창
+  const [userModalIsOpen, setUserModalIsOpen] = useState(false);
+  const [userDetails, setUserDetails] = useState(null); // 사용자 상세 정보 상태
+
+  // 댓글용 사용자 정보 모달창
+  const [commentUserModalIsOpen, setCommentUserModalIsOpen] = useState(false); // 댓글 사용자 모달 열림 상태
+  const [commentUserDetails, setCommentUserDetails] = useState(null); // 댓글 작성자 정보
+  const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 }); // 모달 위치 상태
 
   //댓글 새로고침
   const fetchPostComments = async () => {
@@ -84,6 +94,48 @@ function PostDetailsPage() {
   };
   const closeChannelModal = () => {
     setChannelModalIsOpen(false);
+  };
+
+  // 사용자 모달창 열기
+  const openUserModal = async () => {
+    if (post && post.userId) {
+      try {
+        const userDetails = await fetchUserDetails(post.userId); // 사용자 정보 가져오기
+        setUserDetails(userDetails.data); // 사용자 정보 저장
+        setUserModalIsOpen(true);
+      } catch (error) {
+        console.error('Failed to fetch user details:', error);
+      }
+    }
+  };
+
+  // 사용자 모달창 닫기
+  const closeUserModal = () => {
+    setUserModalIsOpen(false);
+  };
+
+  // 댓글용 사용자 모달창 열기
+  const openCommentUserModal = async (userId, event) => {
+    const rect = event.target.getBoundingClientRect(); // 이미지 위치 계산
+    const modalPosition = {
+      top: rect.top + window.scrollY,
+      left: rect.left + window.scrollX,
+    };
+
+    try {
+      const userDetails = await fetchUserDetails(userId); // 사용자 정보 가져오기
+      setCommentUserDetails(userDetails.data);
+      setModalPosition(modalPosition); // 모달 위치 설정
+      setCommentUserModalIsOpen(true); // 모달 열기
+    } catch (error) {
+      console.error('Failed to fetch comment user details:', error);
+    }
+  };
+
+  const closeCommentUserModal = () => {
+    setCommentUserModalIsOpen(false);
+    setCommentUserDetails(null); // 모달 닫을 때 사용자 정보 초기화
+    setModalPosition({ top: 0, left: 0 }); // 모달 위치 초기화
   };
 
   useEffect(() => {
@@ -404,6 +456,8 @@ function PostDetailsPage() {
         src={post.userImage}
         alt={`Profile of ${post.nickname}`}
         className="profile-image"
+        onClick={openUserModal} // 이미지 클릭 시 사용자 모달 열기
+        style={{ cursor: 'pointer' }} // 마우스 커서가 손 모양으로 변경
       />
       <br></br>
       <div>작성자: {post.userName}</div>
@@ -429,7 +483,27 @@ function PostDetailsPage() {
           {channelDetails ? (
             <>
               <img src={channelDetails.imageUrl} alt="채널이미지 없음" />
-              <h3>{channelDetails.title}</h3>
+              <Link
+                to={
+                  userId === channelDetails.userId
+                    ? `/channel/${post.channelId}` // 자신의 채널이면 이 경로로
+                    : `/search/channel/${post.channelId}`
+                } // 다른 사람의 채널이면 이 경로로
+                style={{
+                  cursor: 'pointer',
+                  textDecoration: 'none',
+                  color: 'black',
+                }}
+              >
+                <h3
+                  style={{
+                    fontWeight: 'bold',
+                    margin: 0,
+                  }}
+                >
+                  {channelDetails.title}
+                </h3>
+              </Link>
               <p>구독자 수: {channelDetails.subscribers}</p>
               <p>{channelDetails.description || '채널 설명이 없습니다.'}</p>
             </>
@@ -499,6 +573,10 @@ function PostDetailsPage() {
                     src={comment.user.profileUrl}
                     alt={`Profile of ${comment.user.nickname}`}
                     className="profile-image"
+                    onClick={event =>
+                      openCommentUserModal(comment.user.id, event)
+                    } // 이벤트 객체 전달
+                    style={{ cursor: 'pointer' }}
                   />
                   유저: {comment.user.nickname}
                 </div>
@@ -575,6 +653,95 @@ function PostDetailsPage() {
             </button>
           </div>
         )}
+      </div>
+      <div className={`modal-overlay ${userModalIsOpen ? 'open' : ''}`}>
+        <div className="modal">
+          <h2>사용자 정보</h2>
+          {userDetails ? (
+            <>
+              <img src={userDetails.profileUrl} alt="사용자 이미지" />
+              <h3
+                style={{
+                  fontWeight: 'bold',
+                  margin: 0,
+                }}
+              >
+                {userDetails.nickname}
+              </h3>
+              <p>이메일: {userDetails.email}</p>
+              <p>
+                가입일:{' '}
+                {new Date(userDetails.createdAt).toLocaleDateString('ko-KR')}
+              </p>
+              <p>{userDetails.description || '소개글이 없습니다.'}</p>
+            </>
+          ) : (
+            <p>Loading user details...</p>
+          )}
+          <button
+            onClick={() =>
+              navigate(
+                userDetails.id === userId
+                  ? '/profile'
+                  : `/user/${userDetails.id}`,
+              )
+            }
+            className="navigate-button"
+          >
+            유저페이지
+          </button>
+          <button onClick={closeUserModal} className="close-button">
+            닫기
+          </button>
+        </div>
+      </div>
+      {/* 댓글용 사용자 정보 모달 */}
+      <div className={`modal-overlay ${commentUserModalIsOpen ? 'open' : ''}`}>
+        <div
+          className="modal"
+          style={{
+            position: 'fixed', 
+            top: '50%',  // 화면의 세로 중앙
+            left: '50%', // 화면의 가로 중앙
+            transform: 'translate(-50%, -50%)', // 중앙에 모달을 정확히 맞춤
+            zIndex: 1000, // 다른 요소들 위에 표시
+          }}
+        >
+          <h2>댓글 작성자 정보</h2>
+          {commentUserDetails ? (
+            <>
+              <img src={commentUserDetails.profileUrl} alt="사용자 이미지" />
+              <h3 style={{ fontWeight: 'bold', margin: 0 }}>
+                {commentUserDetails.nickname}
+              </h3>
+              <p>이메일: {commentUserDetails.email}</p>
+              <p>
+                가입일:{' '}
+                {new Date(commentUserDetails.createdAt).toLocaleDateString(
+                  'ko-KR',
+                )}
+              </p>
+              <p>{commentUserDetails.description || '소개글이 없습니다.'}</p>
+            </>
+          ) : (
+            <p>Loading user details...</p>
+          )}
+          <button
+            onClick={() =>
+              navigate(
+                commentUserDetails.id === userId
+                  ? '/profile'
+                  : `/user/${commentUserDetails.id}`,
+              )
+            }
+            className="navigate-button"
+          >
+            유저페이지
+          </button>
+          <button onClick={closeCommentUserModal} className="close-button">
+            닫기
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -72,6 +72,26 @@ function MainContent() {
     setModalPage(prevPage => Math.max(1, prevPage - 1));
   };
 
+  const getTodayDate = () => {
+    const today = new Date();
+    return today.toISOString().split('T')[0];
+  };
+
+  useEffect(() => {
+    const lastClosedDate = localStorage.getItem('lastClosedDate');
+    const todayDate = getTodayDate();
+    if (lastClosedDate !== todayDate) {
+      setModalIsOpen(true); // 페이지 로드 시 모달 자동 열림
+    } else {
+      setModalIsOpen(false); // '오늘 하루 보지 않기'를 눌렀다면 모달 열리지 않음
+    }
+  }, []);
+
+  const handleDontShowToday = () => {
+    localStorage.setItem('lastClosedDate', getTodayDate());
+    setModalIsOpen(false);
+  };
+
   if (loading) return <div>데이터를 불러오는 중...</div>;
 
   return (
@@ -107,12 +127,23 @@ function MainContent() {
                 onClick={handleNextModalPage}
                 style={{
                   position: 'absolute',
-                  left: '50%',
+                  left: '70%',
                   transform: 'translateX(-50%)',
                   bottom: '10px', // 모달 하단에서의 거리
                 }}
               >
                 다음
+              </button>
+              <button
+                onClick={handleDontShowToday}
+                style={{
+                  position: 'absolute',
+                  left: '40%',
+                  transform: 'translateX(-30%)',
+                  bottom: '10px', // 모달 하단에서의 거리
+                }}
+              >
+                오늘 하루 보지 않기
               </button>
             </div>
           )}
