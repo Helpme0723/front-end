@@ -131,16 +131,16 @@ function Header() {
         </Link>
       </nav>
       <div className="header-actions">
-        <div className="search-rankings">
-          <h3>인기 검색어</h3>
-          <ul>
-            {searchRankings.length > 0 && (
+        {searchRankings.length > 0 && (
+          <div className="search-rankings">
+            <h3>인기 검색어</h3>
+            <ul>
               <li key={currentIndex} className="ranking-item">
                 {searchRankings[currentIndex]}
               </li>
-            )}
-          </ul>
-        </div>
+            </ul>
+          </div>
+        )}
         <form onSubmit={handleSearch} className="search-container">
           <input
             type="text"

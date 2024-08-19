@@ -27,6 +27,7 @@ export const searchPosts = async (
 export const searchRanking = async () => {
   try {
     const response = await axiosInstance.get('/api/search/ranking');
+    console.log('$$$$$', response);
     return response.data;
   } catch (error) {
     throw error;
