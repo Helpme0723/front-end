@@ -19,6 +19,8 @@ body {
   font-size: 28px; /* 제목 폰트 크기 */
   font-weight: bold;
   padding-right: 20px;
+  text-decoration: none; /* 밑줄 제거 */
+  color: inherit; /* 상속된 색상 사용 */
 }
 
 .nav-links {
@@ -31,7 +33,7 @@ body {
   font-size: 14px; /* 폰트 크기를 키워서 가독성 향상 */
   font-weight: bold;
   color: #333;
-  text-decoration: none;
+  text-decoration: none; /* 밑줄 제거 */
   transition: color 0.3s ease;
 }
 
@@ -116,7 +118,7 @@ body {
 .dropdown-content a {
   color: black;
   padding: 12px 16px;
-  text-decoration: none;
+  text-decoration: none; /* 밑줄 제거 */
   display: block;
 }
 
@@ -157,6 +159,7 @@ body {
   opacity: 0; /* 배너가 사라지도록 설정 */
   transform: translateX(-50%) translateY(-20px); /* 배너가 살짝 위로 올라가며 사라지도록 설정 */
 }
+
 .search-rankings {
   position: relative;
   height: 50px; /* 랭킹 표시 영역의 높이 조정 */

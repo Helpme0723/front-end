@@ -115,11 +115,10 @@ function Header() {
       {notificationMessage && (
         <div className={`notification-banner show`}>{notificationMessage}</div>
       )}
-      <div className="header-title">TalentVerse</div>
+       <Link to="/" className="header-title">
+        TalentVerse
+      </Link>
       <nav className="nav-links">
-        <Link to="/" className="nav-link">
-          홈
-        </Link>
         <Link to="/subscribes/posts" className="nav-link">
           구독
         </Link>
@@ -131,16 +130,16 @@ function Header() {
         </Link>
       </nav>
       <div className="header-actions">
-        <div className="search-rankings">
-          <h3>인기 검색어</h3>
-          <ul>
-            {searchRankings.length > 0 && (
+        {searchRankings.length > 0 && (
+          <div className="search-rankings">
+            <h3>인기 검색어</h3>
+            <ul>
               <li key={currentIndex} className="ranking-item">
                 {searchRankings[currentIndex]}
               </li>
-            )}
-          </ul>
-        </div>
+            </ul>
+          </div>
+        )}
         <form onSubmit={handleSearch} className="search-container">
           <input
             type="text"

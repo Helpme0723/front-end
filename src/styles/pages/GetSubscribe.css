@@ -12,43 +12,68 @@ h1 {
   margin: 0;
 }
 
-.container {
-  width: 80%;
+.sub-channel-container {
+  width: 100%;
   margin: 0 auto;
+  max-width: 1200px;
 }
 
-ul {
+.sub-channel-list {
   list-style-type: none;
   padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3개의 컬럼으로 고정 */
+  gap: 20px;
 }
 
-li {
+.sub-channel-item {
   background-color: #fff;
-  margin: 10px 0;
   padding: 10px;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
 }
 
-h2 {
+.sub-channel-item:hover {
+  transform: translateY(-5px); /* 호버 시 카드가 살짝 위로 올라감 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 호버 시 그림자 강화 */
+  background-color: #f0f0f0; /* 호버 시 배경색 변경 */
+}
+
+.sub-channel-link {
+  text-decoration: none; /* 링크의 밑줄 제거 */
+  color: inherit; /* 부모 요소의 색상 상속 */
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.sub-channel-title {
   font-size: 1.5em;
   color: #333;
   margin: 0 0 10px 0;
 }
 
-p {
+.sub-channel-description {
   color: #666;
   font-size: 1em;
   margin: 10px 0;
 }
 
-img {
+.sub-channel-image {
   max-width: 100%;
   border-radius: 10px;
   margin-bottom: 10px;
+  object-fit: cover;
+  height: 150px;
 }
 
-.no-posts {
+.sub-channel-no-posts {
   text-align: center;
   color: #999;
   font-size: 1.2em;
