@@ -115,11 +115,10 @@ function Header() {
       {notificationMessage && (
         <div className={`notification-banner show`}>{notificationMessage}</div>
       )}
-      <div className="header-title">TalentVerse</div>
+       <Link to="/" className="header-title">
+        TalentVerse
+      </Link>
       <nav className="nav-links">
-        <Link to="/" className="nav-link">
-          홈
-        </Link>
         <Link to="/subscribes/posts" className="nav-link">
           구독
         </Link>
