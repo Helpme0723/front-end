@@ -1,3 +1,9 @@
+# <img src="https://github.com/user-attachments/assets/c9ce2feb-8b0e-42eb-ba95-0e16eec610cb" alt="favicon" width="30" height="30"> TalentVerse FE
+
+_TalentVerse BE Repository_
+
+&nbsp;
+
 ## 💻 **기술 스택**
 
 **STACK**
@@ -6,6 +12,8 @@
 <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
 <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white">
 <img src="https://img.shields.io/badge/NPM-CB3837?style=for-the-badge&logo=npm&logoColor=white">
+
+&nbsp;
 
 ## 📁 **폴더 구조 및 환경 변수**
 
@@ -151,7 +159,7 @@ REACT_APP_KAKAO_SOCIAL_LOGIN=
 
 </details>
 
----
+&nbsp;
 
 ## 시작 가이드
 
