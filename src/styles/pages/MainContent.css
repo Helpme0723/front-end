@@ -77,7 +77,9 @@ body {
   text-decoration: none;
   color: inherit;
   position: relative; /* 위치 상대 설정 */
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .post-card:hover,
@@ -116,21 +118,37 @@ body {
   margin-top: auto;
 }
 
-.post-type {
+/* 아이콘 컨테이너: 유료/무료와 구매한 포스트 아이콘을 함께 배치 */
+.icon-container {
   position: absolute;
   top: 10px; /* 상단에서 10px 떨어진 위치 */
   right: 10px; /* 우측에서 10px 떨어진 위치 */
+  display: flex;
+  gap: 5px; /* 아이콘 간 간격 */
+}
+
+/* 유료/무료 아이콘 */
+.post-type {
   font-weight: bold;
   padding: 5px 10px;
-  background-color: #F0F8FF; /* 배경 반투명 검은색 */
+  background-color: #f0f8ff; /* 배경 반투명 검은색 */
   color: white;
   border-radius: 5px;
 }
 
 .post-free {
-  color: #4CAF50; /* 무료 포스트의 경우 녹색으로 표시 */
+  color: #4caf50; /* 무료 포스트의 경우 녹색으로 표시 */
 }
 
 .post-paid {
   color: #f44336; /* 유료 포스트의 경우 빨간색으로 표시 */
+}
+
+/* 구매한 포스트 아이콘 */
+.post-purchased {
+  font-weight: bold;
+  padding: 5px 10px;
+  background-color: #ffa500; /* 구매한 포스트를 위한 주황색 배경 */
+  color: white;
+  border-radius: 5px;
 }
