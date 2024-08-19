@@ -148,13 +148,14 @@ img {
 }
 
 .post-free {
-  color: #4caf50; /* 무료 포스트의 경우 녹색으로 표시 */
+  background-color: #d4edda;
+  color: #155724;
 }
 
 .post-paid {
-  color: #f44336; /* 유료 포스트의 경우 빨간색으로 표시 */
+  background-color: #f8d7da;
+  color: #721c24;
 }
-
 /* 구매한 포스트 아이콘 */
 .post-purchased {
   font-weight: bold;
