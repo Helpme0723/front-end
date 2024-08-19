@@ -1,9 +1,9 @@
-.channel-details-container {
+.chennel-detail-container {
   padding: 20px;
   text-align: center; /* 중앙 정렬 */
 }
 
-.channel-image {
+.chennel-detail-image {
   width: 200px;
   height: 200px;
   border-radius: 50%;
@@ -11,13 +11,13 @@
   margin: 0 auto 10px auto; /* 중앙 정렬과 여백 */
 }
 
-.channel-nav {
+.chennel-detail-nav {
   display: flex;
   justify-content: center;
   margin: 20px 0;
 }
 
-.channel-nav button {
+.chennel-detail-nav button {
   background: none;
   border: none;
   margin: 0 15px;
@@ -28,33 +28,69 @@
   transition: border-color 0.3s;
 }
 
-.channel-nav button.active {
+.chennel-detail-nav button.active {
   border-bottom: 2px solid #007bff;
 }
 
-.channel-section {
+.chennel-detail-section {
   margin-top: 20px;
 }
 
-.posts-list, .series-list {
+.chennel-detail-posts-list,
+.chennel-detail-series-list {
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* 3개의 컬럼으로 구성 */
   gap: 20px;
 }
 
-.post-card, .series-card {
+.chennel-detail-post-card {
+  background-color: #f8f8f8;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, background-color 0.3s; /* 호버 시 효과를 위한 트랜지션 추가 */
+}
+.chennel-detail-series-card{
   background-color: #f8f8f8;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, background-color 0.3s; /* 호버 시 효과를 위한 트랜지션 추가 */
 }
 
-.post-card h3, .series-card h3 {
+.chennel-detail-post-card:hover {
+  transform: translateY(-5px); /* 위로 살짝 올라가는 효과 */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* 그림자 크기 및 투명도 조절 */
+  background-color: #e0e0e0; /* 호버 시 배경색을 변경하지 않으려면 이 부분을 유지 */
+}
+.chennel-detail-series-card:hover{
+  transform: translateY(-5px); /* 위로 살짝 올라가는 효과 */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* 그림자 크기 및 투명도 조절 */
+  background-color: #f8f8f8; /* 호버 시 배경색 변경 */
+}
+.chennel-detail-post-card h3,
+.chennel-detail-series-card h3 {
   font-size: 18px;
   margin-bottom: 10px;
 }
 
-.post-card p, .series-card p {
+.chennel-detail-post-card p,
+.chennel-detail-series-card p {
   margin: 5px 0;
   font-size: 14px;
+}
+
+/* 링크에서 밑줄 제거 */
+.chennel-detail-post-card a,
+.chennel-detail-series-card a,
+.chennel-detail-posts-list a {
+  text-decoration: none;
+  color: inherit; /* 부모 요소의 색상 상속 */
+}
+
+.chennel-detail-post-card a:hover,
+.chennel-detail-series-card a:hover,
+.chennel-detail-posts-list a:hover {
+  text-decoration: none; /* 호버 시에도 밑줄 제거 */
+  color: #007bff; /* 링크 호버 시 색상 변경 */
 }
