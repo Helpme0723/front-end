@@ -182,7 +182,6 @@ function PostDetailsPage() {
         if (alreadyLikedPost) {
           setIsLikedPost(false);
         }
-        console.log('likedpost', isLikedPost);
       } catch (error) {
         console.error('Failed to fetch post details:', error);
       } finally {
@@ -203,14 +202,27 @@ function PostDetailsPage() {
       setCommentsLoading(true);
       try {
         const response = await fetchComments(postId, commentsPage);
+
         if (response && response.data) {
-          setComments(response.data.items);
           setTotalCommentPages(response.data.meta.totalPages);
+
+          const responseDataItems = response.data.items;
+          const alreadyLikedComments = await getCommentLikeCheck(
+            Number(postId),
+          );
+
+          const updatedComments = responseDataItems.map(item => {
+            const isLiked = alreadyLikedComments.data.some(
+              comment => comment.commentId === item.id,
+            );
+            // 기존 item에 isCommentLiked 속성 추가
+            return {
+              ...item,
+              isCommentLiked: isLiked,
+            };
+          });
+          setComments(updatedComments);
         }
-        // const alreadyLikedComment = await getCommentLikeCheck(Number(postId));
-        // if (alreadyLikedComment) {
-        //   setIsLikedComments(false);
-        // }
       } catch (error) {
         console.error('Failed to fetch comments:', error);
       } finally {
@@ -362,7 +374,11 @@ function PostDetailsPage() {
       setComments(prevComments =>
         prevComments.map(comment =>
           comment.id === commentId
-            ? { ...comment, likeCount: comment.likeCount + 1 }
+            ? {
+                ...comment,
+                likeCount: comment.likeCount + 1,
+                isCommentLiked: true,
+              }
             : comment,
         ),
       );
@@ -388,11 +404,15 @@ function PostDetailsPage() {
   const handleCommentUnlike = async commentId => {
     try {
       await unlikeComment(commentId);
-      setIsLikedComments(false); // 상태 토글
+
       setComments(prevComments =>
         prevComments.map(comment =>
           comment.id === commentId
-            ? { ...comment, likeCount: comment.likeCount - 1 }
+            ? {
+                ...comment,
+                likeCount: comment.likeCount - 1,
+                isCommentLiked: false,
+              }
             : comment,
         ),
       );
@@ -411,19 +431,18 @@ function PostDetailsPage() {
     }
   };
 
-  // // 댓글 좋아요, 좋아요 취소 통합
-  // const handleToggleCommentLike = async commentId => {
-  //   console.log('댓글id', commentId);
-  //   try {
-  //     if (isLikedComments) {
-  //       await handleCommentUnlike(commentId);
-  //     } else {
-  //       await handleCommentLike(commentId);
-  //     }
-  //   } catch (error) {
-  //     console.error('Failed to toggle like:', error);
-  //   }
-  // };
+  // 댓글 좋아요, 좋아요 취소 통합
+  const handleToggleCommentLike = async (commentId, isCommentLiked) => {
+    try {
+      if (isCommentLiked) {
+        await handleCommentUnlike(commentId);
+      } else {
+        await handleCommentLike(commentId);
+      }
+    } catch (error) {
+      console.error('Failed to toggle like:', error);
+    }
+  };
 
   //댓글 수정
   const handleUpdateComment = async (commentId, newContent) => {
@@ -634,7 +653,7 @@ function PostDetailsPage() {
                 </div>
                 <p>{comment.content}</p>
                 <div className="comment-like-section">
-                  <button
+                  {/* <button
                     onClick={() => handleCommentLike(comment.id)}
                     className="like-button"
                   >
@@ -645,10 +664,17 @@ function PostDetailsPage() {
                     className="like-button"
                   >
                     👎
-                  </button>
-                  {/* <button onClick={handleToggleCommentLike}>
-                    {isLikedComments ? '👎' : '👍'}
                   </button> */}
+                  <button
+                    onClick={() =>
+                      handleToggleCommentLike(
+                        comment.id,
+                        comment.isCommentLiked,
+                      )
+                    }
+                  >
+                    {comment.isCommentLiked ? '👎' : '👍'}
+                  </button>
                   <span>좋아요 수: {comment.likeCount}</span>
                 </div>
                 <div className="comment-action-section">

@@ -265,7 +265,6 @@ export const getCommentLikeCheck = async postId => {
 		const response = await axiosInstance.get(`api/comments/like/check`, {
 			params: { postId }
 		});
-		console.log('댓글 ', response.data);
 		return response.data;
 	} catch (error) {
 		console.error(error);
