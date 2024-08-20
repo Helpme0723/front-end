@@ -1,6 +1,6 @@
 # <img src="https://github.com/user-attachments/assets/c9ce2feb-8b0e-42eb-ba95-0e16eec610cb" alt="favicon" width="30" height="30"> TalentVerse FE
 
-_TalentVerse BE Repository_
+_TalentVerse FE Repository_
 
 &nbsp;
 
