@@ -1,0 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #eef2f5;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.search-result-main-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  max-width: 1250px;
+  margin: 0 auto;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.search-result-tag {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  color: #333;
+  font-size: 2em;
+  margin-bottom: 20px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.search-result-post-card {
+  height: 300px;
+  display: flex;
+  align-items: flex-start;
+  background: white;
+  border: none;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.search-result-post-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.search-result-post-info {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.search-result-post-title {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.search-result-post-description {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 200px; /* 위치를 올리기 위해 여백을 더 줌 */
+}
+
+.search-result-post-author {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.search-result-profile-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.search-result-post-meta {
+    position: absolute;
+    bottom: 10px; /* 우측 하단에 배치 */
+    right: 10px;
+    text-align: right; /* 텍스트 오른쪽 정렬 */
+    color: #999;
+    font-size: 0.9em;
+  }
+
+
+.search-result-post-type {
+  position: absolute;
+  top: 10px; /* 상단 우측에 배치 */
+  right: 10px;
+  font-weight: bold;
+  padding: 5px 10px;
+  background-color: #f0f8ff;
+  color: white;
+  border-radius: 5px;
+  width: auto;
+  white-space: nowrap;
+}
+
+.search-result-post-free {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.search-result-post-paid {
+  background-color: #f8d7da;
+  color: #721c24;
+}
