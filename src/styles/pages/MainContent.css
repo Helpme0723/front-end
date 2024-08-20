@@ -172,6 +172,8 @@ img {
   top: 10px; /* 상단에서 10px 떨어진 위치 */
   right: 10px; /* 우측에서 10px 떨어진 위치 */
   display: flex;
+  flex-direction: column; /* 세로 방향으로 아이콘을 정렬 */
+  align-items: flex-end; 
   gap: 5px; /* 아이콘 간 간격 */
 }
 
@@ -182,6 +184,8 @@ img {
   background-color: #f0f8ff; /* 배경 반투명 검은색 */
   color: white;
   border-radius: 5px;
+  width: auto; /* 아이콘 크기 고정 */
+  white-space: nowrap; /* 텍스트가 줄바꿈 되지 않도록 */
 }
 
 .post-free {
@@ -201,4 +205,7 @@ img {
   background-color: #ffa500; /* 구매한 포스트를 위한 주황색 배경 */
   color: white;
   border-radius: 5px;
+  width: auto; /* 아이콘 크기 고정 */
+  white-space: nowrap; /* 텍스트가 줄바꿈 되지 않도록 */
+  margin-top: 5px; /* 유료/무료 타입과의 간격 */
 }
