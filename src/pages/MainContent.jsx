@@ -257,6 +257,22 @@ function MainContent() {
               <div className="post-description">
                 {post.preview.substring(0, 20)}
               </div>
+              <div className='post-viewcount'>조회수:  {post.viewCount}</div>
+              <div className="thumbNail">
+                <img
+                  src={post.thumbNail}
+                  alt={`ThumbNail of ${post.thumbNail}`}
+                  className="thumbNail-image"
+                />
+              </div>
+              <div className="post-date-price">
+                <div className="post-date">
+                  생성일: {formatDate(post.createdAt)}
+                </div>
+                {post.price > 0 && (
+                  <div className="post-price">가격: {post.price} 포인트</div>
+                )}
+              </div>
               <div className="post-author">
                 <img
                   src={post.userImage}
@@ -265,19 +281,6 @@ function MainContent() {
                 />
                 작성자: {post.userName}
               </div>
-              <div className="thumbNail">
-                <img
-                  src={post.thumbNail}
-                  alt={`ThumbNail of ${post.thumbNail}`}
-                  className="thumbNail-image"
-                />
-              </div>
-              <div className="post-date">
-                생성일: {formatDate(post.createdAt)}
-              </div>
-              {post.price > 0 && (
-                <div className="post-price">가격: {post.price} 포인트</div>
-              )}
             </div>
           </Link>
         ))

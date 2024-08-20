@@ -77,13 +77,13 @@ function CategoryPostView() {
   if (posts.length === 0) return <div>데이터를 불러오는 중...</div>;
 
   return (
-    <main className="category-content">
-      <div className="category-header">
-        <div className="category-buttons">
+    <main className="category-post-content">
+      <div className="category-post-header">
+        <div className="category-post-buttons">
           {categories.map(category => (
             <button
               key={category.id}
-              className={`category-button ${selectedCategory === category.id ? 'selected' : ''}`}
+              className={`category-post-button ${selectedCategory === category.id ? 'selected' : ''}`}
               onClick={() => handleCategoryChange(category.id)}
             >
               {category.name}
@@ -91,34 +91,34 @@ function CategoryPostView() {
           ))}
         </div>
       </div>
-      <div className="posts-grid">
+      <div className="category-posts-grid">
         {posts.map(post => (
-          <Link to={`/post/${post.id}`} key={post.id} className="post-card">
-            <div className="post-header">
-              <div className="post-title">{post.title || '제목 없음'}</div>
+          <Link to={`/post/${post.id}`} key={post.id} className="category-post-card">
+            <div className="category-post-header">
+              <div className="category-post-title">{post.title || '제목 없음'}</div>
               <div
-                className={`post-type ${post.price > 0 ? 'post-paid' : 'post-free'}`}
+                className={`category-post-type ${post.price > 0 ? 'category-post-paid' : 'category-post-free'}`}
               >
                 {post.price > 0 ? '유료' : '무료'}
               </div>
             </div>
-            <div className="post-info">
-              <div className="post-preview">
+            <div className="category-post-info">
+              <div className="category-post-preview">
                 {post.preview.substring(0, 20)}
               </div>
-              <div className="post-author">
+              <div className="category-post-author">
                 <img
                   src={post.userImage}
                   alt={`Profile of ${post.nickname}`}
-                  className="profile-image"
+                  className="category-post-profile-image"
                 />
                 작성자: {post.userName}
               </div>
-              <div className="post-date">
+              <div className="category-post-date">
                 생성일: {formatDate(post.createdAt)}
               </div>
               {post.price > 0 && (
-                <div className="post-price">가격: {post.price} 포인트</div>
+                <div className="category-post-price">가격: {post.price} 포인트</div>
               )}
             </div>
           </Link>

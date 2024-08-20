@@ -8,7 +8,7 @@ body {
   box-sizing: border-box;
 }
 
-.category-content {
+.category-post-content {
   padding: 20px;
   max-width: 1250px;
   margin: 0 auto;
@@ -17,7 +17,7 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.category-header {
+.category-post-header {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -28,13 +28,13 @@ body {
   font-weight: 700;
 }
 
-.category-buttons {
+.category-post-buttons {
   display: flex;
   justify-content: center;
   margin-bottom: 20px;
 }
 
-.category-button {
+.category-post-button {
   background-color: #f0f0f0;
   border: none;
   padding: 10px 20px;
@@ -43,18 +43,18 @@ body {
   border-radius: 5px;
 }
 
-.category-button.selected {
+.category-post-button.selected {
   background-color: #007bff;
   color: white;
 }
 
-.posts-grid {
+.category-posts-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* 한 줄에 3개씩 나타나도록 설정 */
   gap: 20px;
 }
 
-.post-card {
+.category-post-card {
   border: 1px solid #ddd;
   padding: 20px;
   border-radius: 8px;
@@ -68,58 +68,65 @@ body {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.post-card:hover {
+.category-post-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-.post-header {
+.category-post-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: nowrap; /* 요소들이 한 줄에 강제로 위치하도록 설정 */
 }
 
-.post-title {
+.category-post-title {
+  flex-grow: 1; /* 제목이 남은 공간을 차지하도록 설정 */
   font-weight: bold;
-  font-size: 1.2em;
+  font-size: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-right: 10px; /* 제목과 유형 간의 간격 설정 */
 }
 
-.post-type {
+.category-post-type {
+  flex-shrink: 0; /* 유형이 줄어들지 않도록 설정 */
   padding: 5px 10px;
   border-radius: 12px;
-  font-size: 0.8em;
+  font-size: 14px;
+  white-space: nowrap; /* 유형 텍스트가 줄 바꿈되지 않도록 설정 */
 }
-
-.post-free {
+.category-post-free {
   background-color: #d4edda;
   color: #155724;
 }
 
-.post-paid {
+.category-post-paid {
   background-color: #f8d7da;
   color: #721c24;
 }
 
-.post-preview {
+.category-post-preview {
   margin-top: 10px;
   font-size: 1em;
 }
 
-.post-author {
+.category-post-author {
   display: flex;
   align-items: center;
   margin-top: 10px;
 }
 
-.profile-image {
+.category-post-profile-image {
   width: 40px;
   height: 40px;
   border-radius: 50%;
   margin-right: 10px;
 }
 
-.post-date,
-.post-price {
+.category-post-date,
+.category-post-price {
   margin-top: 10px;
   color: gray;
   font-size: 0.9em;

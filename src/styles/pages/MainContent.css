@@ -18,7 +18,7 @@ body {
   background-color: #f9f9f9;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  grid-template-rows: auto 1fr auto; /* 추가: 마지막 행에 페이지네이션 위치 */
+  grid-template-rows: auto 1fr auto; /* 마지막 행에 페이지네이션 위치 */
 }
 
 .mainheader {
@@ -55,6 +55,11 @@ body {
   background-color: #0056b3;
 }
 
+img {
+  max-width: 100%;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
 .series-card {
   background: white;
   border: none;
@@ -63,12 +68,13 @@ body {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   text-decoration: none;
   color: inherit;
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .post-card {
+  height: 300px;
+  display: flex;
+  align-items: flex-start;
   background: white;
   border: none;
   border-radius: 8px;
@@ -77,9 +83,9 @@ body {
   text-decoration: none;
   color: inherit;
   position: relative; /* 위치 상대 설정 */
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  flex-direction: column; /* 세로 방향으로 정렬 */
+  justify-content: space-between; /* 상하단 요소 간 공간 분배 */
 }
 
 .post-card:hover,
@@ -88,45 +94,76 @@ body {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-.series-info {
+.thumbNail {
+  margin-left: 30px; /* 이미지와 텍스트 사이의 간격 */
+  margin-bottom: 80px;
+  flex-shrink: 0; /* 이미지 크기가 줄어들지 않도록 */
+}
+
+.thumbNail-image {
+  width: 120px; /* 썸네일 이미지의 크기 설정 */
+  height: 120px;
+  margin-left: 200px;
+  object-fit: cover; /* 이미지가 컨테이너를 넘지 않도록 */
+  border-radius: 8px; /* 이미지 모서리를 둥글게 */
+}
+
+.post-info {
+  flex-grow: 1; /* 포스트 정보 영역이 남은 공간을 차지하도록 */
   display: flex;
   flex-direction: column;
-}
-.post-info > div {
-  margin-bottom: 20px;
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 10px;
+  justify-content: space-between; /* 상하단 요소 간 공간 분배 */
 }
 
-
-.post-title,
-.series-title {
-  font-size: 1.5em;
-  font-weight: 500;
-  color: black;
+.post-title {
+  font-size: 1.2em;
+  font-weight: bold;
   margin-bottom: 10px;
 }
 
-.post-description,
-.series-description {
-  font-size: 1em;
+.post-description {
+  font-size: 0.9em;
   color: #555;
   margin-bottom: 10px;
 }
-
-img {
-  max-width: 100%;
-  border-radius: 10px;
-  margin-bottom: 10px;
+.post-viewcount{
+  font-size: 13px;
+  color: #555;
 }
 
-.post-author,
+.post-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.post-author {
+  position: absolute; /* 절대 위치 지정 */
+  bottom: 10px; /* 카드의 하단에서 10px 위로 위치 */
+  left: 10px; /* 카드의 좌측에서 20px 떨어진 위치 */
+  display: flex;
+  align-items: center;
+}
+
+
+.profile-image {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.post-date-price {
+  position: absolute; /* 절대 위치 지정 */
+  bottom: 10px; /* 카드의 하단에서 10px 위로 위치 */
+  right: 20px; /* 카드의 우측에서 20px 떨어진 위치 */
+  text-align: right; /* 텍스트를 오른쪽 정렬 */
+}
+
 .post-date,
 .post-price {
-  font-size: 0.9em;
+  margin: 0; /* 내부 간격 제거 */
   color: #999;
-  text-align: right;
-  margin-top: auto;
+  font-size: 0.9em;
 }
 
 /* 아이콘 컨테이너: 유료/무료와 구매한 포스트 아이콘을 함께 배치 */
@@ -156,6 +193,7 @@ img {
   background-color: #f8d7da;
   color: #721c24;
 }
+
 /* 구매한 포스트 아이콘 */
 .post-purchased {
   font-weight: bold;
