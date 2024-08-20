@@ -177,17 +177,21 @@ $ npm run start
     <tr>
       <td align="center"><img width="1512" alt="스크린샷 2024-08-20 오후 12 30 18" src="https://github.com/user-attachments/assets/3b3ca2f1-4e45-4b07-be1e-51afeb57b8d9">메인페이지</td>
      <td align="center"><img width="1512" alt="스크린샷 2024-08-20 오후 12 30 18" src="https://github.com/user-attachments/assets/be35c107-c893-47c8-b780-05f3ea7f2922">로그인화면</td>
-     <td align="center"><img width="1512" alt="스크린샷 2024-08-20 오후 12 30 18" src="https://github.com/user-attachments/assets/56964e93-12ac-42f0-ba2f-ad56d0b2d4b2">포스트상세보기</td>
     </tr>
+   <tr>
+    <td align="center"><img width="1512" alt="스크린샷 2024-08-20 오후 12 30 18" src="https://github.com/user-attachments/assets/56964e93-12ac-42f0-ba2f-ad56d0b2d4b2">포스트상세보기</td>
+    <td align="center"><img width="1512" alt="스크린샷 2024-08-20 오후 12 30 18" src="https://github.com/user-attachments/assets/0eb7d5bd-8cf6-4fce-8d6f-375ac085dc17">포스트작성</td>
+   </tr>
     <tr>
-      <td align="center"><img width="1512" alt="스크린샷 2024-08-20 오후 12 30 18" src="https://github.com/user-attachments/assets/0eb7d5bd-8cf6-4fce-8d6f-375ac085dc17">포스트작성</td>
      <td align="center"><img width="1512" alt="스크린샷 2024-08-20 오후 12 30 18" src="https://github.com/user-attachments/assets/227c2c44-1176-4fc3-bd53-078030868381">포스트검색</td>
       <td align="center"><img width="1512" alt="스크린샷 2024-08-20 오후 12 30 18" src="https://github.com/user-attachments/assets/8ba27b6e-ace3-4abf-a56b-0aeb86ee614d">채널구독</td>
     </tr>
     <tr>
      <td align="center"><img width="1512" alt="스크린샷 2024-08-20 오후 12 30 18" src="https://github.com/user-attachments/assets/9a24bd7f-d28d-4d15-9f05-22a22f339b86">포스트구매 및 보관함</td>
      <td align="center"><img width="1512" alt="스크린샷 2024-08-20 오후 12 30 18" src="https://github.com/user-attachments/assets/6e69f2d6-0f4e-40b1-944a-567df41e9015">알림확인</td>
-      <td align="center"><img width="1512" alt="스크린샷 2024-08-20 오후 12 30 18" src="https://github.com/user-attachments/assets/ec5034be-0a0a-4630-baa7-e8640ba9f76f">채널통계</td>
     </tr>
+   <tr>
+    <td align="center"><img width="1512" alt="스크린샷 2024-08-20 오후 12 30 18" src="https://github.com/user-attachments/assets/ec5034be-0a0a-4630-baa7-e8640ba9f76f">채널통계</td>
+   </tr>
   </tbody>
 </table>
