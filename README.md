@@ -166,6 +166,7 @@ $ npm ci
 $ npm run start
 
 ```
+&nbsp;
 
 ## 화면 구성
 
