@@ -27,7 +27,7 @@ function CategoryPostView() {
     return {
       categoryId: params.get('categoryId') || categories[0].id,
       page: params.get('page') || 1,
-      limit: params.get('limit') || 10,
+      limit: params.get('limit') || 9,
     };
   }, [location.search]);
 
@@ -52,7 +52,7 @@ function CategoryPostView() {
   const handlePrevPage = () => {
     if (currentPage > 1) {
       navigate(
-        `?categoryId=${selectedCategory}&page=${currentPage - 1}&limit=10`,
+        `?categoryId=${selectedCategory}&page=${currentPage - 1}&limit=9`,
       );
     }
   };
@@ -60,13 +60,13 @@ function CategoryPostView() {
   const handleNextPage = () => {
     if (currentPage < totalPages) {
       navigate(
-        `?categoryId=${selectedCategory}&page=${currentPage + 1}&limit=10`,
+        `?categoryId=${selectedCategory}&page=${currentPage + 1}&limit=9`,
       );
     }
   };
 
   const handleCategoryChange = categoryId => {
-    navigate(`?categoryId=${categoryId}&page=1&limit=10`);
+    navigate(`?categoryId=${categoryId}&page=1&limit=9`);
   };
 
   const formatDate = dateString => {
@@ -93,9 +93,15 @@ function CategoryPostView() {
       </div>
       <div className="category-posts-grid">
         {posts.map(post => (
-          <Link to={`/post/${post.id}`} key={post.id} className="category-post-card">
+          <Link
+            to={`/post/${post.id}`}
+            key={post.id}
+            className="category-post-card"
+          >
             <div className="category-post-header">
-              <div className="category-post-title">{post.title || '제목 없음'}</div>
+              <div className="category-post-title">
+                {post.title || '제목 없음'}
+              </div>
               <div
                 className={`category-post-type ${post.price > 0 ? 'category-post-paid' : 'category-post-free'}`}
               >
@@ -106,6 +112,17 @@ function CategoryPostView() {
               <div className="category-post-preview">
                 {post.preview.substring(0, 20)}
               </div>
+            </div>
+              <div className="category-post-date-price">
+                <div className="category-post-date">
+                  생성일: {formatDate(post.createdAt)}
+                </div>
+                {post.price > 0 && (
+                  <div className="category-post-price">
+                    가격: {post.price} 포인트
+                  </div>
+                )}
+              </div>
               <div className="category-post-author">
                 <img
                   src={post.userImage}
@@ -114,13 +131,6 @@ function CategoryPostView() {
                 />
                 작성자: {post.userName}
               </div>
-              <div className="category-post-date">
-                생성일: {formatDate(post.createdAt)}
-              </div>
-              {post.price > 0 && (
-                <div className="category-post-price">가격: {post.price} 포인트</div>
-              )}
-            </div>
           </Link>
         ))}
       </div>
