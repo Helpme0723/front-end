@@ -207,21 +207,27 @@ function PostDetailsPage() {
           setTotalCommentPages(response.data.meta.totalPages);
 
           const responseDataItems = response.data.items;
-          const alreadyLikedComments = await getCommentLikeCheck(
-            Number(postId),
-          );
 
-          const updatedComments = responseDataItems.map(item => {
-            const isLiked = alreadyLikedComments.data.some(
-              comment => comment.commentId === item.id,
+          setComments(response.data.items);
+
+          if (isAuthenticated) {
+            const alreadyLikedComments = await getCommentLikeCheck(
+              Number(postId),
             );
-            // 기존 item에 isCommentLiked 속성 추가
-            return {
-              ...item,
-              isCommentLiked: isLiked,
-            };
-          });
-          setComments(updatedComments);
+
+            const updatedComments = responseDataItems.map(item => {
+              const isLiked = alreadyLikedComments.data.some(
+                comment => comment.commentId === item.id,
+              );
+              // 기존 item에 isCommentLiked 속성 추가
+              return {
+                ...item,
+                isCommentLiked: isLiked,
+              };
+            });
+
+            setComments(updatedComments);
+          }
         }
       } catch (error) {
         console.error('Failed to fetch comments:', error);
@@ -278,9 +284,7 @@ function PostDetailsPage() {
     if (!window.confirm('정말로 이 포스트를 삭제하시겠습니까?')) return;
     try {
       await deletePost(postId);
-      alert(
-        '포스트가 삭제되었습니다.',
-      );
+      alert('포스트가 삭제되었습니다.');
       navigate('/'); // 홈 페이지로 리다이렉트
     } catch (error) {
       // 오류 응답에 따른 조건부 경고 메시지 처리
