@@ -15,6 +15,7 @@ function MainContent() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [view, setView] = useState('posts');
+  const [sortType, setSortType] = useState('createdAt');
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalPage, setModalPage] = useState(1); // 모달 페이지 상태 추가
   const navigate = useNavigate();
@@ -25,12 +26,24 @@ function MainContent() {
       try {
         if (view === 'posts') {
           if (!isAuthenticated) {
-            const response = await fetchAllPosts(undefined, currentPage);
+            const response = await fetchAllPosts(
+              undefined,
+              currentPage,
+              9,
+              'desc',
+              sortType,
+            );
             console.log('API Response:', response);
             setPosts(response.data.posts);
             setTotalPages(response.data.meta.totalPages);
           } else if (isAuthenticated) {
-            const response = await fetchAllPostsLogIn(undefined, currentPage);
+            const response = await fetchAllPostsLogIn(
+              undefined,
+              currentPage,
+              9,
+              'desc',
+              sortType,
+            );
             console.log('@@@@@@@@@@@@API Response:', response.items);
             setPosts(response.items);
             setTotalPages(response.meta.totalPages);
@@ -54,7 +67,7 @@ function MainContent() {
     };
 
     fetchData();
-  }, [currentPage, view]);
+  }, [currentPage, view, sortType]);
 
   useEffect(() => {
     setModalIsOpen(true); // 페이지 로드 시 모달 자동 열림
@@ -107,6 +120,12 @@ function MainContent() {
     <main className="main-content">
       <div className="mainheader">
         <button onClick={() => setModalIsOpen(true)}> 📚 </button>
+        <select onChange={e => setSortType(e.target.value)} value={sortType}>
+          <option value="createdAt">최신순</option>
+          <option value="likeCount">좋아요순</option>
+          <option value="viewCount">조회수순</option>
+          <option value="price">가격순</option>
+        </select>
         <Modal
           isOpen={modalIsOpen}
           onRequestClose={() => setModalIsOpen(false)}

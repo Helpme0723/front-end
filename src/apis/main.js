@@ -5,10 +5,11 @@ export const fetchAllPosts = async (
   page = 1,
   limit = 9,
   sort = 'desc',
+  sortBy = 'createdAt',
 ) => {
   try {
     const response = await axios.get('/api/posts', {
-      params: { channelId, page, limit, sort },
+      params: { channelId, page, limit, sort, sortBy },
     });
     return response.data;
   } catch (error) {
@@ -22,10 +23,11 @@ export const fetchAllPostsLogIn = async (
   page = 1,
   limit = 9,
   sort = 'desc',
+  sortBy = 'createdAt',
 ) => {
   try {
     const response = await axios.get('/api/posts/login', {
-      params: { channelId, page, limit, sort },
+      params: { channelId, page, limit, sort, sortBy },
     });
     console.log('####', response.data);
     return response.data;
