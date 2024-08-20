@@ -6,6 +6,7 @@ import {
 } from '../apis/notifications';
 import Pagination from '../components/Testpagenation'; // Pagination 컴포넌트 임포트
 import '../styles/pages/Notification.css';
+import { useNavigate } from 'react-router-dom';
 
 // 날짜 포맷 함수
 const formatDate = dateString => {
@@ -28,6 +29,7 @@ const NotificationsPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [viewingAll, setViewingAll] = useState(false); // 기본값을 false로 설정하여 읽지 않은 알림을 처음에 보여줌
+  const navigate = useNavigate();
 
   useEffect(() => {
     // 초기 로드 시 읽지 않은 알림을 가져옵니다.
@@ -81,6 +83,16 @@ const NotificationsPage = () => {
     }
   };
 
+  const handleNotificationClick = (notification) => {
+    if (notification.postId) {
+      // 포스트 관련 알림 클릭 시
+      navigate(`/post/${notification.postId}`);
+    } else if (notification.channelId) {
+      // 채널 관련 알림 클릭 시
+      navigate(`/search/channel/${notification.channelId}`);
+    }
+  };
+
   return (
     <div className="noti-notifications-container">
       <h1 className="noti-title">알림 페이지</h1>
@@ -88,10 +100,7 @@ const NotificationsPage = () => {
         <button className="noti-button" onClick={fetchUnreadNotifications}>
           읽지 않은 알림
         </button>
-        <button
-          className="noti-button"
-          onClick={() => fetchAllNotifications(1)}
-        >
+        <button className="noti-button" onClick={() => fetchAllNotifications(1)}>
           모든 알림 조회
         </button>
       </div>
@@ -103,10 +112,12 @@ const NotificationsPage = () => {
           notifications
             .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
             .map((notification, index) => (
-              <li key={index} className="noti-notification-item">
-                <div className="noti-notification-message">
-                  {notification.message}
-                </div>
+              <li
+                key={index}
+                className="noti-notification-item"
+                onClick={() => handleNotificationClick(notification)}
+              >
+                <div className="noti-notification-message">{notification.message}</div>
                 <div className="noti-notification-date">
                   {formatDate(notification.createdAt)}
                 </div>
@@ -114,7 +125,6 @@ const NotificationsPage = () => {
             ))
         )}
       </ul>
-      {/* 모든 알림 조회일 때만 페이지네이션 컴포넌트 표시 */}
       {viewingAll && totalPages > 1 && (
         <Pagination
           currentPage={currentPage}
@@ -123,13 +133,9 @@ const NotificationsPage = () => {
           onNextPage={handleNextPage}
         />
       )}
-      {/* 읽지 않은 알림일 때만 "모두 읽기" 버튼 표시 */}
       {!viewingAll && (
         <div className="noti-mark-all-read-container">
-          <button
-            className="noti-button noti-button-mark-read"
-            onClick={handleMarkAllAsRead}
-          >
+          <button className="noti-button noti-button-mark-read" onClick={handleMarkAllAsRead}>
             모두 읽기
           </button>
         </div>

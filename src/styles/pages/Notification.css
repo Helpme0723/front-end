@@ -56,6 +56,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  cursor: pointer; /* 클릭 가능한 아이템임을 표시 */
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease; /* 호버 효과를 위한 트랜지션 추가 */
+}
+
+.noti-notification-item:hover {
+  background-color: #f1f1f1; /* 호버 시 배경색 변경 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 호버 시 그림자 강조 */
+  transform: translateY(-5px); /* 호버 시 살짝 위로 이동하는 효과 */
 }
 
 .noti-notification-message {
@@ -77,6 +85,7 @@
   font-weight: bold;
   margin-top: 20px;
 }
+
 /* 모두 읽기 버튼 컨테이너 */
 .noti-mark-all-read-container {
   display: flex;

@@ -132,7 +132,7 @@ const PostPage = () => {
     const contentStateWithEntity = contentState.createEntity(
       'IMAGE',
       'IMMUTABLE',
-      { src: pendingImageUrl },
+      { src: pendingImageUrl, width: '100%' }
     );
     const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
     const newEditorState = AtomicBlockUtils.insertAtomicBlock(
@@ -145,18 +145,18 @@ const PostPage = () => {
   };
 
   return (
-    <div className="post-page">
-      <h1 className="post-page-title">포스트 작성</h1>
+    <div className="create-post-page">
+      <h1 className="create-post-page-title">포스트 작성</h1>
       <input
         type="text"
         value={title}
         onChange={e => setTitle(e.target.value)}
         placeholder="포스트 제목을 입력해 주세요."
-        className="post-title-input"
+        className="create-post-title-input"
       />
-      <div className="form-group">
+      <div className="create-form-group">
         <label>썸네일 이미지</label>
-        <div className="input-group">
+        <div className="create-input-group">
           <input
             type="text"
             placeholder="썸네일 이미지 URL을 입력해 주세요."
@@ -169,31 +169,31 @@ const PostPage = () => {
           <input type="file" onChange={handleImageUpload} />
         </div>
         {imagePreview && (
-          <div className="image-preview">
+          <div className="create-image-preview">
             <img src={imagePreview} alt="이미지 미리보기" />
           </div>
         )}
       </div>
-      <div className="post-inline-inputs">
-        <div className="post-inline-input">
+      <div className="create-post-inline-inputs">
+        <div className="create-post-inline-input">
           <label htmlFor="visibility-select">포스트 공개/비공개 설정</label>
           <select
             id="visibility-select"
             value={visibility}
             onChange={e => setVisibility(e.target.value)}
-            className="post-visibility-select"
+            className="create-post-visibility-select"
           >
             <option value="PUBLIC">공개</option>
             <option value="PRIVATE">비공개</option>
           </select>
         </div>
-        <div className="post-inline-input">
+        <div className="create-post-inline-input">
           <label htmlFor="category-select">카테고리</label>
           <select
             id="category-select"
             value={categoryId}
             onChange={e => setCategoryId(e.target.value)}
-            className="post-category-select"
+            className="create-post-category-select"
           >
             {categories.map(option => (
               <option key={option.id} value={option.id}>
@@ -202,13 +202,13 @@ const PostPage = () => {
             ))}
           </select>
         </div>
-        <div className="post-inline-input">
+        <div className="create-post-inline-input">
           <label htmlFor="series-select">시리즈</label>
           <select
             id="series-select"
             value={seriesId}
             onChange={e => setSeriesId(e.target.value)}
-            className="post-series-select"
+            className="create-post-series-select"
           >
             <option style={{ color: 'gray' }} value="">
               선택 안함
@@ -221,7 +221,7 @@ const PostPage = () => {
             ))}
           </select>
         </div>
-        <div className="post-inline-input">
+        <div className="create-post-inline-input">
           <label htmlFor="price-input">포인트</label>
           <input
             id="price-input"
@@ -230,7 +230,7 @@ const PostPage = () => {
             value={price}
             onChange={e => setPrice(parseInt(e.target.value))} // 숫자형으로 변환
             placeholder="포스트 가격을 입력해 주세요."
-            className="post-price-input"
+            className="create-post-price-input"
           />
         </div>
       </div>
@@ -240,10 +240,10 @@ const PostPage = () => {
         value={preview}
         onChange={e => setPreview(e.target.value)}
         placeholder="구매 여부와 관계없이 열람 가능한 필드입니다."
-        className="post-preview-textarea"
+        className="create-post-preview-textarea"
       ></textarea>
       <h3>콘텐츠</h3>
-      <div className="content-container">
+      <div className="create-content-container">
         <TextEditorForm
           editorState={editorState}
           onEditorStateChange={setEditorState}
@@ -252,7 +252,7 @@ const PostPage = () => {
           customBlockRenderFunc={imageBlockRenderer} // 이미지 블록 렌더러 추가
         />
       </div>
-      <button onClick={clickButton} className="save-button">
+      <button onClick={clickButton} className="create-save-button">
         작성
       </button>
     </div>

@@ -279,7 +279,7 @@ function PostDetailsPage() {
     try {
       await deletePost(postId);
       alert(
-        '포스트가 삭제되었습니다. 메인페이지에 반영은 시간이 걸릴 수 있습니다.',
+        '포스트가 삭제되었습니다.',
       );
       navigate('/'); // 홈 페이지로 리다이렉트
     } catch (error) {
