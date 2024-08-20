@@ -14,6 +14,8 @@ import {
   fetchChannelDetails,
   subscribeToChannel,
   getPostNotLogin,
+  getPostLikeCheck,
+  getCommentLikeCheck,
 } from '../apis/post';
 import '../styles/pages/PostDetail.css';
 import AuthContext from '../context/AuthContext';
@@ -35,6 +37,8 @@ function PostDetailsPage() {
   const [purchasedPosts, setPurchasedPosts] = useState([]); // 구매한 포스트 상태 추가
   const [newComment, setNewComment] = useState(''); // 새로운 댓글 입력 상태
   const [lastAddedCommentId, setLastAddedCommentId] = useState(null);
+  const [isLikedPost, setIsLikedPost] = useState(false);
+  const [isLikedComments, setIsLikedComments] = useState([false]);
 
   //채널 모달창
   const [channelModalIsOpen, setChannelModalIsOpen] = useState(false);
@@ -169,8 +173,14 @@ function PostDetailsPage() {
       }
       try {
         const response = await fetchPostDetails(postId);
+
         if (response && response.data) {
           setPost(response.data);
+        }
+
+        const alreadyLikedPost = await getPostLikeCheck(postId);
+        if (alreadyLikedPost) {
+          setIsLikedPost(false);
         }
       } catch (error) {
         console.error('Failed to fetch post details:', error);
@@ -192,9 +202,32 @@ function PostDetailsPage() {
       setCommentsLoading(true);
       try {
         const response = await fetchComments(postId, commentsPage);
+
         if (response && response.data) {
-          setComments(response.data.items);
           setTotalCommentPages(response.data.meta.totalPages);
+
+          const responseDataItems = response.data.items;
+
+          setComments(response.data.items);
+
+          if (isAuthenticated) {
+            const alreadyLikedComments = await getCommentLikeCheck(
+              Number(postId),
+            );
+
+            const updatedComments = responseDataItems.map(item => {
+              const isLiked = alreadyLikedComments.data.some(
+                comment => comment.commentId === item.id,
+              );
+              // 기존 item에 isCommentLiked 속성 추가
+              return {
+                ...item,
+                isCommentLiked: isLiked,
+              };
+            });
+
+            setComments(updatedComments);
+          }
         }
       } catch (error) {
         console.error('Failed to fetch comments:', error);
@@ -251,9 +284,7 @@ function PostDetailsPage() {
     if (!window.confirm('정말로 이 포스트를 삭제하시겠습니까?')) return;
     try {
       await deletePost(postId);
-      alert(
-        '포스트가 삭제되었습니다. 메인페이지에 반영은 시간이 걸릴 수 있습니다.',
-      );
+      alert('포스트가 삭제되었습니다.');
       navigate('/'); // 홈 페이지로 리다이렉트
     } catch (error) {
       // 오류 응답에 따른 조건부 경고 메시지 처리
@@ -272,6 +303,7 @@ function PostDetailsPage() {
   const handleLike = async () => {
     try {
       await createPostLike(postId);
+      setIsLikedPost(true);
       setPost(prevPost => ({
         ...prevPost,
         likeCount: prevPost.likeCount + 1,
@@ -303,6 +335,7 @@ function PostDetailsPage() {
   const handleUnlike = async () => {
     try {
       await deletePostLike(postId);
+      setIsLikedPost(false);
       setPost(prevPost => ({
         ...prevPost,
         likeCount: prevPost.likeCount - 1,
@@ -324,15 +357,32 @@ function PostDetailsPage() {
       }
     }
   };
+  // 포스트 좋아요, 좋아요 취소 통합
+  const handleTogglePostLike = async () => {
+    try {
+      if (isLikedPost) {
+        await handleUnlike();
+      } else {
+        await handleLike();
+      }
+    } catch (error) {
+      console.error('Failed to toggle like:', error);
+    }
+  };
 
   //댓글 좋아요
   const handleCommentLike = async commentId => {
     try {
       await likeComment(commentId);
+      setIsLikedComments(true); // 상태 토글
       setComments(prevComments =>
         prevComments.map(comment =>
           comment.id === commentId
-            ? { ...comment, likeCount: comment.likeCount + 1 }
+            ? {
+                ...comment,
+                likeCount: comment.likeCount + 1,
+                isCommentLiked: true,
+              }
             : comment,
         ),
       );
@@ -358,10 +408,15 @@ function PostDetailsPage() {
   const handleCommentUnlike = async commentId => {
     try {
       await unlikeComment(commentId);
+
       setComments(prevComments =>
         prevComments.map(comment =>
           comment.id === commentId
-            ? { ...comment, likeCount: comment.likeCount - 1 }
+            ? {
+                ...comment,
+                likeCount: comment.likeCount - 1,
+                isCommentLiked: false,
+              }
             : comment,
         ),
       );
@@ -377,6 +432,19 @@ function PostDetailsPage() {
       } else {
         console.error('댓글 좋아요 취소 실패:', error);
       }
+    }
+  };
+
+  // 댓글 좋아요, 좋아요 취소 통합
+  const handleToggleCommentLike = async (commentId, isCommentLiked) => {
+    try {
+      if (isCommentLiked) {
+        await handleCommentUnlike(commentId);
+      } else {
+        await handleCommentLike(commentId);
+      }
+    } catch (error) {
+      console.error('Failed to toggle like:', error);
     }
   };
 
@@ -537,11 +605,14 @@ function PostDetailsPage() {
         )
       )}
       <div className="like-section">
-        <button onClick={handleLike} className="like-button">
+        {/* <button onClick={handleLike} className="like-button">
           👍
         </button>
         <button onClick={handleUnlike} className="like-button">
           👎
+        </button> */}
+        <button onClick={handleTogglePostLike}>
+          {isLikedPost ? '👎' : '👍'}
         </button>
         <span>좋아요 수: {post.likeCount}</span>
       </div>
@@ -586,7 +657,7 @@ function PostDetailsPage() {
                 </div>
                 <p>{comment.content}</p>
                 <div className="comment-like-section">
-                  <button
+                  {/* <button
                     onClick={() => handleCommentLike(comment.id)}
                     className="like-button"
                   >
@@ -597,6 +668,16 @@ function PostDetailsPage() {
                     className="like-button"
                   >
                     👎
+                  </button> */}
+                  <button
+                    onClick={() =>
+                      handleToggleCommentLike(
+                        comment.id,
+                        comment.isCommentLiked,
+                      )
+                    }
+                  >
+                    {comment.isCommentLiked ? '👎' : '👍'}
                   </button>
                   <span>좋아요 수: {comment.likeCount}</span>
                 </div>
@@ -700,8 +781,8 @@ function PostDetailsPage() {
         <div
           className="modal"
           style={{
-            position: 'fixed', 
-            top: '50%',  // 화면의 세로 중앙
+            position: 'fixed',
+            top: '50%', // 화면의 세로 중앙
             left: '50%', // 화면의 가로 중앙
             transform: 'translate(-50%, -50%)', // 중앙에 모달을 정확히 맞춤
             zIndex: 1000, // 다른 요소들 위에 표시
