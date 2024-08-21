@@ -196,6 +196,14 @@ function MainContent() {
             <div className="series-info">
               <div className="series-title">{series.title}</div>
               <div className="series-description">{series.description}</div>
+              <div className="series-thumbNail">
+                <img
+                  src={series.thumbNail}
+                  alt={`ThumbNail of ${series.thumbNail}`}
+                  className="thumbNail-image"
+                />
+              </div>
+              <div className="series-author">작성자:{series.author}</div>
             </div>
           </div>
         ))
