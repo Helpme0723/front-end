@@ -53,7 +53,7 @@ function DailyInsights() {
         setDailyInsights(response.data);
         setTotalPages(response.data.meta?.totalPages);
       } catch (error) {
-        console.log('Error fetching channel daily insights:', error.message);
+        console.error('Error fetching channel daily insights:', error.message);
         setErrorMessage(error.response.data.message);
       }
     };
@@ -71,7 +71,7 @@ function DailyInsights() {
 
         setSummaryInsight(response.data);
       } catch (error) {
-        console.log(
+        console.error(
           'Error fetching channel daily summary insights:',
           error.message,
         );

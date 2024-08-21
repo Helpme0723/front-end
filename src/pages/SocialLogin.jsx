@@ -16,8 +16,6 @@ const SocialLogin = () => {
         try {
           const data = await socialLogin(code);
 
-          console.log('소셜 로그인 성공:', data);
-
           localStorage.setItem('accessToken', data.data.accessToken);
           localStorage.setItem('refreshToken', data.data.refreshToken);
 

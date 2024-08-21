@@ -44,7 +44,7 @@ function UpdateChannel() {
       setImageUrl(data.imageUrl);
       setImagePreview(data.imageUrl);
     } catch (error) {
-      console.log(`이미지 업로드 실패: ${error.message}`);
+      console.error(`이미지 업로드 실패: ${error.message}`);
     }
   };
 

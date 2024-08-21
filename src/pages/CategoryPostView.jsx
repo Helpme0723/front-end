@@ -36,7 +36,6 @@ function CategoryPostView() {
       try {
         const { categoryId, page, limit } = getQueryParams();
         const response = await categoryPostView(categoryId, page, limit);
-        console.log(response.data.posts);
 
         setPosts(response.data.posts);
         setTotalPages(response.data.meta.totalPages);

@@ -21,7 +21,7 @@ function GetSeriesDetail() {
         setSeries(result.data);
         setChannelId(result.data.channelId);
       } catch (error) {
-        console.log('Error fetching series data:', error.message);
+        console.error('Error fetching series data:', error.message);
         alert(error.response.data.message);
       }
     };
@@ -42,7 +42,7 @@ function GetSeriesDetail() {
 
         setPosts(result.data.posts);
       } catch (error) {
-        console.log('Error fetching posts data:', error.message);
+        console.error('Error fetching posts data:', error.message);
       }
     };
     fetchPosts();

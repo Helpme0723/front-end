@@ -33,7 +33,7 @@ const Resign = () => {
     } catch (error) {
       setMessage(error.response?.data?.message || '회원탈퇴에 실패했습니다.');
 
-      console.log(error);
+      console.error(error);
     }
   };
 

@@ -24,11 +24,10 @@ const GetChannelsComponent = () => {
       try {
         const { userId, page, limit } = getQueryParams();
         const data = await getUserChannels(userId, page, limit);
-        console.log(data);
 
         setChannels(data.data.channels);
       } catch (error) {
-        console.log(error.message);
+        console.error(error.message);
       }
     };
     fetchChannels();
