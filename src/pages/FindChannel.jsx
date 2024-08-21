@@ -16,12 +16,11 @@ function FindChannel() {
     const fetchChannel = async () => {
       try {
         const data = await findChannel(id);
-        console.log(data.data);
 
         setChannel(data.data);
         setUserId(data.data.userId);
       } catch (error) {
-        console.log('Error fetching channel data:', error.message);
+        console.error('Error fetching channel data:', error.message);
       }
     };
     fetchChannel();
@@ -39,7 +38,7 @@ function FindChannel() {
       alert('채널 삭제에 성공했습니다.');
       navigate(`/channels?userId=${userId}`);
     } catch (error) {
-      console.log('Error deleting channel:', error.message);
+      console.error('Error deleting channel:', error.message);
       alert(error.response.data.message);
     }
   };

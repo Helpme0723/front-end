@@ -30,7 +30,6 @@ export const fetchAllPostsLogIn = async (
     const response = await axios.get('/api/posts/login', {
       params: { channelId, page, limit, sort, sortBy },
     });
-    console.log('####', response.data);
     return response.data;
   } catch (error) {
     console.error(error);

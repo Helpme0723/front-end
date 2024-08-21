@@ -53,7 +53,10 @@ function MonthlyInsights() {
         setMonthlyInsights(response.data);
         setTotalPages(response.data.meta?.totalPages);
       } catch (error) {
-        console.log('Error fetching channel monthly insights:', error.message);
+        console.error(
+          'Error fetching channel monthly insights:',
+          error.message,
+        );
         setErrorMessage(error.response.data.message);
       }
     };
@@ -74,7 +77,7 @@ function MonthlyInsights() {
 
         setSummaryInsight(response.data);
       } catch (error) {
-        console.log(
+        console.error(
           'Error fetching channel monthly summary insights:',
           error.message,
         );

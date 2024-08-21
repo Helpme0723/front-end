@@ -16,7 +16,7 @@ function GetPostsFromSubscribeChannels() {
         const data = await getPostsFromSubscribeChannels();
         setPosts(data.data.posts);
       } catch (error) {
-        console.log(error.message);
+        console.error(error.message);
       }
     };
     fetchPosts();

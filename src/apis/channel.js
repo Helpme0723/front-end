@@ -9,7 +9,7 @@ export const createChannel = async CreateChannelDto => {
 
     return response.data;
   } catch (error) {
-    console.log('Error create channel', error.message);
+    console.error('Error create channel', error.message);
     throw error;
   }
 };
@@ -37,7 +37,7 @@ export const findChannel = async channelId => {
 
     return response.data;
   } catch (error) {
-    console.log('Error Find Channel', error.message);
+    console.error('Error Find Channel', error.message);
     throw error;
   }
 };
@@ -116,7 +116,7 @@ export const updateChannel = async (channelId, updateChannelData) => {
 
     return response.data;
   } catch (error) {
-    console.log('Error create channel', error.message);
+    console.error('Error create channel', error.message);
     throw error;
   }
 };
@@ -132,7 +132,7 @@ export const getDailySummaryInsight = async (channelId, date) => {
 
     return response.data;
   } catch (error) {
-    console.log('데일리 통합 통계 오류', error.message);
+    console.error('데일리 통합 통계 오류', error.message);
     throw error;
   }
 };
@@ -148,7 +148,7 @@ export const getMonthlySummaryInsight = async (channelId, date) => {
 
     return response.data;
   } catch (error) {
-    console.log('데일리 통합 통계 오류', error.message);
+    console.error('데일리 통합 통계 오류', error.message);
     throw error;
   }
 };

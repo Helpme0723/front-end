@@ -26,7 +26,6 @@ function LibraryPage() {
       try {
         // 좋아요한 포스트를 가져오는 API 호출 (limit을 5로 설정)
         const response = await fetchLikedPosts(currentPage, 5, 'desc');
-        console.log('Response Data:', response); // 디버깅을 위한 로그
         // response.data.items에 접근하여 아이템 배열 가져오기
         const likedItems = response.data.items || [];
         setLikedPosts(likedItems);

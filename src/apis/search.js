@@ -8,9 +8,6 @@ export const searchPosts = async (
   limit = 10,
   sort = 'desc',
 ) => {
-  console.log(
-    `Searching posts with keyword=${keyword}, field=${field}, page=${page}, limit=${limit}, sort=${sort}`,
-  );
   try {
     // Make a GET request to the search endpoint with query parameters
     const response = await axiosInstance.get('/api/search', {
@@ -27,7 +24,6 @@ export const searchPosts = async (
 export const searchRanking = async () => {
   try {
     const response = await axiosInstance.get('/api/search/ranking');
-    console.log('$$$$$', response);
     return response.data;
   } catch (error) {
     throw error;

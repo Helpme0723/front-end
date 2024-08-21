@@ -60,7 +60,6 @@ function PostEditPage() {
     const fetchDetails = async () => {
       try {
         const response = await fetchPostDetails(postId);
-        console.log('포스트 응답 데이터:', response.data);
 
         if (response && response.data) {
           const { content, channelTitle, seriesId, seriesTitle, ...rest } =

@@ -14,10 +14,12 @@ function GetSubscribeChannels() {
     const fetchChannels = async () => {
       try {
         const data = await getSubscribes();
-        const sortedChannels = data.data.subscribes.sort((a, b) => b.subscribers - a.subscribers); // 구독자 수 많은 순으로 정렬
+        const sortedChannels = data.data.subscribes.sort(
+          (a, b) => b.subscribers - a.subscribers,
+        ); // 구독자 수 많은 순으로 정렬
         setChannels(sortedChannels);
       } catch (error) {
-        console.log(error.message);
+        console.error(error.message);
       }
     };
     fetchChannels();
@@ -27,7 +29,10 @@ function GetSubscribeChannels() {
 
   const indexOfLastChannel = currentPage * itemsPerPage;
   const indexOfFirstChannel = indexOfLastChannel - itemsPerPage;
-  const currentChannels = channels.slice(indexOfFirstChannel, indexOfLastChannel);
+  const currentChannels = channels.slice(
+    indexOfFirstChannel,
+    indexOfLastChannel,
+  );
 
   const handlePrevPage = () => {
     setCurrentPage(prevPage => Math.max(prevPage - 1, 1)); // 이전 페이지로 이동
@@ -44,11 +49,20 @@ function GetSubscribeChannels() {
         <ul className="sub-channel-list">
           {currentChannels.map((channel, index) => (
             <li className="sub-channel-item" key={index}>
-               <Link to={`/search/channel/${channel.channelId}`} className="sub-channel-link">
-              <h2 className="sub-channel-title">{channel.title}</h2>
-              <img className="sub-channel-image" src={channel.imageUrl} alt={channel.title} />
-              <p className="sub-channel-description">{channel.description}</p>
-              <p className="sub-channel-subscribers">구독자: {channel.subscribers}명</p>
+              <Link
+                to={`/search/channel/${channel.channelId}`}
+                className="sub-channel-link"
+              >
+                <h2 className="sub-channel-title">{channel.title}</h2>
+                <img
+                  className="sub-channel-image"
+                  src={channel.imageUrl}
+                  alt={channel.title}
+                />
+                <p className="sub-channel-description">{channel.description}</p>
+                <p className="sub-channel-subscribers">
+                  구독자: {channel.subscribers}명
+                </p>
               </Link>
             </li>
           ))}

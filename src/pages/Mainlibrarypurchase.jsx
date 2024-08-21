@@ -25,7 +25,6 @@ function PurchasedPostsPage() {
       setLoading(true);
       try {
         const response = await fetchPurchasedPosts(page, 5, 'desc'); // 페이지당 5개의 포스트를 불러오도록 설정
-        console.log('Response Data:', response);
         const purchasedItems = response.data.items || [];
         setPurchasedPosts(purchasedItems);
         setTotalPages(response.data.meta.totalPages);

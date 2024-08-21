@@ -5,7 +5,6 @@ export const findAllMySeries = async (channelId, page, limit, sort) => {
     const response = await axiosInstance.get(`/api/series/my`, {
       params: { channelId, page, limit, sort },
     });
-    console.log(response);
     return response.data;
   } catch (error) {
     console.error('내 시리즈를 불러오는데 실패하였습니다', error);
