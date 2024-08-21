@@ -119,6 +119,7 @@ img {
   font-size: 1.2em;
   font-weight: bold;
   margin-bottom: 10px;
+  margin-top: 20px; /* 제목 상단에 추가 마진을 주어 아이콘과 겹침 방지 */
 }
 
 .post-description {
@@ -177,9 +178,9 @@ img {
   top: 10px; /* 상단에서 10px 떨어진 위치 */
   right: 10px; /* 우측에서 10px 떨어진 위치 */
   display: flex;
-  flex-direction: column; /* 세로 방향으로 아이콘을 정렬 */
-  align-items: flex-end; 
-  gap: 5px; /* 아이콘 간 간격 */
+  flex-direction: row; /* 아이콘을 가로 방향으로 정렬 */
+  align-items: center; /* 수직 중앙 정렬 */
+  gap: 10px; /* 아이콘 간 간격 */
 }
 
 /* 유료/무료 아이콘 */
@@ -212,5 +213,4 @@ img {
   border-radius: 5px;
   width: auto; /* 아이콘 크기 고정 */
   white-space: nowrap; /* 텍스트가 줄바꿈 되지 않도록 */
-  margin-top: 5px; /* 유료/무료 타입과의 간격 */
 }
