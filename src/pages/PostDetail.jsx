@@ -179,9 +179,7 @@ function PostDetailsPage() {
         }
 
         const alreadyLikedPost = await getPostLikeCheck(postId);
-        if (alreadyLikedPost) {
-          setIsLikedPost(false);
-        }
+        setIsLikedPost(alreadyLikedPost.data);
       } catch (error) {
         console.error('Failed to fetch post details:', error);
       } finally {
