@@ -68,7 +68,12 @@ function MainContent() {
             setPostTotalPages(response.meta.totalPages);
           }
         } else if (view === 'series') {
-          const response = await findAllSeries(undefined, seriesPage, 9, 'asc');
+          const response = await findAllSeries(
+            undefined,
+            seriesPage,
+            9,
+            'desc',
+          );
           setSeries(response.data.series || []);
           setSeriesTotalPages(response.data.meta.totalPages);
         }
