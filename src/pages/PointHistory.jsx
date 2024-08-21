@@ -69,10 +69,12 @@ function PointHistoryPage() {
               </p>
               <div className="details">
                 <span className={`amount ${item.type}`}>
-                  {item.type === 'INCOME' ? null : item.amount}
+                  {item.type === 'INCOME'
+                    ? item.amount.toLocaleString('ko-KR')
+                    : item.amount.toLocaleString('ko-KR')}
                 </span>
                 <span className="type">
-                  {item.type === 'INCOME' ? null : '사용'}
+                  {item.type === 'INCOME' ? '원 충전' : '원 사용'}
                 </span>
               </div>
               <span className="date">{formatDate(item.createdAt)}</span>

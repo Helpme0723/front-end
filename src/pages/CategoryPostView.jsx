@@ -113,24 +113,24 @@ function CategoryPostView() {
                 {post.preview.substring(0, 20)}
               </div>
             </div>
-              <div className="category-post-date-price">
-                <div className="category-post-date">
-                  생성일: {formatDate(post.createdAt)}
+            <div className="category-post-date-price">
+              <div className="category-post-date">
+                생성일: {formatDate(post.createdAt)}
+              </div>
+              {post.price > 0 && (
+                <div className="category-post-price">
+                  가격: {post.price.toLocaleString('ko-KR')} 포인트
                 </div>
-                {post.price > 0 && (
-                  <div className="category-post-price">
-                    가격: {post.price} 포인트
-                  </div>
-                )}
-              </div>
-              <div className="category-post-author">
-                <img
-                  src={post.userImage}
-                  alt={`Profile of ${post.nickname}`}
-                  className="category-post-profile-image"
-                />
-                작성자: {post.userName}
-              </div>
+              )}
+            </div>
+            <div className="category-post-author">
+              <img
+                src={post.userImage}
+                alt={`Profile of ${post.nickname}`}
+                className="category-post-profile-image"
+              />
+              작성자: {post.userName}
+            </div>
           </Link>
         ))}
       </div>

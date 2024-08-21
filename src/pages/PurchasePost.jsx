@@ -53,7 +53,7 @@ function PurchasePost({ isOpen, onRequestClose, post }) {
       <form className="purchase-form" onSubmit={handleSubmit}>
         <div>
           <label>제목: {post.title}</label>
-          <label>가격: {post.price} 포인트</label>
+          <label>가격: {post.price.toLocaleString('ko-KR')} 포인트</label>
         </div>
         <div className="button-container">
           <button type="submit" onClick={isLoginVerification}>

@@ -91,7 +91,12 @@ function ChannelDetailsPage() {
                 >
                   <h3>{post.title}</h3>
                   <p>카테고리: {post.category}</p>
-                  <p>가격: {post.price > 0 ? `${post.price}원` : '무료'}</p>
+                  <p>
+                    가격:{' '}
+                    {post.price > 0
+                      ? `${post.price.toLocaleString('ko-KR')}원`
+                      : '무료'}
+                  </p>
                   <p>조회수: {post.viewCount}</p>
                   <p>좋아요 수: {post.likeCount}</p>
                   <p>작성일: {new Date(post.createdAt).toLocaleDateString()}</p>
@@ -135,7 +140,9 @@ function ChannelDetailsPage() {
                             <p>카테고리: {post.category.category}</p>
                             <p>
                               가격:{' '}
-                              {post.price > 0 ? `${post.price}원` : '무료'}
+                              {post.price > 0
+                                ? `${post.price.toLocaleString('ko-KR')}원`
+                                : '무료'}
                             </p>
                             <p>조회수: {post.viewCount}</p>
                             <p>좋아요 수: {post.likeCount}</p>
