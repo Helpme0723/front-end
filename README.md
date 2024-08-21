@@ -173,24 +173,24 @@ $ npm run start
 <table>
   <tbody>
     <tr>
-      <td align="center"><img width="1512" alt="스크린샷 2024-08-20 오후 12 30 18" src="https://github.com/user-attachments/assets/3b3ca2f1-4e45-4b07-be1e-51afeb57b8d9">메인페이지</td>
+      <td align="center"><img width="1512" alt="스크린샷 2024-08-20 오후 12 30 18" src="https://github.com/user-attachments/assets/64a5a019-09f7-4ae8-bee6-7421f1d87d50">메인페이지</td>
      <td align="center"><img width="1512" alt="스크린샷 2024-08-20 오후 12 30 18" src="https://github.com/user-attachments/assets/be35c107-c893-47c8-b780-05f3ea7f2922">로그인화면</td>
     </tr>
    <tr>
-    <td align="center"><img width="1512" alt="스크린샷 2024-08-20 오후 12 30 18" src="https://github.com/user-attachments/assets/56964e93-12ac-42f0-ba2f-ad56d0b2d4b2">포스트상세보기</td>
-    <td align="center"><img width="1512" alt="스크린샷 2024-08-20 오후 12 30 18" src="https://github.com/user-attachments/assets/0eb7d5bd-8cf6-4fce-8d6f-375ac085dc17">포스트작성</td>
+    <td align="center"><img width="1512" alt="스크린샷 2024-08-20 오후 12 30 18" src="https://github.com/user-attachments/assets/34e8b259-f8ef-46fd-bfe0-53fc43cf9691">포스트상세보기</td>
+    <td align="center"><img width="1512" alt="스크린샷 2024-08-20 오후 12 30 18" src="https://github.com/user-attachments/assets/543dcf0d-75e2-4071-a661-b013056134f6">포스트작성</td>
    </tr>
     <tr>
-     <td align="center"><img width="1512" alt="스크린샷 2024-08-20 오후 12 30 18" src="https://github.com/user-attachments/assets/227c2c44-1176-4fc3-bd53-078030868381">포스트검색</td>
-      <td align="center"><img width="1512" alt="스크린샷 2024-08-20 오후 12 30 18" src="https://github.com/user-attachments/assets/8ba27b6e-ace3-4abf-a56b-0aeb86ee614d">채널구독</td>
+     <td align="center"><img width="1512" alt="스크린샷 2024-08-20 오후 12 30 18" src="https://github.com/user-attachments/assets/dd3c9e88-87b9-4e80-b849-b9edf6b5d3e1">포스트검색</td>
+      <td align="center"><img width="1512" alt="스크린샷 2024-08-20 오후 12 30 18" src="https://github.com/user-attachments/assets/2666b116-f12c-42ac-99d1-523187abec28">채널구독</td>
     </tr>
     <tr>
-     <td align="center"><img width="1512" alt="스크린샷 2024-08-20 오후 12 30 18" src="https://github.com/user-attachments/assets/9a24bd7f-d28d-4d15-9f05-22a22f339b86">포스트구매 및 보관함</td>
-     <td align="center"><img width="1512" alt="스크린샷 2024-08-20 오후 12 30 18" src="https://github.com/user-attachments/assets/6e69f2d6-0f4e-40b1-944a-567df41e9015">알림확인</td>
+     <td align="center"><img width="1512" alt="스크린샷 2024-08-20 오후 12 30 18" src="https://github.com/user-attachments/assets/6ce135ba-c2b3-4cae-9101-82cfb7ebc658">포스트구매 및 보관함</td>
+     <td align="center"><img width="1512" alt="스크린샷 2024-08-20 오후 12 30 18" src="https://github.com/user-attachments/assets/6acea078-cb9d-423b-a526-54584b2d396b">알림확인</td>
     </tr>
    <tr>
-    <td align="center"><img width="1512" alt="스크린샷 2024-08-20 오후 12 30 18" src="https://github.com/user-attachments/assets/ec5034be-0a0a-4630-baa7-e8640ba9f76f">채널통계</td>
-      <td align="center"><img width="1512" alt="스크린샷 2024-08-20 오후 12 30 18" src="https://github.com/user-attachments/assets/dc9be791-0b84-4da8-bad6-83fca8daac62">포인트충전</td>
+    <td align="center"><img width="1512" alt="스크린샷 2024-08-20 오후 12 30 18" src="https://github.com/user-attachments/assets/185fec0b-6c37-4d8f-8f04-c98df43f9015">채널통계</td>
+      <td align="center"><img width="1512" alt="스크린샷 2024-08-20 오후 12 30 18" src="https://github.com/user-attachments/assets/dedd79bb-7986-432e-aade-1b49a72277a6">포인트충전</td>
    </tr>
   </tbody>
 </table>
