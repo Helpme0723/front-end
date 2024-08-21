@@ -190,7 +190,7 @@ $ npm run start
     </tr>
    <tr>
     <td align="center"><img width="1512" alt="스크린샷 2024-08-20 오후 12 30 18" src="https://github.com/user-attachments/assets/ec5034be-0a0a-4630-baa7-e8640ba9f76f">채널통계</td>
-      <td align="center"><img width="1512" alt="스크린샷 2024-08-20 오후 12 30 18" src="https://github.com/user-attachments/assets/e003cdee-43a9-4c4f-9d9a-e6f8226dbabc">비밀번호변경</td>
+      <td align="center"><img width="1512" alt="스크린샷 2024-08-20 오후 12 30 18" src="https://github.com/user-attachments/assets/dc9be791-0b84-4da8-bad6-83fca8daac62">포인트충전</td>
    </tr>
   </tbody>
 </table>
