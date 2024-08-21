@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
 import { findAllMySeries } from '../apis/series';
 import '../styles/pages/MySeriesPage.css';
+import Pagination from '../components/Testpagenation';
 
 function MySeriesPage() {
   const navigate = useNavigate();
@@ -12,6 +13,8 @@ function MySeriesPage() {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
   const [sort, setSort] = useState('asc');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
     const fetchSeries = async () => {
@@ -19,7 +22,7 @@ function MySeriesPage() {
       try {
         const data = await findAllMySeries(null, page, limit, sort); // channelId 제거
         setSeries(data.data.series);
-        console.log('@@@@@@@', data.data);
+        setTotalPages(data.data.meta.totalPages);
       } catch (error) {
         console.error('내 시리즈를 불러오는데 실패하였습니다', error);
       }
@@ -37,8 +40,12 @@ function MySeriesPage() {
     }
   }, [isAuthenticated, navigate]);
 
-  const handlePageChange = newPage => {
-    setPage(newPage);
+  const handlePrevPage = () => {
+    setCurrentPage(prev => Math.max(prev - 1, 1));
+  };
+
+  const handleNextPage = () => {
+    setCurrentPage(prev => (prev < totalPages ? prev + 1 : prev));
   };
 
   const handleSortChange = event => {
@@ -71,16 +78,12 @@ function MySeriesPage() {
           ))}
         </ul>
       )}
-      <div className="pagination">
-        <button
-          onClick={() => handlePageChange(page - 1)}
-          disabled={page === 1}
-        >
-          이전
-        </button>
-        <span>{page}</span>
-        <button onClick={() => handlePageChange(page + 1)}>다음</button>
-      </div>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPrevPage={handlePrevPage}
+        onNextPage={handleNextPage}
+      />
     </div>
   );
 }
