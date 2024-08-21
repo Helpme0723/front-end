@@ -166,14 +166,14 @@ function MainContent() {
                 />
               </div>
               <div className="post-date-price">
-                <div className="post-date">
-                  생성일: {formatDate(post.createdAt)}
-                </div>
                 {post.price > 0 && (
                   <div className="post-price">
                     가격: {post.price.toLocaleString('ko-KR')} 포인트
                   </div>
                 )}
+                <div className="post-date">
+                  생성일: {formatDate(post.createdAt)}
+                </div>
               </div>
               <div className="post-author">
                 <img

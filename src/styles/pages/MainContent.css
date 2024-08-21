@@ -159,11 +159,16 @@ img {
   text-align: right; /* 텍스트를 오른쪽 정렬 */
 }
 
-.post-date,
-.post-price {
+.post-date {
   margin: 0; /* 내부 간격 제거 */
   color: #999;
   font-size: 0.9em;
+}
+.post-price{
+  margin: 0; /* 내부 간격 제거 */
+  color: black;
+  font-size: 0.9em;
+  font-weight: bold;
 }
 
 /* 아이콘 컨테이너: 유료/무료와 구매한 포스트 아이콘을 함께 배치 */
