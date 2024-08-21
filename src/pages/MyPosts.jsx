@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
 import { getMyPosts } from '../apis/post';
 import '../styles/pages/MyPosts.css';
@@ -66,26 +66,51 @@ const MyPostsPage = () => {
         <p className="loading">로딩 중...</p>
       ) : (
         <ul className="list">
-          {posts.map(item => (
-            <li
-              key={item.id}
-              className="list-item"
-              onClick={() => navigate(`/post/${item.id}`)}
-            >
-              <div className="post-card">
-                <div className="post-info">
-                  <h2 className="post-title">{item.title || '제목 없음'}</h2>
-                  <div className="post-description">
-                    {item.preview
-                      ? item.preview.substring(0, 50)
-                      : '설명이 없습니다.'}
-                  </div>
+          {posts.map(post => (
+            <Link to={`/post/${post.id}`} key={post.id} className="post-card">
+              <div className="icon-container">
+                <div
+                  className={`post-type ${post.price > 0 ? 'post-paid' : 'post-free'}`}
+                >
+                  {post.price > 0 ? '유료' : '무료'}
+                </div>
+                {post.isPurchased && (
+                  <div className="post-purchased">구매한 포스트</div>
+                )}
+              </div>
+              <div className="post-info">
+                <div className="post-title">{post.title || '제목 없음'}</div>
+                <div className="post-description">
+                  {post.preview.substring(0, 20)}
+                </div>
+                <div className="post-viewcount">조회수: {post.viewCount}</div>
+                <div className="thumbNail">
+                  <img
+                    src={post.thumbNail}
+                    alt={`ThumbNail of ${post.thumbNail}`}
+                    className="thumbNail-image"
+                  />
+                </div>
+                <div className="post-date-price">
                   <div className="post-date">
-                    생성일: {formatDate(item.createdAt)}
+                    생성일: {formatDate(post.createdAt)}
                   </div>
+                  {post.price > 0 && (
+                    <div className="post-price">
+                      가격: {post.price.toLocaleString('ko-KR')} 포인트
+                    </div>
+                  )}
+                </div>
+                <div className="post-author">
+                  <img
+                    src={post.userImage}
+                    alt={`Profile of ${post.nickname}`}
+                    className="profile-image"
+                  />
+                  작성자: {post.userName}
                 </div>
               </div>
-            </li>
+            </Link>
           ))}
         </ul>
       )}

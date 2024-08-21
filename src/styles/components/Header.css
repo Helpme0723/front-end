@@ -35,6 +35,7 @@ body {
   color: #333;
   text-decoration: none; /* 밑줄 제거 */
   transition: color 0.3s ease;
+  cursor: pointer;
 }
 
 .nav-link:hover {

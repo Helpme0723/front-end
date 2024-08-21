@@ -50,32 +50,45 @@ function PointHistoryPage() {
   };
 
   return (
-    <div className="container">
+    <div className="point-history-container">
       <Link to="/point/charge">
-        <button className="charge-button">포인트 충전하기</button>
+        <button className="point-history-charge-button">포인트 충전하기</button>
       </Link>
-      <h1 className="title">포인트 내역</h1>
-      <button className="button" onClick={handleChangeType}>
-        {type === 'income' ? '포인트 사용 내역 보기' : '포인트 충전 내역 보기'}
-      </button>
+      <h1 className="point-history-title">포인트 내역</h1>
+      <div className="point-history-button-group">
+        <button
+          className={`point-history-button ${type === 'income' ? 'point-history-active' : 'point-history-inactive'}`}
+          onClick={() => setType('income')}
+        >
+          포인트 충전 내역 보기
+        </button>
+        <button
+          className={`point-history-button ${type === 'outgoing' ? 'point-history-active' : 'point-history-inactive'}`}
+          onClick={() => setType('outgoing')}
+        >
+          포인트 사용 내역 보기
+        </button>
+      </div>
       {loading ? (
-        <p className="loading">로딩 중...</p>
+        <p className="point-history-loading">로딩 중...</p>
       ) : (
-        <ul className="point-list">
+        <ul className="point-history-list">
           {pointHistory.map(item => (
-            <li key={item.id} className="point-list-item">
-              <p className="description">
+            <li key={item.id} className="point-history-list-item">
+              <p className="point-history-description">
                 {item.description || 'No description available'}
               </p>
-              <div className="details">
-                <span className={`amount ${item.type}`}>
-                  {item.type === 'INCOME' ? null : item.amount}
+              <div className="point-history-details">
+                <span className={`point-history-amount ${item.type}`}>
+                  {item.amount.toLocaleString('ko-KR')}
                 </span>
-                <span className="type">
-                  {item.type === 'INCOME' ? null : '사용'}
+                <span className="point-history-type">
+                  {item.type === 'INCOME' ? '원 충전' : '원 사용'}
                 </span>
               </div>
-              <span className="date">{formatDate(item.createdAt)}</span>
+              <span className="point-history-date">
+                {formatDate(item.createdAt)}
+              </span>
             </li>
           ))}
         </ul>
