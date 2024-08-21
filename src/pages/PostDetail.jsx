@@ -612,7 +612,7 @@ function PostDetailsPage() {
           👎
         </button> */}
         <button onClick={handleTogglePostLike}>
-          {isLikedPost ? '👎' : '👍'}
+          {isLikedPost ? '❤️' : '🤍'}
         </button>
         <span>좋아요 수: {post.likeCount}</span>
       </div>
@@ -677,7 +677,7 @@ function PostDetailsPage() {
                       )
                     }
                   >
-                    {comment.isCommentLiked ? '👎' : '👍'}
+                    {comment.isCommentLiked ? '❤️' : '🤍'}
                   </button>
                   <span>좋아요 수: {comment.likeCount}</span>
                 </div>

@@ -72,7 +72,7 @@ function GetSeriesDetail() {
                 >
                   <h3>{post.title}</h3>
                   <p>카테고리: {post.category}</p>
-                  <p>가격: {post.price}</p>
+                  <p>가격: {post.price.toLocaleString('ko-KR')}</p>
                 </div>
               ))}
             </div>
