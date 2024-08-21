@@ -124,33 +124,46 @@ function MainContent() {
   return (
     <main className="main-content">
       <div className="mainheader">
-        <select
-          onChange={e => handleSortChange(e.target.value)}
-          value={sortType}
-        >
-          <option value="createdAt">최신순</option>
-          <option value="likeCount">좋아요순</option>
-          <option value="viewCount">조회수순</option>
-          <option value="price">가격순</option>
-        </select>
-        <span>{view === 'posts' ? '포스트' : '시리즈'}</span>
-        <div className="button-group">
-          <button onClick={() => setView('posts')}>포스트 보기</button>
-          <button onClick={() => setView('series')}>시리즈 보기</button>
+        <div className="view-toggle">
+          <span
+            className={`view-option ${view === 'posts' ? 'active' : ''}`}
+            onClick={() => setView('posts')}
+          >
+            포스트
+          </span>
+          <span
+            className={`view-option ${view === 'series' ? 'active' : ''}`}
+            onClick={() => setView('series')}
+          >
+            시리즈
+          </span>
         </div>
+        {view === 'posts' && (
+          <div className="sort-container">
+            <select
+              onChange={e => handleSortChange(e.target.value)}
+              value={sortType}
+            >
+              <option value="createdAt">최신순</option>
+              <option value="likeCount">좋아요순</option>
+              <option value="viewCount">조회수순</option>
+              <option value="price">가격순</option>
+            </select>
+          </div>
+        )}
       </div>
       {view === 'posts' && posts.length > 0 ? (
         posts.map(post => (
           <Link to={`/post/${post.id}`} key={post.id} className="post-card">
             <div className="icon-container">
+              {post.isPurchased && (
+                <div className="post-purchased">구매한 포스트</div>
+              )}
               <div
                 className={`post-type ${post.price > 0 ? 'post-paid' : 'post-free'}`}
               >
                 {post.price > 0 ? '유료' : '무료'}
               </div>
-              {post.isPurchased && (
-                <div className="post-purchased">구매한 포스트</div>
-              )}
             </div>
             <div className="post-info">
               <div className="post-title">{post.title || '제목 없음'}</div>
@@ -166,14 +179,14 @@ function MainContent() {
                 />
               </div>
               <div className="post-date-price">
-                <div className="post-date">
-                  생성일: {formatDate(post.createdAt)}
-                </div>
                 {post.price > 0 && (
                   <div className="post-price">
                     가격: {post.price.toLocaleString('ko-KR')} 포인트
                   </div>
                 )}
+                <div className="post-date">
+                  생성일: {formatDate(post.createdAt)}
+                </div>
               </div>
               <div className="post-author">
                 <img

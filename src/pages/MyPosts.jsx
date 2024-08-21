@@ -74,14 +74,14 @@ const MyPostsPage = () => {
           {posts.map(post => (
             <Link to={`/post/${post.id}`} key={post.id} className="post-card">
               <div className="icon-container">
+                {post.isPurchased && (
+                  <div className="post-purchased">구매한 포스트</div>
+                )}
                 <div
                   className={`post-type ${post.price > 0 ? 'post-paid' : 'post-free'}`}
                 >
                   {post.price > 0 ? '유료' : '무료'}
                 </div>
-                {post.isPurchased && (
-                  <div className="post-purchased">구매한 포스트</div>
-                )}
               </div>
               <div className="post-info">
                 <div className="post-title">{post.title || '제목 없음'}</div>
@@ -97,14 +97,14 @@ const MyPostsPage = () => {
                   />
                 </div>
                 <div className="post-date-price">
-                  <div className="post-date">
-                    생성일: {formatDate(post.createdAt)}
-                  </div>
                   {post.price > 0 && (
                     <div className="post-price">
                       가격: {post.price.toLocaleString('ko-KR')} 포인트
                     </div>
                   )}
+                  <div className="post-date">
+                    생성일: {formatDate(post.createdAt)}
+                  </div>
                 </div>
                 <div className="post-author">
                   <img
