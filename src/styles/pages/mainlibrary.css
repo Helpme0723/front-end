@@ -6,7 +6,7 @@
   margin: 0 auto; /* This centers the main container */
   background-color: #f9f9f9;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center; /* Aligns the headers and content to the center */
 }
 
@@ -39,12 +39,17 @@
   margin-right: 150px;
 }
 
-
-.liked-posts, .purchased-posts {
+.liked-posts,
+.purchased-posts {
   margin: 20px 0;
-  text-align: left; 
+  text-align: left;
 }
 
+.library-purchase-link,
+.library-likes-link {
+  color: #d3d3d3;
+  text-decoration: none; /* 링크 기본 밑줄 제거 */
+}
 
 .post-entry-link {
   text-decoration: none; /* 링크의 밑줄 제거 */
@@ -56,7 +61,9 @@
   align-items: center;
   border-bottom: 1px solid #e1e1e1;
   padding: 10px 0;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
 }
 
 .post-entry:hover {
@@ -71,7 +78,7 @@
 
 .post-info h3 {
   font-size: 18px;
-  color: #007BFF;
+  color: #007bff;
   margin-bottom: 5px;
 }
 
@@ -80,21 +87,19 @@
   font-size: 14px;
 }
 
-
 .post-image {
   width: 80px;
   height: 80px;
   border-radius: 4px;
 }
 
-
 .library-container > div:first-child {
   color: #666;
   font-size: 16px;
 }
 
-
-.liked-posts > p, .purchased-posts > p {
+.liked-posts > p,
+.purchased-posts > p {
   color: #888;
   text-align: center;
 }

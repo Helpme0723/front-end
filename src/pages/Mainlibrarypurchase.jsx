@@ -53,10 +53,8 @@ function PurchasedPostsPage() {
     <div className="library-container">
       <h1>보관함</h1>
       <div className="header-container">
-        <h2>
-          <Link to="/library" className="likes-link">
-            좋아요
-          </Link>
+        <h2 className="library-likes-link">
+          <Link to="/library">좋아요</Link>
         </h2>
         <h2>구매</h2>
       </div>

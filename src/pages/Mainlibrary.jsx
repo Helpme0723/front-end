@@ -55,10 +55,8 @@ function LibraryPage() {
       <h1>보관함</h1>
       <div className="header-container">
         <h2>좋아요</h2>
-        <h2>
-          <Link to="/library/purchases" className="purchase-link">
-            구매
-          </Link>
+        <h2 className="library-purchase-link">
+          <Link to="/library/purchases">구매</Link>
         </h2>
       </div>
       <div className="liked-posts">
