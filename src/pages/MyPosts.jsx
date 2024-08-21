@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
 import { getMyPosts } from '../apis/post';
 import '../styles/pages/MyPosts.css';
+import Pagination from '../components/Testpagenation';
 
 const MyPostsPage = () => {
   const navigate = useNavigate();
@@ -12,6 +13,8 @@ const MyPostsPage = () => {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(9);
   const [sort, setSort] = useState('desc');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -28,9 +31,7 @@ const MyPostsPage = () => {
         const data = await getMyPosts(page, limit, sort);
 
         setPosts(data.data.posts);
-        console.log(data.data.posts[0].createdAt);
-
-        console.log('@@@@', posts);
+        setTotalPages(data.data.meta.totalPages);
       } catch (error) {
         console.error('내 포스트를 불러오는데 실패하였습니다', error);
       }
@@ -39,8 +40,12 @@ const MyPostsPage = () => {
     fetchPosts();
   }, [page, limit, sort]);
 
-  const handlePageChange = newPage => {
-    setPage(newPage);
+  const handlePrevPage = () => {
+    setCurrentPage(prev => Math.max(prev - 1, 1));
+  };
+
+  const handleNextPage = () => {
+    setCurrentPage(prev => (prev < totalPages ? prev + 1 : prev));
   };
 
   const handleSortChange = event => {
@@ -114,16 +119,12 @@ const MyPostsPage = () => {
           ))}
         </ul>
       )}
-      <div className="pagination">
-        <button
-          onClick={() => handlePageChange(page - 1)}
-          disabled={page === 1}
-        >
-          이전
-        </button>
-        <span>{page}</span>
-        <button onClick={() => handlePageChange(page + 1)}>다음</button>
-      </div>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPrevPage={handlePrevPage}
+        onNextPage={handleNextPage}
+      />
     </div>
   );
 };

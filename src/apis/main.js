@@ -6,10 +6,11 @@ export const fetchAllPosts = async (
   limit = 9,
   sort = 'desc',
   sortBy = 'createdAt',
+  seriesId,
 ) => {
   try {
     const response = await axios.get('/api/posts', {
-      params: { channelId, page, limit, sort, sortBy },
+      params: { channelId, page, limit, sort, sortBy, seriesId },
     });
     return response.data;
   } catch (error) {
