@@ -6,6 +6,7 @@ import { connectToNotifications } from '../apis/sse'; // SSE 연결 함수
 import '../styles/components/Header.css';
 import { SearchContext } from '../context/SearchContext';
 import { searchRanking } from '../apis/search';
+import { getUnreadNotifications } from '../apis/notifications';
 
 function Header() {
   const { isAuthenticated, logout } = useContext(AuthContext);
@@ -19,6 +20,19 @@ function Header() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const navigate = useNavigate();
   const location = useLocation(); // 현재 경로 확인
+  const [hasUnreadNotifications, setHasUnreadNotifications] = useState(false);
+
+  const checkUnreadNotifications = useCallback(async () => {
+    try {
+      const response = await getUnreadNotifications();
+      const unreadNotifications = response.data.filter(
+        notification => !notification.isRead,
+      );
+      setHasUnreadNotifications(unreadNotifications.length > 0); // 읽지 않은 알림이 있으면 true로 설정
+    } catch (error) {
+      console.error('읽지 않은 알림을 확인하는 중 오류 발생:', error);
+    }
+  }, []);
 
   const fetchUserInfo = useCallback(async () => {
     try {
@@ -52,6 +66,7 @@ function Header() {
       logout();
     } else if (isAuthenticated) {
       fetchUserInfo();
+      checkUnreadNotifications();
     }
 
     // 특정 경로에서만 SSE 연결 설정
@@ -59,16 +74,17 @@ function Header() {
       '/notifications', // 알림 페이지
       '/', // 메인 페이지
       `/post/${location.pathname.split('/')[2]}`, // 상세 페이지
-      '/search-results' // 검색 페이지
+      '/search-results', // 검색 페이지
     ];
 
-    if (isAuthenticated && ssePaths.includes(location.pathname)) { 
+    if (isAuthenticated && ssePaths.includes(location.pathname)) {
       console.log('SSE 연결 시도 중...');
 
       const disconnectSSE = connectToNotifications(
         notification => {
           console.log('알림 수신:', notification);
           setNotificationMessage(notification.message);
+          checkUnreadNotifications();
           setTimeout(() => {
             setNotificationMessage(null);
           }, 3000);
@@ -83,7 +99,14 @@ function Header() {
         console.log('SSE 연결 해제');
       };
     }
-  }, [isAuthenticated, fetchUserInfo, logout, fetchSearchRankings, location.pathname]);
+  }, [
+    isAuthenticated,
+    fetchUserInfo,
+    logout,
+    fetchSearchRankings,
+    location.pathname,
+    checkUnreadNotifications,
+  ]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -115,7 +138,7 @@ function Header() {
       {notificationMessage && (
         <div className={`notification-banner show`}>{notificationMessage}</div>
       )}
-       <Link to="/" className="header-title">
+      <Link to="/" className="header-title">
         TalentVerse
       </Link>
       <nav className="nav-links">
@@ -161,7 +184,10 @@ function Header() {
             🔍
           </button>
         </form>
-        <Link to="/notifications" className="notification-icon">
+        <Link
+          to="/notifications"
+          className={`notification-icon ${hasUnreadNotifications ? 'has-unread shake' : ''}`}
+        >
           🔔
         </Link>
         {isAuthenticated ? (
