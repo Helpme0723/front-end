@@ -25,7 +25,7 @@ const ChannelInsights = () => {
         const response = await findChannel(channelId);
         setChannelInfo(response.data);
       } catch (error) {
-        console.log('Error fetching channel info:', error.message);
+        console.error('Error fetching channel info:', error.message);
       }
     };
 
@@ -36,15 +36,7 @@ const ChannelInsights = () => {
     const fetchInsights = async () => {
       try {
         const { userId } = getQueryParams();
-        console.log(
-          'Fetching insights for channel:',
-          channelId,
-          'with userId:',
-          userId,
-        );
         const response = await getChannelInsights(channelId, userId);
-
-        console.log('Fetched data:', response);
 
         if (!response.data) {
           setHasInsights(false);
@@ -60,7 +52,7 @@ const ChannelInsights = () => {
           setHasInsights(true);
         }
       } catch (error) {
-        console.log('Error fetching insights:', error.message);
+        console.error('Error fetching insights:', error.message);
         setHasInsights(false);
       }
     };

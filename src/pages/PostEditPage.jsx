@@ -41,6 +41,8 @@ function PostEditPage() {
   const [errors, setErrors] = useState({});
   const [seriesList, setSeriesList] = useState([]);
   const [selectedSeriesId, setSelectedSeriesId] = useState('');
+  const [thumbNail, setThumbNail] = useState('');
+  const [imagePreview, setImagePreview] = useState('');
 
   // 각 입력 필드에 대한 참조 생성
   const titleRef = useRef(null);
@@ -60,11 +62,16 @@ function PostEditPage() {
     const fetchDetails = async () => {
       try {
         const response = await fetchPostDetails(postId);
-        console.log('포스트 응답 데이터:', response.data);
 
         if (response && response.data) {
-          const { content, channelTitle, seriesId, seriesTitle, ...rest } =
-            response.data;
+          const {
+            content,
+            channelTitle,
+            seriesId,
+            seriesTitle,
+            thumbNail,
+            ...rest
+          } = response.data;
 
           if (isMounted) {
             setPost(rest);
@@ -72,6 +79,8 @@ function PostEditPage() {
             setPreview(rest.preview);
             setPrice(rest.price);
             setCategoryId(rest.categoryId);
+            setThumbNail(thumbNail); // 썸네일 URL 설정
+            setImagePreview(thumbNail); // 썸네일 미리보기 설정
             setChannelTitle(channelTitle);
             setVisibility(rest.visibility);
 
@@ -190,6 +199,7 @@ function PostEditPage() {
       categoryId: parseInt(categoryId, 10),
       seriesId: selectedSeriesId ? parseInt(selectedSeriesId, 10) : null, // 선택된 시리즈 ID 추가
       visibility,
+      thumbNail,
     };
 
     try {
@@ -211,6 +221,19 @@ function PostEditPage() {
         component: MediaComponent,
         editable: false,
       };
+    }
+  };
+
+  const handleImageUpload = async event => {
+    const file = event.target.files[0];
+    if (!file) return;
+    try {
+      const data = await uploadImage(file);
+      setThumbNail(data.imageUrl);
+      setImagePreview(data.imageUrl);
+    } catch (error) {
+      console.error('Failed to upload thumbnail image:', error);
+      alert('이미지 업로드에 실패했습니다.');
     }
   };
 
@@ -253,6 +276,27 @@ function PostEditPage() {
           />
           {errors.title && (
             <div className="pe-error-message">{errors.title}</div>
+          )}
+        </div>
+        <div className="form-group">
+          <label className="pe-post-edit-label">썸네일 이미지</label>
+          <div className="create-input-group">
+            <input
+              type="text"
+              className="pe-post-edit-input"
+              placeholder="썸네일 이미지 URL을 입력해 주세요."
+              value={thumbNail}
+              onChange={e => {
+                setThumbNail(e.target.value);
+                setImagePreview(e.target.value);
+              }}
+            />
+            <input type="file" onChange={handleImageUpload} />
+          </div>
+          {imagePreview && (
+            <div className="create-image-preview">
+              <img src={imagePreview} alt="이미지 미리보기" />
+            </div>
           )}
         </div>
         <div className="form-group">

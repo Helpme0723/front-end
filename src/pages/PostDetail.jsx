@@ -179,9 +179,7 @@ function PostDetailsPage() {
         }
 
         const alreadyLikedPost = await getPostLikeCheck(postId);
-        if (alreadyLikedPost) {
-          setIsLikedPost(false);
-        }
+        setIsLikedPost(alreadyLikedPost.data);
       } catch (error) {
         console.error('Failed to fetch post details:', error);
       } finally {
@@ -612,7 +610,7 @@ function PostDetailsPage() {
           👎
         </button> */}
         <button onClick={handleTogglePostLike}>
-          {isLikedPost ? '👎' : '👍'}
+          {isLikedPost ? '❤️' : '🤍'}
         </button>
         <span>좋아요 수: {post.likeCount}</span>
       </div>
@@ -677,7 +675,7 @@ function PostDetailsPage() {
                       )
                     }
                   >
-                    {comment.isCommentLiked ? '👎' : '👍'}
+                    {comment.isCommentLiked ? '❤️' : '🤍'}
                   </button>
                   <span>좋아요 수: {comment.likeCount}</span>
                 </div>

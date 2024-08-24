@@ -16,7 +16,7 @@ function GetPostsFromSubscribeChannels() {
         const data = await getPostsFromSubscribeChannels();
         setPosts(data.data.posts);
       } catch (error) {
-        console.log(error.message);
+        console.error(error.message);
       }
     };
     fetchPosts();
@@ -75,7 +75,9 @@ function GetPostsFromSubscribeChannels() {
                       <div className="sub-post-ownerNickname">
                         닉네임: {post.ownerNickname}
                       </div>
-                      <div className="sub-post-point">point: {post.price}</div>
+                      <div className="sub-post-point">
+                        point: {post.price.toLocaleString('ko-KR')}
+                      </div>
                       <div className="sub-post-viewCount">
                         조회 수: {post.viewCount}
                       </div>

@@ -20,7 +20,7 @@ function GetMySeriesDetail() {
         setSeries(result.data);
         setOwnerId(result.data.userId);
       } catch (error) {
-        console.log('Error fetching series data:', error.message);
+        console.error('Error fetching series data:', error.message);
         alert(error.response.data.message);
       }
     };
@@ -42,7 +42,7 @@ function GetMySeriesDetail() {
       alert('시리즈 삭제에 성공했습니다.');
       navigate(`/series/my`);
     } catch (error) {
-      console.log('Error deleting series:', error.message);
+      console.error('Error deleting series:', error.message);
       alert(error.response.data.message);
     }
   };
@@ -89,7 +89,7 @@ function GetMySeriesDetail() {
                     <h3>{post.title}</h3>
                   </Link>
                   <p>카테고리: {post.category.category}</p>
-                  <p>가격: {post.price}</p>
+                  <p>가격: {post.price.toLocaleString('ko-KR')}</p>
                 </div>
               ))}
             </div>

@@ -35,6 +35,7 @@ body {
   color: #333;
   text-decoration: none; /* 밑줄 제거 */
   transition: color 0.3s ease;
+  cursor: pointer;
 }
 
 .nav-link:hover {
@@ -158,6 +159,35 @@ body {
 .notification-banner.hide {
   opacity: 0; /* 배너가 사라지도록 설정 */
   transform: translateX(-50%) translateY(-20px); /* 배너가 살짝 위로 올라가며 사라지도록 설정 */
+}
+
+.notification-icon {
+  position: relative;
+  font-size: 24px;
+}
+
+.notification-icon.has-unread::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 8px;
+  height: 8px;
+  background-color: red;
+  border-radius: 50%;
+}
+
+.notification-icon.shake {
+  animation: shake 0.5s;
+  animation-iteration-count: 5;
+}
+
+@keyframes shake {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg); }
+  75% { transform: rotate(-5deg); }
+  100% { transform: rotate(0deg); }
 }
 
 .search-rankings {

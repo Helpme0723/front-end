@@ -63,6 +63,7 @@ const NotificationsPage = () => {
     try {
       await markNotificationsAsRead();
       alert('모든 알림이 읽음 처리되었습니다.');
+      window.location.reload(); //헤더 알림아이콘을 위해 사용
       fetchUnreadNotifications(); // 읽지 않은 알림을 다시 불러오기
     } catch (error) {
       setError('알림을 읽음 처리하는 데 실패했습니다');
@@ -83,7 +84,7 @@ const NotificationsPage = () => {
     }
   };
 
-  const handleNotificationClick = (notification) => {
+  const handleNotificationClick = notification => {
     if (notification.postId) {
       // 포스트 관련 알림 클릭 시
       navigate(`/post/${notification.postId}`);
@@ -100,7 +101,10 @@ const NotificationsPage = () => {
         <button className="noti-button" onClick={fetchUnreadNotifications}>
           읽지 않은 알림
         </button>
-        <button className="noti-button" onClick={() => fetchAllNotifications(1)}>
+        <button
+          className="noti-button"
+          onClick={() => fetchAllNotifications(1)}
+        >
           모든 알림 조회
         </button>
       </div>
@@ -117,7 +121,9 @@ const NotificationsPage = () => {
                 className="noti-notification-item"
                 onClick={() => handleNotificationClick(notification)}
               >
-                <div className="noti-notification-message">{notification.message}</div>
+                <div className="noti-notification-message">
+                  {notification.message}
+                </div>
                 <div className="noti-notification-date">
                   {formatDate(notification.createdAt)}
                 </div>
@@ -135,7 +141,10 @@ const NotificationsPage = () => {
       )}
       {!viewingAll && (
         <div className="noti-mark-all-read-container">
-          <button className="noti-button noti-button-mark-read" onClick={handleMarkAllAsRead}>
+          <button
+            className="noti-button noti-button-mark-read"
+            onClick={handleMarkAllAsRead}
+          >
             모두 읽기
           </button>
         </div>

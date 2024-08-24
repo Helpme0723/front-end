@@ -19,122 +19,19 @@ _TalentVerse FE Repository_
 ```
 
 📦src
- ┣ 📂apis
- ┃ ┣ auth.js
- ┃ ┣ aws.js
- ┃ ┣ axiosInstance.js
- ┃ ┣ channel.js
- ┃ ┣ library.js
- ┃ ┣ main.js
- ┃ ┣ notifications.js
- ┃ ┣ paymentPage.js
- ┃ ┣ payments.js
- ┃ ┣ pointhistory.js
- ┃ ┣ post.js
- ┃ ┣ purchase.js
- ┃ ┣ search.js
- ┃ ┣ series.js
- ┃ ┣ sse.js
- ┃ ┗ user.js
+ ┣ 📂apis // API 연결
  ┣ 📂assets
- ┃ ┗ sample.jpg
- ┣ 📂components
- ┃ ┣ 📂editor
- ┃ ┃ ┗ TextEditorForm.jsx
- ┃ ┣ ChannelInsight.jsx
- ┃ ┣ Footer.jsx
- ┃ ┣ GetChannels.jsx
- ┃ ┣ Header.jsx
- ┃ ┣ Pagination.jsx
- ┃ ┗ Testpagenation.jsx
- ┣ 📂context
- ┃ ┣ AuthContext.js
- ┃ ┗ SearchContext.js
- ┣ 📂layouts
- ┃ ┗ Layout.jsx
- ┣ 📂pages
- ┃ ┣ CategoryPostView.jsx
- ┃ ┣ ChangePassword.jsx
- ┃ ┣ ChannelDetailsPage.jsx
- ┃ ┣ CreateChannel.jsx
- ┃ ┣ CreateSeries.jsx
- ┃ ┣ DailyInsights.jsx
- ┃ ┣ EditProfile.jsx
- ┃ ┣ EditSeries.jsx
- ┃ ┣ FindChannel.jsx
- ┃ ┣ GetMySeriesDetail.jsx
- ┃ ┣ GetPostsFromSubscribeChannels.jsx
- ┃ ┣ GetSeriesDetail.jsx
- ┃ ┣ GetSubscribeChannels.jsx
- ┃ ┣ Login.jsx
- ┃ ┣ Logout.jsx
- ┃ ┣ MainContent.jsx
- ┃ ┣ Mainlibrary.jsx
- ┃ ┣ Mainlibrarypurchase.jsx
- ┃ ┣ MonthlyInsights.jsx
- ┃ ┣ MyPosts.jsx
- ┃ ┣ MySeries.jsx
- ┃ ┣ NotificationSettings.jsx
- ┃ ┣ NotificationsPage.jsx
- ┃ ┣ payments.jsx
- ┃ ┣ PointHistory.jsx
- ┃ ┣ PostDetail.jsx
- ┃ ┣ PostEditPage.jsx
- ┃ ┣ PostPage.jsx
- ┃ ┣ Profile.jsx
- ┃ ┣ PurchasePost.jsx
- ┃ ┣ RecoverPassword.jsx
- ┃ ┣ Resign.jsx
- ┃ ┣ SearchResultsPage.jsx
- ┃ ┣ SignUp.jsx
- ┃ ┣ SocialLogin.jsx
- ┃ ┣ UpdateChannel.jsx
- ┃ ┗ UserPage.jsx
- ┣ 📂styles
- ┃ ┣ 📂components
- ┃ ┃ ┣ 📂editor
- ┃ ┃ ┃ ┗ TextEditorForm.css
- ┃ ┃ ┣ ChannelInsight.css
- ┃ ┃ ┣ GetChannels.css
- ┃ ┃ ┣ Header.css
- ┃ ┃ ┣ Pagination.css
- ┃ ┃ ┗ Testpagination.css
- ┃ ┗ 📂pages
- ┃ ┃ ┣ CategoryPostView.css
- ┃ ┃ ┣ ChangePassword.css
- ┃ ┃ ┣ ChannelDetailsPage.css
- ┃ ┃ ┣ CreateChannel.css
- ┃ ┃ ┣ CreateSeries.css
- ┃ ┃ ┣ EditProfile.css
- ┃ ┃ ┣ FindChannel.css
- ┃ ┃ ┣ GetPostsFromSubscribeChannels.css
- ┃ ┃ ┣ GetSubscribe.css
- ┃ ┃ ┣ Insights.css
- ┃ ┃ ┣ Login.css
- ┃ ┃ ┣ MainContent.css
- ┃ ┃ ┣ mainlibrary.css
- ┃ ┃ ┣ MyPosts.css
- ┃ ┃ ┣ MySeriesPage.css
- ┃ ┃ ┣ Notification.css
- ┃ ┃ ┣ NotificationSettings.css
- ┃ ┃ ┣ Payment.css
- ┃ ┃ ┣ PointHistory.css
- ┃ ┃ ┣ PostDetail.css
- ┃ ┃ ┣ PostEditPage.css
- ┃ ┃ ┣ PostPage.css
- ┃ ┃ ┣ Profile.css
- ┃ ┃ ┣ PurchasePost.css
- ┃ ┃ ┣ RecoverPassword.css
- ┃ ┃ ┣ Resign.css
- ┃ ┃ ┣ SeriesDetail.css
- ┃ ┃ ┣ SignUp.css
- ┃ ┃ ┗ UserDetail.css
+ ┣ 📂components // 재사용 가능한 UI 컴포넌트
+ ┣ 📂context // 애플리케이션 상태 관리
+ ┣ 📂layouts // 레이아웃 컴포넌트
+ ┣ 📂pages // 페이지 구성 컴포넌트
+ ┣ 📂styles // CSS
  ┣ App.css
  ┣ App.jsx
  ┣ App.test.js
  ┣ index.css
  ┣ index.jsx
- ┣ logo.svg
+ ┣ logo.svg // 파비콘
  ┣ reportWebVitals.js
  ┗ setupTests.js
 
@@ -158,14 +55,26 @@ REACT_APP_KAKAO_SOCIAL_LOGIN=
 
 ## 시작 가이드
 
-```
+**installation**
 
+```
 $ git clone https://github.com/Helpme0723/front-end.git
 $ cd front-end
-$ npm ci
-$ npm run start
+```
+
+**copy**
 
 ```
+.env
+```
+
+**BackEnd**
+
+```
+$ npm ci
+$ npm start
+```
+
 &nbsp;
 
 ## 화면 구성
@@ -173,24 +82,24 @@ $ npm run start
 <table>
   <tbody>
     <tr>
-      <td align="center"><img width="1512" alt="스크린샷 2024-08-20 오후 12 30 18" src="https://github.com/user-attachments/assets/3b3ca2f1-4e45-4b07-be1e-51afeb57b8d9">메인페이지</td>
+      <td align="center"><img width="1512" alt="스크린샷 2024-08-20 오후 12 30 18" src="https://github.com/user-attachments/assets/64a5a019-09f7-4ae8-bee6-7421f1d87d50">메인페이지</td>
      <td align="center"><img width="1512" alt="스크린샷 2024-08-20 오후 12 30 18" src="https://github.com/user-attachments/assets/be35c107-c893-47c8-b780-05f3ea7f2922">로그인화면</td>
     </tr>
    <tr>
-    <td align="center"><img width="1512" alt="스크린샷 2024-08-20 오후 12 30 18" src="https://github.com/user-attachments/assets/56964e93-12ac-42f0-ba2f-ad56d0b2d4b2">포스트상세보기</td>
-    <td align="center"><img width="1512" alt="스크린샷 2024-08-20 오후 12 30 18" src="https://github.com/user-attachments/assets/0eb7d5bd-8cf6-4fce-8d6f-375ac085dc17">포스트작성</td>
+    <td align="center"><img width="1512" alt="스크린샷 2024-08-20 오후 12 30 18" src="https://github.com/user-attachments/assets/34e8b259-f8ef-46fd-bfe0-53fc43cf9691">포스트상세보기</td>
+    <td align="center"><img width="1512" alt="스크린샷 2024-08-20 오후 12 30 18" src="https://github.com/user-attachments/assets/543dcf0d-75e2-4071-a661-b013056134f6">포스트작성</td>
    </tr>
     <tr>
-     <td align="center"><img width="1512" alt="스크린샷 2024-08-20 오후 12 30 18" src="https://github.com/user-attachments/assets/227c2c44-1176-4fc3-bd53-078030868381">포스트검색</td>
-      <td align="center"><img width="1512" alt="스크린샷 2024-08-20 오후 12 30 18" src="https://github.com/user-attachments/assets/8ba27b6e-ace3-4abf-a56b-0aeb86ee614d">채널구독</td>
+     <td align="center"><img width="1512" alt="스크린샷 2024-08-20 오후 12 30 18" src="https://github.com/user-attachments/assets/dd3c9e88-87b9-4e80-b849-b9edf6b5d3e1">포스트검색</td>
+      <td align="center"><img width="1512" alt="스크린샷 2024-08-20 오후 12 30 18" src="https://github.com/user-attachments/assets/2666b116-f12c-42ac-99d1-523187abec28">채널구독</td>
     </tr>
     <tr>
-     <td align="center"><img width="1512" alt="스크린샷 2024-08-20 오후 12 30 18" src="https://github.com/user-attachments/assets/9a24bd7f-d28d-4d15-9f05-22a22f339b86">포스트구매 및 보관함</td>
-     <td align="center"><img width="1512" alt="스크린샷 2024-08-20 오후 12 30 18" src="https://github.com/user-attachments/assets/6e69f2d6-0f4e-40b1-944a-567df41e9015">알림확인</td>
+     <td align="center"><img width="1512" alt="스크린샷 2024-08-20 오후 12 30 18" src="https://github.com/user-attachments/assets/6ce135ba-c2b3-4cae-9101-82cfb7ebc658">포스트구매 및 보관함</td>
+     <td align="center"><img width="1512" alt="스크린샷 2024-08-20 오후 12 30 18" src="https://github.com/user-attachments/assets/6acea078-cb9d-423b-a526-54584b2d396b">알림확인</td>
     </tr>
    <tr>
-    <td align="center"><img width="1512" alt="스크린샷 2024-08-20 오후 12 30 18" src="https://github.com/user-attachments/assets/ec5034be-0a0a-4630-baa7-e8640ba9f76f">채널통계</td>
-      <td align="center"><img width="1512" alt="스크린샷 2024-08-20 오후 12 30 18" src="https://github.com/user-attachments/assets/e003cdee-43a9-4c4f-9d9a-e6f8226dbabc">비밀번호변경</td>
+    <td align="center"><img width="1512" alt="스크린샷 2024-08-20 오후 12 30 18" src="https://github.com/user-attachments/assets/185fec0b-6c37-4d8f-8f04-c98df43f9015">채널통계</td>
+      <td align="center"><img width="1512" alt="스크린샷 2024-08-20 오후 12 30 18" src="https://github.com/user-attachments/assets/dedd79bb-7986-432e-aade-1b49a72277a6">포인트충전</td>
    </tr>
   </tbody>
 </table>

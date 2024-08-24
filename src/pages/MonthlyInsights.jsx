@@ -53,7 +53,10 @@ function MonthlyInsights() {
         setMonthlyInsights(response.data);
         setTotalPages(response.data.meta?.totalPages);
       } catch (error) {
-        console.log('Error fetching channel monthly insights:', error.message);
+        console.error(
+          'Error fetching channel monthly insights:',
+          error.message,
+        );
         setErrorMessage(error.response.data.message);
       }
     };
@@ -74,7 +77,7 @@ function MonthlyInsights() {
 
         setSummaryInsight(response.data);
       } catch (error) {
-        console.log(
+        console.error(
           'Error fetching channel monthly summary insights:',
           error.message,
         );
@@ -102,24 +105,29 @@ function MonthlyInsights() {
         <div className="monthly-header">
           <h3>월별 통계</h3>
           {/* 여기에 새로운 통계 박스 추가 */}
-          <div className="total-statistics">
-            <div className="stat-card">
-              <div className="stat-title">총 조회수</div>
-              <div className="stat-value">{summaryInsight.viewCount}</div>
+          {summaryInsight ? (
+            <div className="total-statistics">
+              <div className="stat-card">
+                <div className="stat-title">총 조회수</div>
+                <div className="stat-value">{summaryInsight.viewCount}</div>
+              </div>
+              <div className="stat-card">
+                <div className="stat-title">총 좋아요 수</div>
+                <div className="stat-value">{summaryInsight.likeCount}</div>
+              </div>
+              <div className="stat-card">
+                <div className="stat-title">총 댓글 수</div>
+                <div className="stat-value">{summaryInsight.commentCount}</div>
+              </div>
+              <div className="stat-card">
+                <div className="stat-title">총 판매량</div>
+                <div className="stat-value">{summaryInsight.salesCount}</div>
+              </div>
             </div>
-            <div className="stat-card">
-              <div className="stat-title">총 좋아요 수</div>
-              <div className="stat-value">{summaryInsight.likeCount}</div>
-            </div>
-            <div className="stat-card">
-              <div className="stat-title">총 댓글 수</div>
-              <div className="stat-value">{summaryInsight.commentCount}</div>
-            </div>
-            <div className="stat-card">
-              <div className="stat-title">총 판매량</div>
-              <div className="stat-value">{summaryInsight.salesCount}</div>
-            </div>
-          </div>
+          ) : (
+            '통계가 집계되지 않았습니다.'
+          )}
+
           <div className="controls">
             <div className="right-controls">
               <select

@@ -18,36 +18,44 @@ export const SearchProvider = ({ children }) => {
     },
   });
 
-  const performSearch = useCallback(async (keyword, field, page, limit, sort) => {
-    try {
-      const response = await searchPosts(keyword, field, page, limit=9, sort);
-      setSearchResults({
-        posts: response.posts,
-        meta: {
-          totalItems: response.meta.totalItems,
-          itemCount: response.meta.itemCount,
-          itemPerPage: response.meta.itemPerPage,
-          totalPages: response.meta.totalPages,
-          currentPage: response.meta.currentPage,
-        },
-      });
-      setSearchTerm(keyword);
-      setSearchField(field);
-      console.log('Search Results Updated:', response);
-    } catch (error) {
-      console.error('Search failed:', error);
-      setSearchResults({
-        posts: [],
-        meta: {
-          totalItems: 0,
-          itemCount: 0,
-          itemPerPage: limit,
-          totalPages: 1,
-          currentPage: 1,
-        },
-      });
-    }
-  }, []);
+  const performSearch = useCallback(
+    async (keyword, field, page, limit, sort) => {
+      try {
+        const response = await searchPosts(
+          keyword,
+          field,
+          page,
+          (limit = 9),
+          sort,
+        );
+        setSearchResults({
+          posts: response.posts,
+          meta: {
+            totalItems: response.meta.totalItems,
+            itemCount: response.meta.itemCount,
+            itemPerPage: response.meta.itemPerPage,
+            totalPages: response.meta.totalPages,
+            currentPage: response.meta.currentPage,
+          },
+        });
+        setSearchTerm(keyword);
+        setSearchField(field);
+      } catch (error) {
+        console.error('Search failed:', error);
+        setSearchResults({
+          posts: [],
+          meta: {
+            totalItems: 0,
+            itemCount: 0,
+            itemPerPage: limit,
+            totalPages: 1,
+            currentPage: 1,
+          },
+        });
+      }
+    },
+    [],
+  );
 
   return (
     <SearchContext.Provider

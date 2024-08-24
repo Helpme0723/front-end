@@ -21,7 +21,7 @@ function GetSeriesDetail() {
         setSeries(result.data);
         setChannelId(result.data.channelId);
       } catch (error) {
-        console.log('Error fetching series data:', error.message);
+        console.error('Error fetching series data:', error.message);
         alert(error.response.data.message);
       }
     };
@@ -31,17 +31,22 @@ function GetSeriesDetail() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const result = await fetchAllPosts(channelId, null, limit);
+        const result = await fetchAllPosts(
+          null,
+          null,
+          limit,
+          null,
+          null,
+          seriesId,
+        );
 
         setPosts(result.data.posts);
       } catch (error) {
-        console.log('Error fetching posts data:', error.message);
+        console.error('Error fetching posts data:', error.message);
       }
     };
-    if (channelId) {
-      fetchPosts();
-    }
-  }, [channelId]);
+    fetchPosts();
+  }, [seriesId]);
 
   return (
     <div className="series-container">
@@ -64,17 +69,19 @@ function GetSeriesDetail() {
               <label className="series-label">포스트</label>
             </div>
             <div className="series-posts-list">
-              {posts.map(post => (
-                <div
-                  className="series-post-item"
-                  key={post.id}
-                  onClick={() => navigate(`/post/${post.id}`)}
-                >
-                  <h3>{post.title}</h3>
-                  <p>카테고리: {post.category}</p>
-                  <p>가격: {post.price}</p>
-                </div>
-              ))}
+              {posts.length > 0
+                ? posts.map(post => (
+                    <div
+                      className="series-post-item"
+                      key={post.id}
+                      onClick={() => navigate(`/post/${post.id}`)}
+                    >
+                      <h3>{post.title}</h3>
+                      <p>카테고리: {post.category}</p>
+                      <p>가격: {post.price.toLocaleString('ko-KR')}</p>
+                    </div>
+                  ))
+                : '포스트가 없습니다.'}
             </div>
           </div>
         </div>

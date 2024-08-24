@@ -86,7 +86,7 @@ function SearchResultsPage() {
                   </div>
                   {post.price > 0 && (
                     <div className="search-result-post-price">
-                      가격: {post.price} 포인트
+                      가격: {post.price.toLocaleString('ko-KR')} 포인트
                     </div>
                   )}
                 </div>

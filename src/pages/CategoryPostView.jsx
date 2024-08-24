@@ -36,7 +36,6 @@ function CategoryPostView() {
       try {
         const { categoryId, page, limit } = getQueryParams();
         const response = await categoryPostView(categoryId, page, limit);
-        console.log(response.data.posts);
 
         setPosts(response.data.posts);
         setTotalPages(response.data.meta.totalPages);
@@ -93,44 +92,49 @@ function CategoryPostView() {
       </div>
       <div className="category-posts-grid">
         {posts.map(post => (
-          <Link
-            to={`/post/${post.id}`}
-            key={post.id}
-            className="category-post-card"
-          >
-            <div className="category-post-header">
-              <div className="category-post-title">
-                {post.title || '제목 없음'}
-              </div>
+          <Link to={`/post/${post.id}`} key={post.id} className="post-card">
+            <div className="icon-container">
+              {post.isPurchased && (
+                <div className="post-purchased">구매한 포스트</div>
+              )}
               <div
-                className={`category-post-type ${post.price > 0 ? 'category-post-paid' : 'category-post-free'}`}
+                className={`post-type ${post.price > 0 ? 'post-paid' : 'post-free'}`}
               >
                 {post.price > 0 ? '유료' : '무료'}
               </div>
             </div>
-            <div className="category-post-info">
-              <div className="category-post-preview">
+            <div className="post-info">
+              <div className="post-title">{post.title || '제목 없음'}</div>
+              <div className="post-description">
                 {post.preview.substring(0, 20)}
               </div>
-            </div>
-              <div className="category-post-date-price">
-                <div className="category-post-date">
-                  생성일: {formatDate(post.createdAt)}
-                </div>
+              <div className="post-viewcount">조회수: {post.viewCount}</div>
+              <div className="thumbNail">
+                <img
+                  src={post.thumbNail}
+                  alt={`ThumbNail of ${post.thumbNail}`}
+                  className="thumbNail-image"
+                />
+              </div>
+              <div className="post-date-price">
                 {post.price > 0 && (
-                  <div className="category-post-price">
-                    가격: {post.price} 포인트
+                  <div className="post-price">
+                    가격: {post.price.toLocaleString('ko-KR')} 포인트
                   </div>
                 )}
+                <div className="post-date">
+                  생성일: {formatDate(post.createdAt)}
+                </div>
               </div>
-              <div className="category-post-author">
+              <div className="post-author">
                 <img
                   src={post.userImage}
                   alt={`Profile of ${post.nickname}`}
-                  className="category-post-profile-image"
+                  className="profile-image"
                 />
                 작성자: {post.userName}
               </div>
+            </div>
           </Link>
         ))}
       </div>

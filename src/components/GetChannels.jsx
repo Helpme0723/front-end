@@ -24,11 +24,9 @@ const GetChannelsComponent = () => {
       try {
         const { userId, page, limit } = getQueryParams();
         const data = await getUserChannels(userId, page, limit);
-        console.log(data);
-
         setChannels(data.data.channels);
       } catch (error) {
-        console.log(error.message);
+        console.error(error.message);
       }
     };
     fetchChannels();
@@ -77,7 +75,7 @@ const GetChannelsComponent = () => {
           </div>
         ))
       ) : (
-        <div className="loading">Loading...</div>
+        <div className="loading">나만의 채널을 만들어보세요!</div>
       )}
     </div>
   );
