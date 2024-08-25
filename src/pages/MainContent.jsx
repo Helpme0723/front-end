@@ -216,7 +216,11 @@ function MainContent() {
               <div className="series-description">{series.description}</div>
               <div className="series-thumbNail">
                 <img
-                  src={series.thumbNail}
+                  src={
+                    series.thumbNail
+                      ? series.thumbNail
+                      : 'https://d2uok5v3sm5rr4.cloudfront.net/images/6c1adff4-8270-44f6-bc8e-38fbbb7911f8.png'
+                  }
                   alt={`ThumbNail of ${series.thumbNail}`}
                   className="thumbNail-image"
                 />
