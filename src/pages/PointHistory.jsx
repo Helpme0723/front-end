@@ -83,7 +83,7 @@ function PointHistoryPage() {
                   {item.amount.toLocaleString('ko-KR')}
                 </span>
                 <span className="point-history-type">
-                  {item.type === 'INCOME' ? '원 충전' : '원 사용'}
+                  {item.type === 'INCOME' ? '포인트 충전' : '포인트 사용'}
                 </span>
               </div>
               <span className="point-history-date">
